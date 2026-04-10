@@ -1,0 +1,8 @@
+appId: com.lehoangluan1.flexshiftmobile
+---
+- launchApp
+- assertVisible: 'Trang thai dong bo'
+- tapOn: 'Dong bo ngay'
+- extendedWaitUntil:
+    visible: 'Dang offline. Thay doi moi se vao hang doi an toan.'
+    timeout: 5000

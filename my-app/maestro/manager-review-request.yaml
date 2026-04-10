@@ -1,0 +1,9 @@
+appId: com.lehoangluan1.flexshiftmobile
+---
+- launchApp
+- tapOn: 'Quan ly'
+- tapOn: 'Dang nhap'
+- assertVisible: 'Tong quan dieu phoi'
+- tapOn: 'Xem duyet ca'
+- tapOn: 'Chi tiet yeu cau'
+- tapOn: 'Duyet yeu cau'

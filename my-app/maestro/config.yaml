@@ -1,0 +1,6 @@
+appId: com.lehoangluan1.flexshiftmobile
+flows:
+  - login-and-claim-open-shift.yaml
+  - manager-review-request.yaml
+  - offline-queue-smoke.yaml
+testOutputDir: reports/e2e/maestro

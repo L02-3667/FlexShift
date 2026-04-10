@@ -1,0 +1,8 @@
+appId: com.lehoangluan1.flexshiftmobile
+---
+- launchApp
+- tapOn: 'Nhan vien'
+- tapOn: 'Dang nhap'
+- assertVisible: 'Trang thai dong bo'
+- tapOn: 'Chi tiet ca trong'
+- tapOn: 'Nhan ca nay'

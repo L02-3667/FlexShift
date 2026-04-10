@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#FFFFFF",
+      "borderColor": "#D8E1E7",
+      "borderRadius": 20,
+      "borderWidth": 1,
+      "gap": 12,
+      "padding": 20,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "gap": 12,
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#0F172A",
+          "flex": 1,
+          "fontSize": 15,
+          "fontWeight": "800",
+        }
+      }
+    >
+      Cap nhat quy trinh giao ca
+    </Text>
+    <Text
+      style={
+        {
+          "color": "#0F766E",
+          "fontSize": 12,
+          "fontWeight": "700",
+        }
+      }
+    >
+      Can xac nhan
+    </Text>
+  </View>
+  <Text
+    style={
+      {
+        "color": "#475569",
+        "fontSize": 14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    Moi ca toi can xac nhan handover note truoc khi roi cua hang.
+  </Text>
+  <Text
+    style={
+      {
+        "color": "#64748B",
+        "fontSize": 12,
+      }
+    }
+  >
+    15:00 10/4/26
+  </Text>
+</View>
+`;
