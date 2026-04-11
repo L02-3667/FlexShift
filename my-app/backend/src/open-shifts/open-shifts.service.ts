@@ -4,6 +4,7 @@ import { ActivityWriter } from '../activity/activity-writer';
 import { DomainConflictException } from '../common/exceptions/domain-conflict.exception';
 import type { AuthenticatedUser } from '../common/interfaces/authenticated-user.interface';
 import { checkShiftConflict } from '../common/policies/schedule-conflict.policy';
+import { getConflictWindowBounds } from '../common/utils/shift.utils';
 import { NotificationGateway } from '../notifications/notification-gateway';
 import { mapOpenShiftForMobile, mapShiftForMobile } from './open-shift.mapper';
 import { PrismaService } from '../prisma/prisma.service';
@@ -21,6 +22,18 @@ export class OpenShiftsService {
     private readonly syncPublisher: SyncChangePublisher,
     private readonly activityService: ActivityWriter,
   ) {}
+
+  private buildOpenShiftUnavailableConflict(openShiftId: string) {
+    return new DomainConflictException({
+      code: 'OPEN_SHIFT_ALREADY_CLAIMED',
+      message: 'Ca trong nay khong con kha dung.',
+      entityType: 'open_shift',
+      entityId: openShiftId,
+      recoverable: true,
+      retryable: false,
+      resolution: 'Lam moi danh sach ca trong de nhan trang thai moi nhat.',
+    });
+  }
 
   private async ensureStoreAndPosition(
     storeName: string,
@@ -204,22 +217,18 @@ export class OpenShiftsService {
     }
 
     if (openShift.status !== 'open') {
-      throw new DomainConflictException({
-        code: 'OPEN_SHIFT_ALREADY_CLAIMED',
-        message: 'Ca trong nay khong con kha dung.',
-        entityType: 'open_shift',
-        entityId: openShift.id,
-        recoverable: true,
-        retryable: false,
-        resolution: 'Lam moi danh sach ca trong de nhan trang thai moi nhat.',
-      });
+      throw this.buildOpenShiftUnavailableConflict(openShift.id);
     }
 
-    const sameDayAssignments = await this.prisma.shiftAssignment.findMany({
+    const conflictWindow = getConflictWindowBounds(openShift.date);
+    const nearbyAssignments = await this.prisma.shiftAssignment.findMany({
       where: {
         userId: currentUser.sub,
         shift: {
-          date: openShift.date,
+          date: {
+            gte: conflictWindow.start,
+            lt: conflictWindow.end,
+          },
           status: 'scheduled',
         },
       },
@@ -229,7 +238,7 @@ export class OpenShiftsService {
     });
 
     const isConflict = checkShiftConflict(
-      sameDayAssignments.map((assignment) => assignment.shift),
+      nearbyAssignments.map((assignment) => assignment.shift),
       openShift,
     );
 
@@ -246,13 +255,20 @@ export class OpenShiftsService {
     }
 
     const createdShift = await this.prisma.$transaction(async (tx) => {
-      await tx.openShift.update({
-        where: { id: openShift.id },
+      const claimResult = await tx.openShift.updateMany({
+        where: {
+          id: openShift.id,
+          status: 'open',
+        },
         data: {
           status: 'claimed',
           claimedById: currentUser.sub,
         },
       });
+
+      if (claimResult.count === 0) {
+        throw this.buildOpenShiftUnavailableConflict(openShift.id);
+      }
 
       return tx.shift.create({
         data: {

@@ -8,6 +8,7 @@ import { ActivityWriter } from '../activity/activity-writer';
 import { DomainConflictException } from '../common/exceptions/domain-conflict.exception';
 import type { AuthenticatedUser } from '../common/interfaces/authenticated-user.interface';
 import { checkShiftConflict } from '../common/policies/schedule-conflict.policy';
+import { getConflictWindowBounds } from '../common/utils/shift.utils';
 import { NotificationGateway } from '../notifications/notification-gateway';
 import { PrismaService } from '../prisma/prisma.service';
 import { MutationLedgerService } from '../sync/mutation-ledger.service';
@@ -23,6 +24,18 @@ export class ApprovalsService {
     private readonly syncPublisher: SyncChangePublisher,
     private readonly activityService: ActivityWriter,
   ) {}
+
+  private buildAlreadyReviewedConflict(requestId: string) {
+    return new DomainConflictException({
+      code: 'REQUEST_ALREADY_REVIEWED',
+      message: 'Yeu cau nay da duoc xu ly truoc do.',
+      entityType: 'request',
+      entityId: requestId,
+      recoverable: true,
+      retryable: false,
+      resolution: 'Lam moi trang chi tiet yeu cau de xem ket qua moi nhat.',
+    });
+  }
 
   async approve(
     currentUser: AuthenticatedUser,
@@ -60,33 +73,35 @@ export class ApprovalsService {
     }
 
     if (request.status !== 'pending') {
-      throw new DomainConflictException({
-        code: 'REQUEST_ALREADY_REVIEWED',
-        message: 'Yeu cau nay da duoc xu ly truoc do.',
-        entityType: 'request',
-        entityId: request.id,
-        recoverable: true,
-        retryable: false,
-        resolution: 'Lam moi trang chi tiet yeu cau de xem ket qua moi nhat.',
-      });
+      throw this.buildAlreadyReviewedConflict(request.id);
     }
 
     let derivedOpenShiftId: string | null = null;
+    const reviewNote = input.note?.trim() ?? null;
 
     if (request.type === 'leave') {
       const reopenedOpenShift = await this.prisma.$transaction(async (tx) => {
-        await tx.request.update({
-          where: { id: requestId },
+        const updateResult = await tx.request.updateMany({
+          where: {
+            id: requestId,
+            status: 'pending',
+          },
           data: {
             status: 'approved',
-            managerNote: input.note?.trim() ?? null,
-            approvalActions: {
-              create: {
-                managerId: currentUser.sub,
-                action: 'approved',
-                note: input.note?.trim() ?? null,
-              },
-            },
+            managerNote: reviewNote,
+          },
+        });
+
+        if (updateResult.count === 0) {
+          throw this.buildAlreadyReviewedConflict(requestId);
+        }
+
+        await tx.approvalAction.create({
+          data: {
+            requestId,
+            managerId: currentUser.sub,
+            action: 'approved',
+            note: reviewNote,
           },
         });
 
@@ -116,13 +131,17 @@ export class ApprovalsService {
       }
 
       const targetUserId = request.targetUserId;
+      const conflictWindow = getConflictWindowBounds(request.shift.date);
 
       const conflictingAssignments = await this.prisma.shiftAssignment.findMany(
         {
           where: {
             userId: targetUserId,
             shift: {
-              date: request.shift.date,
+              date: {
+                gte: conflictWindow.start,
+                lt: conflictWindow.end,
+              },
               status: 'scheduled',
               id: {
                 not: request.shiftId,
@@ -156,18 +175,27 @@ export class ApprovalsService {
       const currentAssignment = request.shift.assignments[0];
 
       await this.prisma.$transaction(async (tx) => {
-        await tx.request.update({
-          where: { id: requestId },
+        const updateResult = await tx.request.updateMany({
+          where: {
+            id: requestId,
+            status: 'pending',
+          },
           data: {
             status: 'approved',
-            managerNote: input.note?.trim() ?? null,
-            approvalActions: {
-              create: {
-                managerId: currentUser.sub,
-                action: 'approved',
-                note: input.note?.trim() ?? null,
-              },
-            },
+            managerNote: reviewNote,
+          },
+        });
+
+        if (updateResult.count === 0) {
+          throw this.buildAlreadyReviewedConflict(requestId);
+        }
+
+        await tx.approvalAction.create({
+          data: {
+            requestId,
+            managerId: currentUser.sub,
+            action: 'approved',
+            note: reviewNote,
           },
         });
 
@@ -205,7 +233,7 @@ export class ApprovalsService {
       requestId,
       managerId: currentUser.sub,
       action: 'approved' as const,
-      managerNote: input.note?.trim(),
+      managerNote: reviewNote ?? undefined,
       reviewedAt: new Date().toISOString(),
     };
 
@@ -287,30 +315,35 @@ export class ApprovalsService {
     }
 
     if (request.status !== 'pending') {
-      throw new DomainConflictException({
-        code: 'REQUEST_ALREADY_REVIEWED',
-        message: 'Yeu cau nay da duoc xu ly truoc do.',
-        entityType: 'request',
-        entityId: request.id,
-        recoverable: true,
-        retryable: false,
-        resolution: 'Lam moi trang chi tiet yeu cau de xem ket qua moi nhat.',
-      });
+      throw this.buildAlreadyReviewedConflict(request.id);
     }
 
-    await this.prisma.request.update({
-      where: { id: requestId },
-      data: {
-        status: 'rejected',
-        managerNote: input.note?.trim() ?? null,
-        approvalActions: {
-          create: {
-            managerId: currentUser.sub,
-            action: 'rejected',
-            note: input.note?.trim() ?? null,
-          },
+    const reviewNote = input.note?.trim() ?? null;
+
+    await this.prisma.$transaction(async (tx) => {
+      const updateResult = await tx.request.updateMany({
+        where: {
+          id: requestId,
+          status: 'pending',
         },
-      },
+        data: {
+          status: 'rejected',
+          managerNote: reviewNote,
+        },
+      });
+
+      if (updateResult.count === 0) {
+        throw this.buildAlreadyReviewedConflict(requestId);
+      }
+
+      await tx.approvalAction.create({
+        data: {
+          requestId,
+          managerId: currentUser.sub,
+          action: 'rejected',
+          note: reviewNote,
+        },
+      });
     });
 
     await this.notificationsService.createNotification({
@@ -324,7 +357,7 @@ export class ApprovalsService {
       requestId,
       managerId: currentUser.sub,
       action: 'rejected' as const,
-      managerNote: input.note?.trim(),
+      managerNote: reviewNote ?? undefined,
       reviewedAt: new Date().toISOString(),
     };
 

@@ -25,8 +25,9 @@ const RESET_TABLES = [
 ] as const;
 
 async function resetDatabase(client: PrismaClient) {
-  const tableList = RESET_TABLES.map((tableName) => `"public"."${tableName}"`)
-    .join(', ');
+  const tableList = RESET_TABLES.map(
+    (tableName) => `"public"."${tableName}"`,
+  ).join(', ');
 
   if (tableList) {
     await client.$executeRawUnsafe(

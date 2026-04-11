@@ -25,6 +25,7 @@ import type {
 import {
   compareDateTime,
   formatIsoTimestamp,
+  getAdjacentDateStrings,
   isUpcoming,
 } from '@/src/utils/date';
 import { createId } from '@/src/utils/id';
@@ -591,7 +592,8 @@ export async function detectShiftConflict(
   candidate: Pick<Shift, 'date' | 'startTime' | 'endTime'>,
   excludeShiftId?: string,
 ) {
-  const args: string[] = [employeeId, candidate.date];
+  const candidateDates = getAdjacentDateStrings(candidate.date);
+  const args: string[] = [employeeId, ...candidateDates];
   let query = `
     SELECT
       id,
@@ -603,7 +605,7 @@ export async function detectShiftConflict(
       position,
       status
     FROM shifts
-    WHERE employee_id = ? AND date = ? AND status = 'scheduled'
+    WHERE employee_id = ? AND date IN (?, ?, ?) AND status = 'scheduled'
   `;
 
   if (excludeShiftId) {

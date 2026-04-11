@@ -1,0 +1,19 @@
+
+> flexshift-mobile@1.0.0 test:backend
+> node ./scripts/run-workspace-script.mjs backend test
+
+
+> flexshift-backend@0.1.0 test
+> jest --config jest.config.js --runInBand
+
+PASS test/concurrency.integration.spec.ts (12.229 s)
+PASS test/workflow.integration.spec.ts
+PASS test/sync-health.integration.spec.ts
+PASS test/auth.integration.spec.ts
+PASS test/policies.spec.ts
+
+Test Suites: 5 passed, 5 total
+Tests:       14 passed, 14 total
+Snapshots:   0 total
+Time:        23.237 s
+Ran all test suites.

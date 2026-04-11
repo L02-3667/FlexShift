@@ -1,4 +1,5 @@
 import { AppEnv } from '@/src/config/env';
+import { APP_CONFIG } from '@/src/constants/config';
 import type { AuthSession } from '@/src/types/models';
 
 import { ApiError, ApiUnauthorizedError } from './api-errors';
@@ -9,9 +10,11 @@ import {
 } from '../session/session-store';
 import { getDeviceContext } from '../session/device-context';
 
-interface RequestOptions extends Omit<RequestInit, 'body'> {
+interface RequestOptions extends Omit<RequestInit, 'body' | 'signal'> {
   auth?: boolean;
   body?: unknown;
+  signal?: AbortSignal;
+  timeoutMs?: number;
 }
 
 let refreshPromise: Promise<AuthSession | null> | null = null;
@@ -28,6 +31,44 @@ function buildHeaders(options: RequestOptions, accessToken?: string) {
   }
 
   return headers;
+}
+
+function isAbortError(error: unknown) {
+  return (
+    error instanceof Error &&
+    (error.name === 'AbortError' ||
+      error.message.toLowerCase().includes('aborted'))
+  );
+}
+
+function createAbortSignal(timeoutMs: number, externalSignal?: AbortSignal) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => {
+    controller.abort();
+  }, timeoutMs);
+
+  const handleExternalAbort = () => {
+    controller.abort();
+  };
+
+  if (externalSignal) {
+    if (externalSignal.aborted) {
+      controller.abort();
+    } else {
+      externalSignal.addEventListener('abort', handleExternalAbort);
+    }
+  }
+
+  return {
+    signal: controller.signal,
+    cleanup: () => {
+      clearTimeout(timeout);
+
+      if (externalSignal) {
+        externalSignal.removeEventListener('abort', handleExternalAbort);
+      }
+    },
+  };
 }
 
 async function parseError(response: Response) {
@@ -62,6 +103,43 @@ async function parseError(response: Response) {
   return new ApiError('Khong the ket noi may chu FlexShift.', response.status);
 }
 
+async function executeFetch(
+  url: string,
+  options: RequestOptions,
+  accessToken?: string,
+) {
+  const {
+    auth: _auth,
+    body,
+    timeoutMs,
+    signal: externalSignal,
+    ...init
+  } = options;
+  const timeoutBudget = timeoutMs ?? APP_CONFIG.apiRequestTimeoutMs;
+  const requestSignal = createAbortSignal(timeoutBudget, externalSignal);
+
+  try {
+    return await fetch(url, {
+      ...init,
+      headers: buildHeaders(options, accessToken),
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+      signal: requestSignal.signal,
+    });
+  } catch (error) {
+    if (isAbortError(error)) {
+      throw new ApiError(
+        'May chu phan hoi qua lau. Vui long thu lai.',
+        408,
+        'REQUEST_TIMEOUT',
+      );
+    }
+
+    throw error;
+  } finally {
+    requestSignal.cleanup();
+  }
+}
+
 async function refreshSession() {
   const snapshot = getSessionSnapshot();
   const refreshToken = snapshot.session?.refreshToken;
@@ -72,14 +150,15 @@ async function refreshSession() {
   }
 
   const deviceContext = await getDeviceContext();
-
-  const response = await fetch(`${AppEnv.apiBaseUrl}/auth/refresh`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await executeFetch(
+    `${AppEnv.apiBaseUrl}/auth/refresh`,
+    {
+      method: 'POST',
+      body: { refreshToken, deviceId: deviceContext.deviceId },
+      timeoutMs: APP_CONFIG.apiRequestTimeoutMs,
     },
-    body: JSON.stringify({ refreshToken, deviceId: deviceContext.deviceId }),
-  });
+    undefined,
+  );
 
   if (!response.ok) {
     await clearAuthSession();
@@ -106,11 +185,11 @@ async function executeRequest<T>(
   options: RequestOptions,
   accessToken?: string,
 ) {
-  const response = await fetch(`${AppEnv.apiBaseUrl}${path}`, {
-    ...options,
-    headers: buildHeaders(options, accessToken),
-    body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
-  });
+  const response = await executeFetch(
+    `${AppEnv.apiBaseUrl}${path}`,
+    options,
+    accessToken,
+  );
 
   if (response.status === 204) {
     return undefined as T;
@@ -146,4 +225,8 @@ export async function apiRequest<T>(
 
     return executeRequest<T>(path, options, refreshedSession.accessToken);
   }
+}
+
+export function resetApiClientStateForTests() {
+  refreshPromise = null;
 }

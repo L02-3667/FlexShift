@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "jest --config jest.config.js --runInBand",
     "test:integration": "jest --config jest.config.js --runInBand --testPathPattern test/.*\\.integration\\.spec\\.ts$",
+    "test:concurrency": "jest --config jest.config.js --runInBand --testPathPattern test/concurrency\\.integration\\.spec\\.ts$",
     "test:coverage": "jest --config jest.config.js --runInBand --coverage",
     "db:create": "ts-node scripts/create-databases.ts",
     "db:check": "ts-node scripts/check-db.ts",

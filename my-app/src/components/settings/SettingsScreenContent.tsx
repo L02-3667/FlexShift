@@ -95,6 +95,9 @@ function ChoiceChip({
 }) {
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ selected }}
       onPress={onPress}
       style={[styles.choiceChip, selected ? styles.choiceChipActive : null]}
     >
@@ -168,7 +171,15 @@ export function SettingsScreenContent({
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
-        <SectionHeader title={title} subtitle={subtitle} />
+        <View style={styles.heroCard}>
+          <View style={styles.heroTopRow}>
+            <View style={styles.heroCopy}>
+              <Text style={styles.heroEyebrow}>Settings</Text>
+              <SectionHeader title={title} subtitle={subtitle} />
+            </View>
+            <View style={styles.heroOrb} />
+          </View>
+        </View>
 
         {loading ? (
           <View style={styles.stateBox}>
@@ -199,6 +210,9 @@ export function SettingsScreenContent({
                   )}
                 </Text>
                 <Text style={styles.accountMeta}>{currentUser.phone}</Text>
+              </View>
+              <View style={styles.accountBadge}>
+                <Text style={styles.accountBadgeText}>Active</Text>
               </View>
             </View>
 
@@ -362,6 +376,49 @@ const styles = StyleSheet.create({
     gap: spacingTokens.lg + spacingTokens.xxs,
     paddingBottom: spacingTokens.xxxl,
   },
+  heroCard: {
+    backgroundColor: AppColors.surface,
+    borderRadius: radiusTokens.hero,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    padding: spacingTokens.xl + spacingTokens.xxs,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 14,
+    },
+    shadowRadius: 24,
+    elevation: 3,
+  },
+  heroTopRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: spacingTokens.md,
+  },
+  heroCopy: {
+    flex: 1,
+  },
+  heroEyebrow: {
+    fontSize: typographyTokens.bodySm,
+    fontWeight: '700',
+    color: AppColors.primary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+    marginBottom: spacingTokens.sm,
+  },
+  heroOrb: {
+    width: 72,
+    height: 72,
+    borderRadius: radiusTokens.pill,
+    backgroundColor: AppColors.primarySoft,
+    borderWidth: 10,
+    borderColor: AppColors.primary,
+    borderTopColor: 'transparent',
+    borderLeftColor: 'transparent',
+    transform: [{ rotate: '12deg' }],
+  },
   stateBox: {
     backgroundColor: AppColors.surface,
     borderRadius: radiusTokens.xl,
@@ -376,8 +433,8 @@ const styles = StyleSheet.create({
     color: AppColors.textSecondary,
   },
   accountCard: {
-    backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.xxl,
+    backgroundColor: AppColors.surfaceMuted,
+    borderRadius: radiusTokens.hero,
     borderWidth: 1,
     borderColor: AppColors.border,
     padding: spacingTokens.xl,
@@ -386,17 +443,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: 72,
+    height: 72,
+    borderRadius: 36,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: AppColors.primarySoft,
+    backgroundColor: AppColors.primary,
   },
   avatarText: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: '800',
-    color: AppColors.primary,
+    color: AppColors.accent,
   },
   accountBody: {
     flex: 1,
@@ -411,13 +468,35 @@ const styles = StyleSheet.create({
     fontSize: typographyTokens.bodySm,
     color: AppColors.textSecondary,
   },
+  accountBadge: {
+    borderRadius: radiusTokens.pill,
+    paddingHorizontal: spacingTokens.md,
+    paddingVertical: spacingTokens.sm,
+    backgroundColor: AppColors.surface,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+  },
+  accountBadgeText: {
+    fontSize: typographyTokens.caption,
+    fontWeight: '700',
+    color: AppColors.accent,
+    textTransform: 'uppercase',
+  },
   groupCard: {
     backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.xl,
+    borderRadius: radiusTokens.xxl,
     borderWidth: 1,
     borderColor: AppColors.border,
     padding: spacingTokens.lg + spacingTokens.sm / 2,
     gap: spacingTokens.lg,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowRadius: 18,
+    elevation: 2,
   },
   groupTitle: {
     fontSize: typographyTokens.titleMd,

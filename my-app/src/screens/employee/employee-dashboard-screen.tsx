@@ -24,6 +24,11 @@ import { useAsyncData } from '@/src/hooks/use-async-data';
 import { useAppState } from '@/src/hooks/use-app-state';
 import { acknowledgeAnnouncementAction } from '@/src/services/flexshift-actions';
 import { getEmployeeDashboardData } from '@/src/services/flexshift-service';
+import {
+  radiusTokens,
+  spacingTokens,
+  typographyTokens,
+} from '@/src/theme/tokens';
 
 type EmployeeDashboardSnapshot = Awaited<
   ReturnType<typeof getEmployeeDashboardData>
@@ -56,12 +61,33 @@ export function EmployeeDashboardScreen() {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
-          <Text style={styles.kicker}>{BRANDING.slogan}</Text>
-          <Text style={styles.title}>{currentUser.fullName}</Text>
-          <Text style={styles.description}>
-            Xem lich tuan, nhan ca phu hop va theo doi yeu cau dang xu ly trong
-            mot nhip thao tac gon va dang tin hon.
-          </Text>
+          <View style={styles.heroHeader}>
+            <View style={styles.heroCopy}>
+              <Text style={styles.kicker}>Employee space</Text>
+              <Text style={styles.title}>{currentUser.fullName}</Text>
+              <Text style={styles.description}>
+                Xem lich tuan, nhan ca phu hop va theo doi yeu cau dang xu ly
+                trong mot nhip thao tac gon va dang tin hon.
+              </Text>
+            </View>
+
+            <View style={styles.heroBadge}>
+              <Text style={styles.heroBadgeValue}>{data.weekShiftCount}</Text>
+              <Text style={styles.heroBadgeLabel}>ca tuan nay</Text>
+            </View>
+          </View>
+
+          <View style={styles.heroChipRow}>
+            <View style={styles.heroChip}>
+              <Text style={styles.heroChipText}>{BRANDING.appName}</Text>
+            </View>
+            <View style={styles.heroChip}>
+              <Text style={styles.heroChipText}>Offline queue</Text>
+            </View>
+            <View style={styles.heroChip}>
+              <Text style={styles.heroChipText}>Fast claim</Text>
+            </View>
+          </View>
         </View>
 
         <SyncStatusBanner />
@@ -226,50 +252,117 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.background,
   },
   content: {
-    padding: 20,
-    gap: 18,
-    paddingBottom: 36,
+    padding: spacingTokens.xl,
+    gap: spacingTokens.lg + spacingTokens.xxs,
+    paddingBottom: spacingTokens.xxxl + spacingTokens.xxs,
   },
   hero: {
-    gap: 6,
+    backgroundColor: AppColors.surface,
+    borderRadius: radiusTokens.hero,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    padding: spacingTokens.xl + spacingTokens.xxs,
+    gap: spacingTokens.md,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 14,
+    },
+    shadowRadius: 24,
+    elevation: 3,
+  },
+  heroHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: spacingTokens.md,
+  },
+  heroCopy: {
+    flex: 1,
+    gap: spacingTokens.xs,
   },
   kicker: {
-    fontSize: 13,
+    fontSize: typographyTokens.bodySm,
     fontWeight: '700',
     color: AppColors.primary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
   },
   title: {
-    fontSize: 30,
+    fontSize: 34,
+    lineHeight: 38,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.8,
   },
   description: {
-    fontSize: 15,
-    lineHeight: 22,
+    fontSize: typographyTokens.bodyLg,
+    lineHeight: typographyTokens.lineHeightLg,
     color: AppColors.textSecondary,
+  },
+  heroBadge: {
+    minWidth: 96,
+    borderRadius: radiusTokens.xl,
+    backgroundColor: AppColors.primary,
+    paddingHorizontal: spacingTokens.md,
+    paddingVertical: spacingTokens.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacingTokens.xxs,
+  },
+  heroBadgeValue: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: AppColors.accent,
+    letterSpacing: -1,
+  },
+  heroBadgeLabel: {
+    fontSize: typographyTokens.caption,
+    fontWeight: '700',
+    color: AppColors.accent,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+  },
+  heroChipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacingTokens.sm,
+  },
+  heroChip: {
+    borderRadius: radiusTokens.pill,
+    backgroundColor: AppColors.surfaceMuted,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    paddingHorizontal: spacingTokens.md,
+    paddingVertical: spacingTokens.sm,
+  },
+  heroChipText: {
+    fontSize: typographyTokens.bodySm,
+    fontWeight: '700',
+    color: AppColors.accent,
   },
   metricRow: {
     flexDirection: 'row',
-    gap: 12,
+    gap: spacingTokens.md,
   },
   actionRow: {
     flexDirection: 'row',
-    gap: 12,
+    gap: spacingTokens.md,
   },
   actionButton: {
     flex: 1,
   },
   stateBox: {
     backgroundColor: AppColors.surface,
-    borderRadius: 20,
+    borderRadius: radiusTokens.xl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: 24,
+    padding: spacingTokens.xl + spacingTokens.xxs,
     alignItems: 'center',
-    gap: 10,
+    gap: spacingTokens.sm + spacingTokens.xxs,
   },
   stateText: {
-    fontSize: 14,
+    fontSize: typographyTokens.body,
     color: AppColors.textSecondary,
   },
 });

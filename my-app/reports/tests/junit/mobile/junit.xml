@@ -1,61 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="18" failures="0" errors="0" time="3.251">
-  <testsuite name="AnnouncementCard snapshot" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:16" time="0.829" tests="1">
-    <testcase classname="AnnouncementCard snapshot matches the stable card snapshot" name="AnnouncementCard snapshot matches the stable card snapshot" time="0.078">
+<testsuites name="jest tests" tests="28" failures="0" errors="0" time="14.158">
+  <testsuite name="employee request and shift screens" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:55:59" time="6.085" tests="3">
+    <testcase classname="employee request and shift screens creates a leave request from a selected shift" name="employee request and shift screens creates a leave request from a selected shift" time="1.108">
+    </testcase>
+    <testcase classname="employee request and shift screens creates a yield request with a selected coworker" name="employee request and shift screens creates a yield request with a selected coworker" time="0.1">
+    </testcase>
+    <testcase classname="employee request and shift screens claims an open shift from the detail screen" name="employee request and shift screens claims an open shift from the detail screen" time="0.094">
     </testcase>
   </testsuite>
-  <testsuite name="employee request and shift screens" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:17" time="0.658" tests="3">
-    <testcase classname="employee request and shift screens creates a leave request from a selected shift" name="employee request and shift screens creates a leave request from a selected shift" time="0.256">
+  <testsuite name="AppProvider degraded boot" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:06" time="0.703" tests="2">
+    <testcase classname="AppProvider degraded boot boots from cached users when the server is unavailable" name="AppProvider degraded boot boots from cached users when the server is unavailable" time="0.115">
     </testcase>
-    <testcase classname="employee request and shift screens creates a yield request with a selected coworker" name="employee request and shift screens creates a yield request with a selected coworker" time="0.026">
-    </testcase>
-    <testcase classname="employee request and shift screens claims an open shift from the detail screen" name="employee request and shift screens claims an open shift from the detail screen" time="0.071">
+    <testcase classname="AppProvider degraded boot falls back to the session shell when the user cache is empty" name="AppProvider degraded boot falls back to the session shell when the user cache is empty" time="0.06">
     </testcase>
   </testsuite>
-  <testsuite name="ApprovalDetailScreen" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:18" time="0.257" tests="1">
-    <testcase classname="ApprovalDetailScreen submits an approval action for a pending request" name="ApprovalDetailScreen submits an approval action for a pending request" time="0.102">
+  <testsuite name="SyncStatusBanner snapshot" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:06" time="0.465" tests="1">
+    <testcase classname="SyncStatusBanner snapshot matches the stable sync banner snapshot" name="SyncStatusBanner snapshot matches the stable sync banner snapshot" time="0.054">
     </testcase>
   </testsuite>
-  <testsuite name="SettingsScreenContent" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:18" time="0.255" tests="1">
-    <testcase classname="SettingsScreenContent saves a theme change and supports logout" name="SettingsScreenContent saves a theme change and supports logout" time="0.144">
+  <testsuite name="SettingsScreenContent" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:07" time="1.174" tests="1">
+    <testcase classname="SettingsScreenContent saves a theme change and supports logout" name="SettingsScreenContent saves a theme change and supports logout" time="0.331">
     </testcase>
   </testsuite>
-  <testsuite name="LoginScreen" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:18" time="0.269" tests="2">
-    <testcase classname="LoginScreen validates empty credentials before login" name="LoginScreen validates empty credentials before login" time="0.045">
-    </testcase>
-    <testcase classname="LoginScreen uses a dev seed account and submits login" name="LoginScreen uses a dev seed account and submits login" time="0.074">
+  <testsuite name="ApprovalDetailScreen" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:08" time="0.979" tests="1">
+    <testcase classname="ApprovalDetailScreen submits an approval action for a pending request" name="ApprovalDetailScreen submits an approval action for a pending request" time="0.235">
     </testcase>
   </testsuite>
-  <testsuite name="SyncStatusBanner snapshot" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:19" time="0.177" tests="1">
-    <testcase classname="SyncStatusBanner snapshot matches the stable sync banner snapshot" name="SyncStatusBanner snapshot matches the stable sync banner snapshot" time="0.018">
+  <testsuite name="LoginScreen" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:09" time="0.98" tests="2">
+    <testcase classname="LoginScreen validates empty credentials before login" name="LoginScreen validates empty credentials before login" time="0.16">
+    </testcase>
+    <testcase classname="LoginScreen uses a dev seed account and submits login" name="LoginScreen uses a dev seed account and submits login" time="0.097">
     </testcase>
   </testsuite>
-  <testsuite name="SyncStatusBanner" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:19" time="0.128" tests="1">
-    <testcase classname="SyncStatusBanner renders offline sync state and triggers a manual sync" name="SyncStatusBanner renders offline sync state and triggers a manual sync" time="0.014">
+  <testsuite name="SyncStatusBanner" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:10" time="0.408" tests="1">
+    <testcase classname="SyncStatusBanner renders offline sync state and triggers a manual sync" name="SyncStatusBanner renders offline sync state and triggers a manual sync" time="0.045">
     </testcase>
   </testsuite>
-  <testsuite name="AnnouncementCard" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:19" time="0.127" tests="1">
-    <testcase classname="AnnouncementCard renders acknowledgement CTA when required and calls the handler" name="AnnouncementCard renders acknowledgement CTA when required and calls the handler" time="0.014">
+  <testsuite name="AnnouncementCard" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:11" time="0.525" tests="1">
+    <testcase classname="AnnouncementCard renders acknowledgement CTA when required and calls the handler" name="AnnouncementCard renders acknowledgement CTA when required and calls the handler" time="0.051">
     </testcase>
   </testsuite>
-  <testsuite name="sync helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:19" time="0.074" tests="3">
-    <testcase classname="sync helpers merges sync snapshot patches" name="sync helpers merges sync snapshot patches" time="0">
+  <testsuite name="date helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:11" time="0.236" tests="3">
+    <testcase classname="date helpers detects overlapping time ranges" name="date helpers detects overlapping time ranges" time="0.001">
     </testcase>
-    <testcase classname="sync helpers marks 409 errors as conflict mutations" name="sync helpers marks 409 errors as conflict mutations" time="0">
+    <testcase classname="date helpers supports overnight overlap checks across adjacent dates" name="date helpers supports overnight overlap checks across adjacent dates" time="0.001">
     </testcase>
-    <testcase classname="sync helpers detects likely offline errors and counts pending acknowledgements" name="sync helpers detects likely offline errors and counts pending acknowledgements" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="date helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:19" time="0.072" tests="2">
-    <testcase classname="date helpers detects overlapping time ranges" name="date helpers detects overlapping time ranges" time="0">
-    </testcase>
-    <testcase classname="date helpers formats a readable date-time label" name="date helpers formats a readable date-time label" time="0">
+    <testcase classname="date helpers formats a readable date-time label and adjacent dates" name="date helpers formats a readable date-time label and adjacent dates" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="checkShiftConflict" errors="0" failures="0" skipped="0" timestamp="2026-04-10T19:15:19" time="0.072" tests="2">
+  <testsuite name="checkShiftConflict" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:11" time="0.242" tests="3">
     <testcase classname="checkShiftConflict returns true when a candidate overlaps existing shifts" name="checkShiftConflict returns true when a candidate overlaps existing shifts" time="0.001">
     </testcase>
+    <testcase classname="checkShiftConflict detects overnight conflicts on adjacent dates" name="checkShiftConflict detects overnight conflicts on adjacent dates" time="0">
+    </testcase>
     <testcase classname="checkShiftConflict ignores the excluded shift id" name="checkShiftConflict ignores the excluded shift id" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="AnnouncementCard snapshot" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:12" time="0.378" tests="1">
+    <testcase classname="AnnouncementCard snapshot matches the stable card snapshot" name="AnnouncementCard snapshot matches the stable card snapshot" time="0.034">
+    </testcase>
+  </testsuite>
+  <testsuite name="sync helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:12" time="0.261" tests="3">
+    <testcase classname="sync helpers merges sync snapshot patches" name="sync helpers merges sync snapshot patches" time="0.001">
+    </testcase>
+    <testcase classname="sync helpers marks 409 errors as conflict mutations" name="sync helpers marks 409 errors as conflict mutations" time="0.002">
+    </testcase>
+    <testcase classname="sync helpers detects likely offline errors and counts pending acknowledgements" name="sync helpers detects likely offline errors and counts pending acknowledgements" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="api client resilience" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:12" time="0.262" tests="2">
+    <testcase classname="api client resilience reuses a single refresh flow when multiple requests hit 401 together" name="api client resilience reuses a single refresh flow when multiple requests hit 401 together" time="0.011">
+    </testcase>
+    <testcase classname="api client resilience surfaces request timeouts as actionable API errors" name="api client resilience surfaces request timeouts as actionable API errors" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="validation helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:13" time="0.219" tests="2">
+    <testcase classname="validation helpers accepts overnight open-shift windows but rejects zero-length windows" name="validation helpers accepts overnight open-shift windows but rejects zero-length windows" time="0.002">
+    </testcase>
+    <testcase classname="validation helpers rejects short reasons and missing fields" name="validation helpers rejects short reasons and missing fields" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="sync engine resilience" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:13" time="0.269" tests="2">
+    <testcase classname="sync engine resilience deduplicates overlapping sync cycles" name="sync engine resilience deduplicates overlapping sync cycles" time="0.043">
+    </testcase>
+    <testcase classname="sync engine resilience keeps a failed mutation queued and marks the sync snapshot offline" name="sync engine resilience keeps a failed mutation queued and marks the sync snapshot offline" time="0.018">
     </testcase>
   </testsuite>
 </testsuites>

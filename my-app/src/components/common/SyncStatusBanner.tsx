@@ -34,6 +34,7 @@ function toStatusCopy(status: ReturnType<typeof useSyncState>['syncStatus']) {
 
 export function SyncStatusBanner() {
   const { pendingAnnouncementCount, syncNow, syncStatus } = useSyncState();
+  const isOffline = syncStatus.networkState === 'offline';
 
   return (
     <View style={styles.banner}>
@@ -42,11 +43,7 @@ export function SyncStatusBanner() {
           <AppIcon
             name={syncStatus.networkState === 'offline' ? 'warning' : 'sync'}
             size={18}
-            color={
-              syncStatus.networkState === 'offline'
-                ? AppColors.warning
-                : AppColors.primary
-            }
+            color={isOffline ? AppColors.warning : AppColors.primary}
           />
           <Text style={styles.title}>{APP_COPY.syncBanner.title}</Text>
         </View>
@@ -75,11 +72,19 @@ export function SyncStatusBanner() {
 const styles = StyleSheet.create({
   banner: {
     backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.lg,
+    borderRadius: radiusTokens.xl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: spacingTokens.lg,
+    padding: spacingTokens.lg + spacingTokens.xxs,
     gap: spacingTokens.md,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowRadius: 18,
+    elevation: 2,
   },
   headerRow: {
     flexDirection: 'row',
@@ -97,14 +102,17 @@ const styles = StyleSheet.create({
     fontSize: typographyTokens.bodyLg,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.1,
   },
   description: {
-    fontSize: typographyTokens.bodySm,
-    lineHeight: typographyTokens.lineHeightSm,
+    fontSize: typographyTokens.body,
+    lineHeight: typographyTokens.lineHeightMd,
     color: AppColors.textSecondary,
   },
   meta: {
     fontSize: typographyTokens.caption,
     color: AppColors.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
   },
 });

@@ -1,0 +1,319 @@
+# Release Gate Summary
+
+- Status: blocked
+- Generated at: 2026-04-11T15:56:45.667Z
+- Mode: local
+- Build included: no
+- Node runtime: v20.20.1
+- Command: node scripts\run-quality-gate.mjs
+
+## Step Results
+
+- Mobile typecheck: passed (npm.cmd run typecheck) -> reports\release\logs\typecheck-mobile.log
+- Backend typecheck: passed (npm.cmd run typecheck:backend) -> reports\release\logs\typecheck-backend.log
+- ESLint: passed (npm.cmd run lint) -> reports\release\logs\lint.log
+- Prettier check: passed (npm.cmd run prettier:check) -> reports\release\logs\prettier-check.log
+- Repo static audits: passed (npm.cmd run audit:static) -> reports\release\logs\static-audits.log
+- Mobile unit tests: passed (npm.cmd run test:unit) -> reports\release\logs\mobile-unit.log
+- Mobile component tests: passed (npm.cmd run test:components) -> reports\release\logs\mobile-components.log
+- Mobile snapshot tests: passed (npm.cmd run test:snapshots) -> reports\release\logs\mobile-snapshots.log
+- Mobile resilience tests: passed (npm.cmd run test:resilience) -> reports\release\logs\mobile-resilience.log
+- Backend test suite: passed (npm.cmd run test:backend) -> reports\release\logs\backend-tests.log
+- Mobile coverage: passed (npm.cmd run test:coverage) -> reports\release\logs\mobile-coverage.log
+- Backend coverage: passed (npm.cmd run test:backend:coverage) -> reports\release\logs\backend-coverage.log
+- Maestro E2E: failed (npm.cmd run test:e2e) -> reports\release\logs\e2e.log
+
+## Coverage Summary
+
+- Mobile: lines 27.79%, statements 27.54%, functions 22.2%, branches 23.45%
+- Backend: lines 74.39%, statements 75.73%, functions 60.73%, branches 40.78%
+
+## Test Counts
+
+- Mobile JUnit: 28 tests, 0 failures, 0 errors, 0 skipped
+- Backend JUnit: 14 tests, 0 failures, 0 errors, 0 skipped
+
+## Blockers
+
+- e2e: Maestro CLI is not installed or not available on PATH.
+
+## Proposed Fixes
+
+- Install Maestro CLI in the execution environment or rerun the release gate in CI with Maestro available on PATH.
+
+## Git Status
+
+- M .prettierrc.json
+- M README.md
+- M app.config.js
+- M app.json
+- M app/(auth)/_layout.tsx
+- M app/(auth)/login.tsx
+- M app/(employee)/(tabs)/_layout.tsx
+- M app/(employee)/(tabs)/calendar.tsx
+- M app/(employee)/(tabs)/dashboard.tsx
+- M app/(employee)/(tabs)/open-shifts.tsx
+- M app/(employee)/(tabs)/profile.tsx
+- M app/(employee)/(tabs)/requests.tsx
+- M app/(employee)/(tabs)/settings.tsx
+- M app/(employee)/(tabs)/statistics.tsx
+- M app/(employee)/_layout.tsx
+- M app/(employee)/open-shifts/[id].tsx
+- M app/(employee)/requests/create-leave.tsx
+- M app/(employee)/requests/create-swap.tsx
+- M app/(employee)/requests/create-yield.tsx
+- M app/(manager)/(tabs)/_layout.tsx
+- M app/(manager)/(tabs)/approvals.tsx
+- M app/(manager)/(tabs)/calendar.tsx
+- M app/(manager)/(tabs)/create-open-shift.tsx
+- M app/(manager)/(tabs)/dashboard.tsx
+- M app/(manager)/(tabs)/profile.tsx
+- M app/(manager)/(tabs)/schedule.tsx
+- M app/(manager)/(tabs)/settings.tsx
+- M app/(manager)/(tabs)/statistics.tsx
+- M app/(manager)/_layout.tsx
+- M app/(manager)/approvals/[id].tsx
+- M app/_layout.tsx
+- M app/index.tsx
+- M babel.config.js
+- M backend/jest.config.js
+- M backend/nest-cli.json
+- M backend/package-lock.json
+- M backend/package.json
+- M backend/prisma/seed.ts
+- M backend/scripts/check-db.ts
+- M backend/scripts/create-databases.ts
+- M backend/scripts/load-env.ts
+- M backend/src/activity/activity-writer.ts
+- M backend/src/activity/activity.controller.ts
+- M backend/src/activity/activity.module.ts
+- M backend/src/activity/activity.service.ts
+- M backend/src/announcements/announcements.controller.ts
+- M backend/src/announcements/announcements.module.ts
+- M backend/src/announcements/announcements.service.ts
+- M backend/src/announcements/dto/create-announcement.dto.ts
+- M backend/src/app.module.ts
+- M backend/src/approvals/approvals.controller.ts
+- M backend/src/approvals/approvals.module.ts
+- M backend/src/approvals/approvals.service.ts
+- M backend/src/approvals/dto/review-request.dto.ts
+- M backend/src/auth/auth.constants.ts
+- M backend/src/auth/auth.controller.ts
+- M backend/src/auth/auth.module.ts
+- M backend/src/auth/auth.service.ts
+- M backend/src/auth/dto/login.dto.ts
+- M backend/src/auth/dto/logout.dto.ts
+- M backend/src/auth/dto/refresh-session.dto.ts
+- M backend/src/auth/dto/update-password.dto.ts
+- M backend/src/auth/jwt.strategy.ts
+- M backend/src/calendar/calendar.controller.ts
+- M backend/src/calendar/calendar.module.ts
+- M backend/src/calendar/calendar.service.ts
+- M backend/src/calendar/dto/query-calendar.dto.ts
+- M backend/src/common/decorators/current-user.decorator.ts
+- M backend/src/common/decorators/roles.decorator.ts
+- M backend/src/common/exceptions/domain-conflict.exception.ts
+- M backend/src/common/filters/all-exceptions.filter.ts
+- M backend/src/common/guards/jwt-auth.guard.ts
+- M backend/src/common/guards/roles.guard.ts
+- M backend/src/common/http/request-context.middleware.ts
+- M backend/src/common/http/request-context.ts
+- M backend/src/common/interfaces/authenticated-user.interface.ts
+- M backend/src/common/policies/request-access.policy.ts
+- M backend/src/common/policies/role-policy.ts
+- M backend/src/common/policies/schedule-conflict.policy.ts
+- M backend/src/common/utils/date.utils.ts
+- M backend/src/common/utils/shift.utils.ts
+- M backend/src/config/env.ts
+- M backend/src/health/health.controller.ts
+- M backend/src/health/health.module.ts
+- M backend/src/health/health.service.ts
+- M backend/src/main.ts
+- M backend/src/notifications/notification-gateway.ts
+- M backend/src/notifications/notifications.controller.ts
+- M backend/src/notifications/notifications.module.ts
+- M backend/src/notifications/notifications.service.ts
+- M backend/src/open-shifts/dto/claim-open-shift.dto.ts
+- M backend/src/open-shifts/dto/create-open-shift.dto.ts
+- M backend/src/open-shifts/open-shift.mapper.ts
+- M backend/src/open-shifts/open-shifts.controller.ts
+- M backend/src/open-shifts/open-shifts.module.ts
+- M backend/src/open-shifts/open-shifts.service.ts
+- M backend/src/prisma/prisma.module.ts
+- M backend/src/prisma/prisma.service.ts
+- M backend/src/requests/dto/create-leave-request.dto.ts
+- M backend/src/requests/dto/create-yield-request.dto.ts
+- M backend/src/requests/dto/query-requests.dto.ts
+- M backend/src/requests/request.mapper.ts
+- M backend/src/requests/requests.controller.ts
+- M backend/src/requests/requests.module.ts
+- M backend/src/requests/requests.service.ts
+- M backend/src/sessions/sessions.controller.ts
+- M backend/src/sessions/sessions.module.ts
+- M backend/src/sessions/sessions.service.ts
+- M backend/src/settings/dto/update-user-setting.dto.ts
+- M backend/src/settings/settings.controller.ts
+- M backend/src/settings/settings.module.ts
+- M backend/src/settings/settings.service.ts
+- M backend/src/shifts/dto/query-shifts.dto.ts
+- M backend/src/shifts/shifts.controller.ts
+- M backend/src/shifts/shifts.module.ts
+- M backend/src/shifts/shifts.service.ts
+- M backend/src/statistics/statistics.controller.ts
+- M backend/src/statistics/statistics.module.ts
+- M backend/src/statistics/statistics.service.ts
+- M backend/src/sync/dto/query-sync.dto.ts
+- M backend/src/sync/mutation-ledger.service.ts
+- M backend/src/sync/sync-change-publisher.ts
+- M backend/src/sync/sync-publisher.service.ts
+- M backend/src/sync/sync.controller.ts
+- M backend/src/sync/sync.module.ts
+- M backend/src/sync/sync.service.ts
+- M backend/src/users/users.controller.ts
+- M backend/src/users/users.module.ts
+- M backend/src/users/users.service.ts
+- M backend/test/auth.integration.spec.ts
+- M backend/test/policies.spec.ts
+- M backend/test/sync-health.integration.spec.ts
+- M backend/test/test-app.ts
+- M backend/test/workflow.integration.spec.ts
+- M backend/tsconfig.build.json
+- M backend/tsconfig.json
+- M components/external-link.tsx
+- M components/hello-wave.tsx
+- M components/parallax-scroll-view.tsx
+- M components/themed-view.tsx
+- M components/ui/collapsible.tsx
+- M components/ui/icon-symbol.tsx
+- M constants/theme.ts
+- M docs/flexshift-phase-2-handoff.md
+- M docs/flexshift-phase-3-production.md
+- M docs/flexshift-production-migration.md
+- M eas.json
+- M eslint.config.js
+- M hooks/use-theme-color.ts
+- M jest.config.js
+- M jest.setup.ts
+- M maestro/config.yaml
+- M maestro/login-and-claim-open-shift.yaml
+- M maestro/manager-review-request.yaml
+- M maestro/offline-queue-smoke.yaml
+- M package-lock.json
+- M package.json
+- M reports/tests/junit/backend/junit.xml
+- M reports/tests/junit/mobile/junit.xml
+- M scripts/reset-project.js
+- M scripts/run-maestro-check.mjs
+- M scripts/run-quality-gate.mjs
+- M src/components/calendar/WeekCalendarStrip.tsx
+- M src/components/cards/ActivityCard.tsx
+- M src/components/cards/AnnouncementCard.snapshot.test.tsx
+- M src/components/cards/AnnouncementCard.test.tsx
+- M src/components/cards/AnnouncementCard.tsx
+- M src/components/cards/OpenShiftCard.tsx
+- M src/components/cards/RequestCard.tsx
+- M src/components/cards/ShiftCard.tsx
+- M src/components/cards/__snapshots__/AnnouncementCard.snapshot.test.tsx.snap
+- M src/components/common/AppIcon.tsx
+- M src/components/common/AppInput.tsx
+- M src/components/common/DateTimeRow.tsx
+- M src/components/common/EmptyState.tsx
+- M src/components/common/MetricCard.tsx
+- M src/components/common/PrimaryButton.tsx
+- M src/components/common/SectionHeader.tsx
+- M src/components/common/StatusBadge.tsx
+- M src/components/common/SyncStatusBanner.snapshot.test.tsx
+- M src/components/common/SyncStatusBanner.test.tsx
+- M src/components/common/SyncStatusBanner.tsx
+- M src/components/common/__snapshots__/SyncStatusBanner.snapshot.test.tsx.snap
+- M src/components/settings/SettingsScreenContent.test.tsx
+- M src/components/settings/SettingsScreenContent.tsx
+- M src/config/env.ts
+- M src/constants/branding.ts
+- M src/constants/colors.ts
+- M src/constants/config.ts
+- M src/constants/copy.ts
+- M src/constants/options.ts
+- M src/context/app-context.tsx
+- M src/context/sync-context.tsx
+- M src/db/database.ts
+- M src/db/repositories.ts
+- M src/db/seed.ts
+- M src/db/sqlite-provider.d.ts
+- M src/db/sqlite-provider.native.tsx
+- M src/db/sqlite-provider.web.tsx
+- M src/hooks/use-app-query-client.ts
+- M src/hooks/use-app-state.ts
+- M src/hooks/use-async-data.ts
+- M src/providers/query-provider.tsx
+- M src/screens/auth/login-screen.test.tsx
+- M src/screens/auth/login-screen.tsx
+- M src/screens/employee/create-leave-request-screen.tsx
+- M src/screens/employee/create-swap-request-screen.tsx
+- M src/screens/employee/create-yield-request-screen.tsx
+- M src/screens/employee/employee-calendar-screen.tsx
+- M src/screens/employee/employee-dashboard-screen.tsx
+- M src/screens/employee/employee-profile-screen.tsx
+- M src/screens/employee/employee-settings-screen.tsx
+- M src/screens/employee/employee-statistics-screen.tsx
+- M src/screens/employee/my-requests-screen.tsx
+- M src/screens/employee/open-shift-detail-screen.tsx
+- M src/screens/employee/open-shifts-screen.tsx
+- M src/screens/employee/request-flows.test.tsx
+- M src/screens/manager/approval-detail-screen.test.tsx
+- M src/screens/manager/approval-detail-screen.tsx
+- M src/screens/manager/approvals-screen.tsx
+- M src/screens/manager/confirmed-schedule-screen.tsx
+- M src/screens/manager/create-open-shift-screen.tsx
+- M src/screens/manager/manager-dashboard-screen.tsx
+- M src/screens/manager/manager-profile-screen.tsx
+- M src/screens/manager/manager-settings-screen.tsx
+- M src/screens/manager/manager-statistics-screen.tsx
+- M src/services/api/api-client.ts
+- M src/services/api/api-errors.ts
+- M src/services/api/flexshift-api.ts
+- M src/services/flexshift-actions.ts
+- M src/services/flexshift-service.ts
+- M src/services/session/auth-storage.native.ts
+- M src/services/session/auth-storage.ts
+- M src/services/session/auth-storage.web.ts
+- M src/services/session/device-context.ts
+- M src/services/session/session-store.ts
+- M src/services/sync/sync-engine.ts
+- M src/services/sync/sync-helpers.test.ts
+- M src/services/sync/sync-helpers.ts
+- M src/test-utils/fixtures.ts
+- M src/theme/tokens.ts
+- M src/types/models.ts
+- M src/utils/date.test.ts
+- M src/utils/date.ts
+- M src/utils/id.ts
+- M src/utils/routes.ts
+- M src/utils/shift-conflicts.test.ts
+- M src/utils/shift-conflicts.ts
+- M src/utils/text.ts
+- M src/utils/validation.ts
+- M tsconfig.json
+- ?? .prettierignore
+- ?? backend/test/concurrency.integration.spec.ts
+- ?? reports/e2e/
+- ?? reports/release/
+- ?? reports/static/
+- ?? reports/tests/coverage/
+- ?? scripts/run-static-audits.mjs
+- ?? scripts/run-workspace-script.mjs
+- ?? src/context/app-context.offline.test.tsx
+- ?? src/services/api/api-client.test.ts
+- ?? src/services/sync/sync-engine.test.ts
+- ?? src/utils/validation.test.ts
+
+## Failure Excerpts
+
+### Maestro E2E
+
+```text
+> flexshift-mobile@1.0.0 test:e2e
+> node ./scripts/run-maestro-check.mjs --run
+'maestro' is not recognized as an internal or external command,
+operable program or batch file.
+```

@@ -1,0 +1,15 @@
+{
+  "mode": "run",
+  "status": "blocked",
+  "reason": "Maestro CLI is not installed or not available on PATH.",
+  "generatedAt": "2026-04-11T15:56:45.496Z",
+  "cliAvailable": false,
+  "flowFiles": [
+    "maestro\\config.yaml",
+    "maestro\\login-and-claim-open-shift.yaml",
+    "maestro\\manager-review-request.yaml",
+    "maestro\\offline-queue-smoke.yaml"
+  ],
+  "missingFiles": [],
+  "output": "'maestro' is not recognized as an internal or external command,\r\noperable program or batch file.\r\n"
+}

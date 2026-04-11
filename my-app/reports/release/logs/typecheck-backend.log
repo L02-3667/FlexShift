@@ -1,0 +1,8 @@
+
+> flexshift-mobile@1.0.0 typecheck:backend
+> node ./scripts/run-workspace-script.mjs backend typecheck
+
+
+> flexshift-backend@0.1.0 typecheck
+> tsc --noEmit
+

@@ -1,9 +1,10 @@
 import type { Shift } from '@/src/types/models';
 
-import { hasTimeOverlap } from './date';
+import { hasDateTimeOverlap } from './date';
 
 interface ShiftWindow {
   id?: string;
+  date: string;
   startTime: string;
   endTime: string;
 }
@@ -14,7 +15,7 @@ interface CheckShiftConflictOptions {
 
 export function checkShiftConflict(
   existingShifts: ShiftWindow[],
-  candidate: Pick<Shift, 'startTime' | 'endTime'>,
+  candidate: Pick<Shift, 'date' | 'startTime' | 'endTime'>,
   options: CheckShiftConflictOptions = {},
 ) {
   return existingShifts.some((shift) => {
@@ -22,9 +23,11 @@ export function checkShiftConflict(
       return false;
     }
 
-    return hasTimeOverlap(
+    return hasDateTimeOverlap(
+      shift.date,
       shift.startTime,
       shift.endTime,
+      candidate.date,
       candidate.startTime,
       candidate.endTime,
     );

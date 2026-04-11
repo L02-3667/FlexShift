@@ -2,6 +2,11 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { AppColors } from '@/src/constants/colors';
 import type { ActivityUpdate } from '@/src/services/flexshift-service';
+import {
+  radiusTokens,
+  spacingTokens,
+  typographyTokens,
+} from '@/src/theme/tokens';
 
 interface ActivityCardProps {
   item: ActivityUpdate;
@@ -29,12 +34,21 @@ export function ActivityCard({ item }: ActivityCardProps) {
   const palette = TONES[item.tone];
 
   return (
-    <View style={[styles.card, { backgroundColor: palette.backgroundColor }]}>
-      <View style={[styles.marker, { backgroundColor: palette.accentColor }]} />
+    <View
+      style={[
+        styles.card,
+        {
+          backgroundColor: palette.backgroundColor,
+          borderLeftColor: palette.accentColor,
+        },
+      ]}
+    >
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.time}>{item.timestampLabel}</Text>
+          <View style={styles.timeChip}>
+            <Text style={styles.time}>{item.timestampLabel}</Text>
+          </View>
         </View>
         <Text style={styles.description}>{item.description}</Text>
       </View>
@@ -44,40 +58,43 @@ export function ActivityCard({ item }: ActivityCardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 18,
-    padding: 16,
-    gap: 12,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  marker: {
-    width: 10,
-    height: 10,
-    borderRadius: 999,
-    marginTop: 5,
+    borderRadius: radiusTokens.xl,
+    padding: spacingTokens.lg + spacingTokens.xxs,
+    gap: spacingTokens.md,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    borderLeftWidth: 4,
   },
   content: {
     flex: 1,
-    gap: 6,
+    gap: spacingTokens.sm,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 12,
+    gap: spacingTokens.md,
+    alignItems: 'center',
   },
   title: {
     flex: 1,
-    fontSize: 15,
+    fontSize: typographyTokens.bodyLg,
     fontWeight: '800',
     color: AppColors.text,
   },
+  timeChip: {
+    borderRadius: radiusTokens.pill,
+    backgroundColor: AppColors.surface,
+    paddingHorizontal: spacingTokens.sm + spacingTokens.xxs,
+    paddingVertical: spacingTokens.xs,
+  },
   time: {
-    fontSize: 12,
+    fontSize: typographyTokens.caption,
+    fontWeight: '700',
     color: AppColors.textMuted,
   },
   description: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: typographyTokens.bodySm,
+    lineHeight: typographyTokens.lineHeightSm,
     color: AppColors.textSecondary,
   },
 });

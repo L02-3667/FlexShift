@@ -62,11 +62,34 @@ export function ManagerDashboardScreen() {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.hero}>
-          <Text style={styles.kicker}>{BRANDING.slogan}</Text>
-          <Text style={styles.title}>{APP_COPY.managerDashboard.title}</Text>
-          <Text style={styles.description}>
-            {APP_COPY.managerDashboard.description}
-          </Text>
+          <View style={styles.heroHeader}>
+            <View style={styles.heroCopy}>
+              <Text style={styles.kicker}>Manager console</Text>
+              <Text style={styles.title}>
+                {APP_COPY.managerDashboard.title}
+              </Text>
+              <Text style={styles.description}>
+                {APP_COPY.managerDashboard.description}
+              </Text>
+            </View>
+
+            <View style={styles.heroBadge}>
+              <Text style={styles.heroBadgeValue}>{data.pendingCount}</Text>
+              <Text style={styles.heroBadgeLabel}>cho duyet</Text>
+            </View>
+          </View>
+
+          <View style={styles.heroChipRow}>
+            <View style={styles.heroChip}>
+              <Text style={styles.heroChipText}>{BRANDING.appName}</Text>
+            </View>
+            <View style={styles.heroChip}>
+              <Text style={styles.heroChipText}>Approval race safe</Text>
+            </View>
+            <View style={styles.heroChip}>
+              <Text style={styles.heroChipText}>Realtime-ready</Text>
+            </View>
+          </View>
         </View>
 
         <SyncStatusBanner />
@@ -246,22 +269,88 @@ const styles = StyleSheet.create({
     paddingBottom: spacingTokens.xxxl + spacingTokens.xxs,
   },
   hero: {
+    backgroundColor: AppColors.surface,
+    borderRadius: radiusTokens.hero,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    padding: spacingTokens.xl + spacingTokens.xxs,
+    gap: spacingTokens.md,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 14,
+    },
+    shadowRadius: 24,
+    elevation: 3,
+  },
+  heroHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: spacingTokens.md,
+  },
+  heroCopy: {
+    flex: 1,
     gap: spacingTokens.xs,
   },
   kicker: {
     fontSize: typographyTokens.bodySm,
     fontWeight: '700',
     color: AppColors.primary,
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
   },
   title: {
-    fontSize: typographyTokens.headline,
+    fontSize: 34,
+    lineHeight: 38,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.8,
   },
   description: {
     fontSize: typographyTokens.bodyLg,
     lineHeight: typographyTokens.lineHeightLg,
     color: AppColors.textSecondary,
+  },
+  heroBadge: {
+    minWidth: 96,
+    borderRadius: radiusTokens.xl,
+    backgroundColor: AppColors.primary,
+    paddingHorizontal: spacingTokens.md,
+    paddingVertical: spacingTokens.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacingTokens.xxs,
+  },
+  heroBadgeValue: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: AppColors.accent,
+    letterSpacing: -1,
+  },
+  heroBadgeLabel: {
+    fontSize: typographyTokens.caption,
+    fontWeight: '700',
+    color: AppColors.accent,
+    textTransform: 'uppercase',
+  },
+  heroChipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacingTokens.sm,
+  },
+  heroChip: {
+    borderRadius: radiusTokens.pill,
+    backgroundColor: AppColors.surfaceMuted,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    paddingHorizontal: spacingTokens.md,
+    paddingVertical: spacingTokens.sm,
+  },
+  heroChipText: {
+    fontSize: typographyTokens.bodySm,
+    fontWeight: '700',
+    color: AppColors.accent,
   },
   metricRow: {
     flexDirection: 'row',

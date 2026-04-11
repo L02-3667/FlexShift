@@ -1,6 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { AppColors } from '@/src/constants/colors';
+import {
+  radiusTokens,
+  spacingTokens,
+  typographyTokens,
+} from '@/src/theme/tokens';
 
 interface SectionHeaderProps {
   title: string;
@@ -22,7 +27,15 @@ export function SectionHeader({
         {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
       </View>
       {actionLabel && onActionPress ? (
-        <Pressable onPress={onActionPress}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={actionLabel}
+          onPress={onActionPress}
+          style={({ pressed }) => [
+            styles.actionChip,
+            pressed ? styles.actionChipPressed : null,
+          ]}
+        >
           <Text style={styles.action}>{actionLabel}</Text>
         </Pressable>
       ) : null}
@@ -35,24 +48,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    gap: 16,
+    gap: spacingTokens.lg,
   },
   textBlock: {
     flex: 1,
-    gap: 4,
+    gap: spacingTokens.xxs,
   },
   title: {
-    fontSize: 20,
+    fontSize: typographyTokens.titleLg,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.2,
   },
   subtitle: {
-    fontSize: 13,
+    fontSize: typographyTokens.bodySm,
     color: AppColors.textSecondary,
+    lineHeight: 18,
+  },
+  actionChip: {
+    borderRadius: radiusTokens.pill,
+    paddingHorizontal: spacingTokens.md + spacingTokens.xxs,
+    paddingVertical: spacingTokens.sm + spacingTokens.xxs / 2,
+    backgroundColor: AppColors.surfaceMuted,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+  },
+  actionChipPressed: {
+    backgroundColor: AppColors.primarySoft,
   },
   action: {
-    fontSize: 14,
+    fontSize: typographyTokens.bodySm,
     fontWeight: '700',
-    color: AppColors.primary,
+    color: AppColors.accent,
   },
 });

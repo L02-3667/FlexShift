@@ -36,10 +36,10 @@ const VARIANT_STYLES: Record<
   primary: {
     backgroundColor: AppColors.primary,
     borderColor: AppColors.primary,
-    textColor: AppColors.white,
+    textColor: AppColors.accent,
   },
   secondary: {
-    backgroundColor: AppColors.surface,
+    backgroundColor: AppColors.surfaceMuted,
     borderColor: AppColors.border,
     textColor: AppColors.text,
   },
@@ -71,6 +71,7 @@ export function PrimaryButton({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
+      accessibilityState={{ disabled: isDisabled, busy: loading }}
       disabled={isDisabled}
       onPress={onPress}
       style={({ pressed }) => [
@@ -81,6 +82,7 @@ export function PrimaryButton({
           opacity: isDisabled ? 0.55 : 1,
           transform: [{ scale: pressed ? motionTokens.pressedScale : 1 }],
         },
+        pressed && !isDisabled ? styles.buttonPressed : null,
         style,
       ]}
     >
@@ -107,7 +109,20 @@ const styles = StyleSheet.create({
     minHeight: accessibilityTokens.minTouchTarget,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: spacingTokens.lg,
+    paddingHorizontal: spacingTokens.lg + spacingTokens.xxs,
+    paddingVertical: spacingTokens.sm + spacingTokens.xxs,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowRadius: 18,
+    elevation: 2,
+  },
+  buttonPressed: {
+    shadowOpacity: 0,
+    elevation: 0,
   },
   content: {
     flexDirection: 'row',
@@ -117,5 +132,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: typographyTokens.bodyLg,
     fontWeight: '700',
+    letterSpacing: 0.1,
   },
 });

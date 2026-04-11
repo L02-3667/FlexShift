@@ -10,19 +10,25 @@ export default function EmployeeTabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: AppColors.primary,
+        tabBarActiveTintColor: AppColors.accent,
         tabBarInactiveTintColor: AppColors.textMuted,
+        tabBarActiveBackgroundColor: AppColors.primarySoft,
         tabBarButton: HapticTab,
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: '600',
         },
+        tabBarItemStyle: {
+          borderRadius: 18,
+          marginHorizontal: 2,
+        },
         tabBarStyle: {
-          height: 72,
+          height: 78,
           paddingTop: 8,
-          paddingBottom: 8,
-          backgroundColor: '#FFFFFF',
+          paddingBottom: 10,
+          backgroundColor: AppColors.surface,
           borderTopColor: AppColors.border,
+          borderTopWidth: 1,
         },
       }}
     >

@@ -6,6 +6,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json'],
   collectCoverageFrom: ['src/**/*.ts', '!src/main.ts', '!src/**/*.module.ts'],
   coverageDirectory: '<rootDir>/../reports/tests/coverage/backend',
+  coverageReporters: ['text', 'lcov', 'json-summary', 'clover'],
   reporters: [
     'default',
     [

@@ -11,6 +11,7 @@ import {
   typographyTokens,
 } from '@/src/theme/tokens';
 import type { OpenShiftView } from '@/src/types/models';
+import { formatDateTimeLabel } from '@/src/utils/date';
 
 interface OpenShiftCardProps {
   openShift: OpenShiftView;
@@ -54,6 +55,12 @@ export function OpenShiftCard({
     <View style={styles.card}>
       {onPress ? (
         <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`${openShift.position}, ${openShift.storeName}, ${formatDateTimeLabel(
+            openShift.date,
+            openShift.startTime,
+            openShift.endTime,
+          )}`}
           onPress={onPress}
           style={({ pressed }) => [{ opacity: pressed ? 0.92 : 1 }]}
         >
@@ -78,11 +85,19 @@ export function OpenShiftCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.xl,
+    borderRadius: radiusTokens.xxl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: spacingTokens.lg + spacingTokens.xxs,
+    padding: spacingTokens.lg + spacingTokens.xs,
     gap: spacingTokens.md + spacingTokens.xxs,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowRadius: 18,
+    elevation: 2,
   },
   header: {
     flexDirection: 'row',
@@ -94,12 +109,13 @@ const styles = StyleSheet.create({
     gap: spacingTokens.xxs,
   },
   title: {
-    fontSize: typographyTokens.titleMd,
+    fontSize: typographyTokens.titleLg,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.3,
   },
   subtitle: {
-    fontSize: typographyTokens.body,
+    fontSize: typographyTokens.bodyLg,
     color: AppColors.textSecondary,
   },
   noteRow: {
@@ -109,8 +125,8 @@ const styles = StyleSheet.create({
   },
   noteText: {
     flex: 1,
-    fontSize: typographyTokens.bodySm,
-    lineHeight: typographyTokens.lineHeightSm,
+    fontSize: typographyTokens.body,
+    lineHeight: typographyTokens.lineHeightMd,
     color: AppColors.textSecondary,
   },
   actionButton: {

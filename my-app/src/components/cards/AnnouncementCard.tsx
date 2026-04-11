@@ -23,13 +23,15 @@ export function AnnouncementCard({
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.meta}>
-          {item.acknowledgedAt
-            ? APP_COPY.announcements.acknowledged
-            : item.requiresAck
-              ? APP_COPY.announcements.requiresAcknowledgement
-              : APP_COPY.announcements.informational}
-        </Text>
+        <View style={styles.metaChip}>
+          <Text style={styles.meta}>
+            {item.acknowledgedAt
+              ? APP_COPY.announcements.acknowledged
+              : item.requiresAck
+                ? APP_COPY.announcements.requiresAcknowledgement
+                : APP_COPY.announcements.informational}
+          </Text>
+        </View>
       </View>
 
       <Text style={styles.body}>{item.body}</Text>
@@ -38,7 +40,12 @@ export function AnnouncementCard({
       </Text>
 
       {item.requiresAck && !item.acknowledgedAt && onAcknowledge ? (
-        <Pressable onPress={onAcknowledge} style={styles.button}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`${APP_COPY.announcements.acknowledgeAction}: ${item.title}`}
+          onPress={onAcknowledge}
+          style={styles.button}
+        >
           <Text style={styles.buttonText}>
             {APP_COPY.announcements.acknowledgeAction}
           </Text>
@@ -51,11 +58,19 @@ export function AnnouncementCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.xl,
+    borderRadius: radiusTokens.xxl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: spacingTokens.lg + spacingTokens.xxs,
+    padding: spacingTokens.lg + spacingTokens.xs,
     gap: spacingTokens.md,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowRadius: 20,
+    elevation: 2,
   },
   header: {
     flexDirection: 'row',
@@ -64,18 +79,25 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    fontSize: typographyTokens.bodyLg,
+    fontSize: typographyTokens.titleSm,
     fontWeight: '800',
     color: AppColors.text,
+  },
+  metaChip: {
+    borderRadius: radiusTokens.pill,
+    backgroundColor: AppColors.primarySoft,
+    paddingHorizontal: spacingTokens.sm + spacingTokens.xxs,
+    paddingVertical: spacingTokens.xs,
+    alignSelf: 'flex-start',
   },
   meta: {
     fontSize: typographyTokens.caption,
     fontWeight: '700',
-    color: AppColors.primary,
+    color: AppColors.accent,
   },
   body: {
-    fontSize: typographyTokens.body,
-    lineHeight: typographyTokens.lineHeightMd,
+    fontSize: typographyTokens.bodyLg,
+    lineHeight: typographyTokens.lineHeightLg,
     color: AppColors.textSecondary,
   },
   timestamp: {
@@ -84,14 +106,14 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: 'flex-start',
-    paddingHorizontal: spacingTokens.md,
-    paddingVertical: spacingTokens.sm,
+    paddingHorizontal: spacingTokens.md + spacingTokens.xxs,
+    paddingVertical: spacingTokens.sm + spacingTokens.xxs / 2,
     borderRadius: radiusTokens.pill,
-    backgroundColor: AppColors.primarySoft,
+    backgroundColor: AppColors.primary,
   },
   buttonText: {
     fontSize: typographyTokens.caption,
     fontWeight: '700',
-    color: AppColors.primary,
+    color: AppColors.accent,
   },
 });

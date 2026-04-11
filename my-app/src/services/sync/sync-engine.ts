@@ -50,6 +50,8 @@ import {
   isLikelyOfflineError,
 } from './sync-helpers';
 
+let activeSyncPromise: Promise<SyncStatusSnapshot> | null = null;
+
 export async function createPendingMutationRecord(input: {
   type: PendingMutationType;
   payload: object;
@@ -241,7 +243,7 @@ export async function flushPendingMutations(db: SQLiteDatabase) {
   await removeCompletedPendingMutations(db);
 }
 
-export async function runSyncCycle(db: SQLiteDatabase) {
+async function executeSyncCycle(db: SQLiteDatabase) {
   const session = getSessionSnapshot().session;
 
   if (!session?.accessToken) {
@@ -291,6 +293,16 @@ export async function runSyncCycle(db: SQLiteDatabase) {
   }
 }
 
+export async function runSyncCycle(db: SQLiteDatabase) {
+  if (!activeSyncPromise) {
+    activeSyncPromise = executeSyncCycle(db).finally(() => {
+      activeSyncPromise = null;
+    });
+  }
+
+  return activeSyncPromise;
+}
+
 export async function queueMutation(
   db: SQLiteDatabase,
   mutation: PendingMutationRecord,
@@ -320,4 +332,8 @@ export async function hydrateSyncStatus(db: SQLiteDatabase) {
 export async function getPendingAnnouncementCount(db: SQLiteDatabase) {
   const announcements = await getCachedAnnouncements(db);
   return countPendingAcknowledgements(announcements as AnnouncementItem[]);
+}
+
+export function resetSyncEngineStateForTests() {
+  activeSyncPromise = null;
 }

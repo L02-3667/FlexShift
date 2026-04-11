@@ -24,9 +24,9 @@ export function formatIsoDateTime(
 
   const hours = parsed.getHours().toString().padStart(2, '0');
   const minutes = parsed.getMinutes().toString().padStart(2, '0');
-  
+
   const day = parsed.getDate();
-  const month = parsed.getMonth() + 1; 
+  const month = parsed.getMonth() + 1;
   const year = parsed.getFullYear().toString().slice(-2);
 
   return `${hours}:${minutes} ${day}/${month}/${year}`;

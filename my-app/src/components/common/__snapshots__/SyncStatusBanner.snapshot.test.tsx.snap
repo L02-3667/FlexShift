@@ -4,12 +4,20 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
 <View
   style={
     {
-      "backgroundColor": "#FFFFFF",
-      "borderColor": "#D8E1E7",
-      "borderRadius": 18,
+      "backgroundColor": "#FFFDF8",
+      "borderColor": "#F2D7C6",
+      "borderRadius": 24,
       "borderWidth": 1,
+      "elevation": 2,
       "gap": 12,
-      "padding": 16,
+      "padding": 20,
+      "shadowColor": "rgba(41, 25, 12, 0.08)",
+      "shadowOffset": {
+        "height": 10,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 18,
     }
   }
 >
@@ -36,9 +44,10 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
       <Text
         style={
           {
-            "color": "#0F172A",
-            "fontSize": 15,
+            "color": "#17120D",
+            "fontSize": 16,
             "fontWeight": "800",
+            "letterSpacing": -0.1,
           }
         }
       >
@@ -50,7 +59,7 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
       accessibilityRole="button"
       accessibilityState={
         {
-          "busy": undefined,
+          "busy": false,
           "checked": undefined,
           "disabled": false,
           "expanded": undefined,
@@ -81,11 +90,20 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
         [
           {
             "alignItems": "center",
-            "borderRadius": 14,
+            "borderRadius": 16,
             "borderWidth": 1,
+            "elevation": 2,
             "justifyContent": "center",
             "minHeight": 48,
-            "paddingHorizontal": 16,
+            "paddingHorizontal": 20,
+            "paddingVertical": 12,
+            "shadowColor": "rgba(41, 25, 12, 0.08)",
+            "shadowOffset": {
+              "height": 10,
+              "width": 0,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 18,
           },
           {
             "backgroundColor": "transparent",
@@ -97,6 +115,7 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
               },
             ],
           },
+          null,
           undefined,
         ]
       }
@@ -114,11 +133,12 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
           style={
             [
               {
-                "fontSize": 15,
+                "fontSize": 16,
                 "fontWeight": "700",
+                "letterSpacing": 0.1,
               },
               {
-                "color": "#0F766E",
+                "color": "#FF8A3D",
               },
             ]
           }
@@ -131,9 +151,9 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
   <Text
     style={
       {
-        "color": "#475569",
-        "fontSize": 13,
-        "lineHeight": 19,
+        "color": "#5E4738",
+        "fontSize": 15,
+        "lineHeight": 22,
       }
     }
   >
@@ -142,8 +162,10 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
   <Text
     style={
       {
-        "color": "#64748B",
+        "color": "#8D6D5A",
         "fontSize": 12,
+        "letterSpacing": 0.4,
+        "textTransform": "uppercase",
       }
     }
   >

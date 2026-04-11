@@ -10,6 +10,7 @@ import {
   typographyTokens,
 } from '@/src/theme/tokens';
 import type { ShiftView } from '@/src/types/models';
+import { formatDateTimeLabel } from '@/src/utils/date';
 
 interface ShiftCardProps {
   shift: ShiftView;
@@ -53,6 +54,8 @@ export function ShiftCard({
 
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${shift.position}, ${shift.storeName}, ${formatDateTimeLabel(shift.date, shift.startTime, shift.endTime)}`}
       onPress={onPress}
       style={({ pressed }) => [{ opacity: pressed ? 0.92 : 1 }]}
     >
@@ -64,18 +67,18 @@ export function ShiftCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.xl,
+    borderRadius: radiusTokens.xxl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: spacingTokens.lg + spacingTokens.xxs,
+    padding: spacingTokens.lg + spacingTokens.xs,
     gap: spacingTokens.md + spacingTokens.xxs,
     shadowColor: AppColors.shadow,
     shadowOpacity: 1,
     shadowOffset: {
       width: 0,
-      height: 6,
+      height: 10,
     },
-    shadowRadius: 16,
+    shadowRadius: 20,
     elevation: 2,
   },
   header: {
@@ -88,12 +91,13 @@ const styles = StyleSheet.create({
     gap: spacingTokens.xxs,
   },
   title: {
-    fontSize: typographyTokens.titleMd,
+    fontSize: typographyTokens.titleLg,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.3,
   },
   subtitle: {
-    fontSize: typographyTokens.body,
+    fontSize: typographyTokens.bodyLg,
     color: AppColors.textSecondary,
   },
   metaRow: {
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
     gap: spacingTokens.sm,
   },
   metaText: {
-    fontSize: typographyTokens.bodySm,
+    fontSize: typographyTokens.body,
     color: AppColors.textMuted,
   },
 });

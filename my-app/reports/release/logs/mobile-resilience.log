@@ -1,0 +1,14 @@
+
+> flexshift-mobile@1.0.0 test:resilience
+> jest --config jest.config.js --runInBand api-client.test.ts sync-engine.test.ts app-context.offline.test.tsx validation.test.ts
+
+PASS src/context/app-context.offline.test.tsx
+PASS src/utils/validation.test.ts
+PASS src/services/sync/sync-engine.test.ts
+PASS src/services/api/api-client.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        2.275 s, estimated 3 s
+Ran all test suites matching /api-client.test.ts|sync-engine.test.ts|app-context.offline.test.tsx|validation.test.ts/i.

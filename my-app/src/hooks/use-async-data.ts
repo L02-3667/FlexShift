@@ -12,7 +12,7 @@ function toErrorMessage(error: unknown) {
     return error.message;
   }
 
-  return 'Đã có lỗi xảy ra. Vui lòng thử lại.';
+  return 'Da co loi xay ra. Vui long thu lai.';
 }
 
 export function useAsyncData<T>(

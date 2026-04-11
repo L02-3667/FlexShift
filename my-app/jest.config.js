@@ -12,6 +12,7 @@ module.exports = {
     '!src/**/index.ts',
   ],
   coverageDirectory: '<rootDir>/reports/tests/coverage/mobile',
+  coverageReporters: ['text', 'lcov', 'json-summary', 'clover'],
   reporters: [
     'default',
     [

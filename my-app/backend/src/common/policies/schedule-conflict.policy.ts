@@ -1,6 +1,7 @@
-import { hasTimeOverlap } from '../utils/shift.utils';
+import { hasDateTimeOverlap } from '../utils/shift.utils';
 
 interface ShiftWindow {
+  date: Date | string;
   startTime: string;
   endTime: string;
 }
@@ -10,9 +11,11 @@ export function checkShiftConflict(
   candidate: ShiftWindow,
 ) {
   return existing.some((shift) =>
-    hasTimeOverlap(
+    hasDateTimeOverlap(
+      shift.date,
       shift.startTime,
       shift.endTime,
+      candidate.date,
       candidate.startTime,
       candidate.endTime,
     ),

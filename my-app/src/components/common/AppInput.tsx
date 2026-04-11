@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     fontSize: typographyTokens.body,
     fontWeight: '700',
     color: AppColors.text,
+    letterSpacing: 0.1,
   },
   hint: {
     fontSize: typographyTokens.caption,
@@ -57,12 +58,20 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: AppColors.border,
-    backgroundColor: AppColors.surface,
+    backgroundColor: AppColors.surfaceMuted,
     borderRadius: radiusTokens.md,
-    paddingHorizontal: spacingTokens.md + spacingTokens.xxs,
-    paddingVertical: spacingTokens.md,
+    paddingHorizontal: spacingTokens.lg,
+    paddingVertical: spacingTokens.md + spacingTokens.xxs,
     fontSize: typographyTokens.bodyLg,
     color: AppColors.text,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowRadius: 14,
+    elevation: 1,
   },
   multiline: {
     minHeight: 112,

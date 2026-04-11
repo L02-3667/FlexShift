@@ -4,12 +4,20 @@ exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
 <View
   style={
     {
-      "backgroundColor": "#FFFFFF",
-      "borderColor": "#D8E1E7",
-      "borderRadius": 20,
+      "backgroundColor": "#FFFDF8",
+      "borderColor": "#F2D7C6",
+      "borderRadius": 28,
       "borderWidth": 1,
+      "elevation": 2,
       "gap": 12,
-      "padding": 20,
+      "padding": 22,
+      "shadowColor": "rgba(41, 25, 12, 0.08)",
+      "shadowOffset": {
+        "height": 12,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 20,
     }
   }
 >
@@ -25,33 +33,45 @@ exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
     <Text
       style={
         {
-          "color": "#0F172A",
+          "color": "#17120D",
           "flex": 1,
-          "fontSize": 15,
+          "fontSize": 17,
           "fontWeight": "800",
         }
       }
     >
       Cap nhat quy trinh giao ca
     </Text>
-    <Text
+    <View
       style={
         {
-          "color": "#0F766E",
-          "fontSize": 12,
-          "fontWeight": "700",
+          "alignSelf": "flex-start",
+          "backgroundColor": "#FFE3CF",
+          "borderRadius": 999,
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
         }
       }
     >
-      Can xac nhan
-    </Text>
+      <Text
+        style={
+          {
+            "color": "#231A14",
+            "fontSize": 12,
+            "fontWeight": "700",
+          }
+        }
+      >
+        Can xac nhan
+      </Text>
+    </View>
   </View>
   <Text
     style={
       {
-        "color": "#475569",
-        "fontSize": 14,
-        "lineHeight": 20,
+        "color": "#5E4738",
+        "fontSize": 16,
+        "lineHeight": 24,
       }
     }
   >
@@ -60,7 +80,7 @@ exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
   <Text
     style={
       {
-        "color": "#64748B",
+        "color": "#8D6D5A",
         "fontSize": 12,
       }
     }

@@ -12,13 +12,34 @@ describe('backend policy helpers', () => {
       checkShiftConflict(
         [
           {
+            date: '2026-04-11',
             startTime: '08:00',
             endTime: '12:00',
           },
         ],
         {
+          date: '2026-04-11',
           startTime: '11:00',
           endTime: '13:00',
+        },
+      ),
+    ).toBe(true);
+  });
+
+  it('detects overnight overlap conflicts on adjacent dates', () => {
+    expect(
+      checkShiftConflict(
+        [
+          {
+            date: '2026-04-11',
+            startTime: '22:00',
+            endTime: '02:00',
+          },
+        ],
+        {
+          date: '2026-04-12',
+          startTime: '01:00',
+          endTime: '03:00',
         },
       ),
     ).toBe(true);

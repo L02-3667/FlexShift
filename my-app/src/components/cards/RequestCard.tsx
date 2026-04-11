@@ -93,6 +93,12 @@ export function RequestCard({
 
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${REQUEST_TYPE_LABELS[request.type]}, ${request.shiftStoreName}, ${formatDateTimeLabel(
+        request.shiftDate,
+        request.shiftStartTime,
+        request.shiftEndTime,
+      )}`}
       onPress={onPress}
       style={({ pressed }) => [{ opacity: pressed ? 0.92 : 1 }]}
     >
@@ -104,11 +110,19 @@ export function RequestCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.xl,
+    borderRadius: radiusTokens.xxl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: spacingTokens.lg + spacingTokens.xxs,
+    padding: spacingTokens.lg + spacingTokens.xs,
     gap: spacingTokens.md + spacingTokens.xxs,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowRadius: 18,
+    elevation: 2,
   },
   header: {
     flexDirection: 'row',
@@ -120,12 +134,13 @@ const styles = StyleSheet.create({
     gap: spacingTokens.xxs + 1,
   },
   title: {
-    fontSize: typographyTokens.titleMd,
+    fontSize: typographyTokens.titleLg,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.2,
   },
   subtitle: {
-    fontSize: typographyTokens.bodySm,
+    fontSize: typographyTokens.body,
     color: AppColors.textSecondary,
   },
   metaBlock: {
@@ -142,13 +157,13 @@ const styles = StyleSheet.create({
     color: AppColors.textMuted,
   },
   reason: {
-    fontSize: typographyTokens.body,
-    lineHeight: typographyTokens.lineHeightMd,
+    fontSize: typographyTokens.bodyLg,
+    lineHeight: typographyTokens.lineHeightLg,
     color: AppColors.textSecondary,
   },
   managerNoteBox: {
     borderRadius: radiusTokens.lg,
-    padding: spacingTokens.md,
+    padding: spacingTokens.md + spacingTokens.xxs,
     backgroundColor: AppColors.surfaceMuted,
     gap: spacingTokens.xxs,
   },

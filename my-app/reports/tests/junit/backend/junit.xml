@@ -1,52 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="8" failures="2" errors="0" time="17.723">
-  <testsuite name="workflow integration" errors="0" failures="2" skipped="0" timestamp="2026-04-10T16:16:23" time="12.063" tests="3">
-    <testcase classname="workflow integration blocks employees from manager-only open shift creation" name="workflow integration blocks employees from manager-only open shift creation" time="0.833">
+<testsuites name="jest tests" tests="14" failures="0" errors="0" time="23.266">
+  <testsuite name="concurrency integration" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:19" time="11.374" tests="2">
+    <testcase classname="concurrency integration allows only one employee to claim the same open shift during a race" name="concurrency integration allows only one employee to claim the same open shift during a race" time="1.094">
     </testcase>
-    <testcase classname="workflow integration claims an open shift once and returns a conflict on the second claim" name="workflow integration claims an open shift once and returns a conflict on the second claim" time="0.747">
-      <failure>Error: expected 201 &quot;Created&quot;, got 403 &quot;Forbidden&quot;
-    at Object.&lt;anonymous&gt; (C:\Users\LUAN\Downloads\expo_test\my-app\backend\test\workflow.integration.spec.ts:62:8)
-----
-    at Test._assertStatus (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:309:14)
-    at C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:365:13
-    at Test._assertFunction (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:342:13)
-    at Test.assert (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:195:23)
-    at localAssert (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:138:14)
-    at Server.&lt;anonymous&gt; (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:152:11)
-    at Object.onceWrapper (node:events:621:28)
-    at Server.emit (node:events:507:28)
-    at emitCloseNT (node:net:2418:8)
-    at processTicksAndRejections (node:internal/process/task_queues:89:21)</failure>
-    </testcase>
-    <testcase classname="workflow integration creates leave and yield requests, then rejects and conflicts approvals correctly" name="workflow integration creates leave and yield requests, then rejects and conflicts approvals correctly" time="1.046">
-      <failure>Error: expected 201 &quot;Created&quot;, got 403 &quot;Forbidden&quot;
-    at Object.&lt;anonymous&gt; (C:\Users\LUAN\Downloads\expo_test\my-app\backend\test\workflow.integration.spec.ts:130:8)
-    at processTicksAndRejections (node:internal/process/task_queues:105:5)
-----
-    at Test._assertStatus (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:309:14)
-    at C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:365:13
-    at Test._assertFunction (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:342:13)
-    at Test.assert (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:195:23)
-    at localAssert (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:138:14)
-    at Server.&lt;anonymous&gt; (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\supertest\lib\test.js:152:11)
-    at Object.onceWrapper (node:events:621:28)
-    at Server.emit (node:events:507:28)
-    at emitCloseNT (node:net:2418:8)
-    at processTicksAndRejections (node:internal/process/task_queues:89:21)</failure>
+    <testcase classname="concurrency integration lets only one approval decision win when the same request is submitted twice" name="concurrency integration lets only one approval decision win when the same request is submitted twice" time="1.045">
     </testcase>
   </testsuite>
-  <testsuite name="sync and health integration" errors="0" failures="0" skipped="0" timestamp="2026-04-10T16:16:35" time="2.783" tests="3">
-    <testcase classname="sync and health integration serves health summary and readiness against the real database" name="sync and health integration serves health summary and readiness against the real database" time="0.407">
+  <testsuite name="workflow integration" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:31" time="4.417" tests="3">
+    <testcase classname="workflow integration blocks employees from manager-only open shift creation" name="workflow integration blocks employees from manager-only open shift creation" time="0.714">
     </testcase>
-    <testcase classname="sync and health integration returns the sync pull contract for an authenticated employee" name="sync and health integration returns the sync pull contract for an authenticated employee" time="0.629">
+    <testcase classname="workflow integration claims an open shift once and returns a conflict on the second claim" name="workflow integration claims an open shift once and returns a conflict on the second claim" time="0.948">
     </testcase>
-    <testcase classname="sync and health integration acknowledges an announcement for the signed-in employee" name="sync and health integration acknowledges an announcement for the signed-in employee" time="0.671">
+    <testcase classname="workflow integration creates leave and yield requests, then rejects and conflicts approvals correctly" name="workflow integration creates leave and yield requests, then rejects and conflicts approvals correctly" time="1.346">
     </testcase>
   </testsuite>
-  <testsuite name="auth integration" errors="0" failures="0" skipped="0" timestamp="2026-04-10T16:16:37" time="2.501" tests="2">
-    <testcase classname="auth integration logs in and resolves /auth/me" name="auth integration logs in and resolves /auth/me" time="0.62">
+  <testsuite name="sync and health integration" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:35" time="3.129" tests="3">
+    <testcase classname="sync and health integration serves health summary and readiness against the real database" name="sync and health integration serves health summary and readiness against the real database" time="0.419">
     </testcase>
-    <testcase classname="auth integration refreshes and then revokes a session on logout" name="auth integration refreshes and then revokes a session on logout" time="0.886">
+    <testcase classname="sync and health integration returns the sync pull contract for an authenticated employee" name="sync and health integration returns the sync pull contract for an authenticated employee" time="0.696">
+    </testcase>
+    <testcase classname="sync and health integration acknowledges an announcement for the signed-in employee" name="sync and health integration acknowledges an announcement for the signed-in employee" time="0.711">
+    </testcase>
+  </testsuite>
+  <testsuite name="auth integration" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:39" time="3.103" tests="2">
+    <testcase classname="auth integration logs in and resolves /auth/me" name="auth integration logs in and resolves /auth/me" time="0.711">
+    </testcase>
+    <testcase classname="auth integration refreshes and then revokes a session on logout" name="auth integration refreshes and then revokes a session on logout" time="1.082">
+    </testcase>
+  </testsuite>
+  <testsuite name="backend policy helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-11T15:56:42" time="0.123" tests="4">
+    <testcase classname="backend policy helpers detects schedule overlap conflicts" name="backend policy helpers detects schedule overlap conflicts" time="0.002">
+    </testcase>
+    <testcase classname="backend policy helpers detects overnight overlap conflicts on adjacent dates" name="backend policy helpers detects overnight overlap conflicts on adjacent dates" time="0.001">
+    </testcase>
+    <testcase classname="backend policy helpers allows managers or owners to view a request" name="backend policy helpers allows managers or owners to view a request" time="0.001">
+    </testcase>
+    <testcase classname="backend policy helpers maps open shifts, shifts, and requests into mobile payloads" name="backend policy helpers maps open shifts, shifts, and requests into mobile payloads" time="0.002">
     </testcase>
   </testsuite>
 </testsuites>

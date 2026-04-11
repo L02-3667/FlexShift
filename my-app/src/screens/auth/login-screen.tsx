@@ -78,16 +78,49 @@ export function LoginScreen() {
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.heroCard}>
-            <View style={styles.heroBadge}>
-              <AppIcon name="sparkles" size={18} color={AppColors.primary} />
-              <Text style={styles.heroBadgeText}>{BRANDING.appName}</Text>
+          <View style={styles.heroShell}>
+            <View style={styles.heroTopRow}>
+              <View style={styles.heroCopyBlock}>
+                <View style={styles.heroBadge}>
+                  <AppIcon
+                    name="sparkles"
+                    size={18}
+                    color={AppColors.primary}
+                  />
+                  <Text style={styles.heroBadgeText}>{BRANDING.appName}</Text>
+                </View>
+
+                <Text style={styles.displayTitle}>{BRANDING.appName}</Text>
+                <Text style={styles.displaySubtitle}>
+                  Workforce coordination mobile app
+                </Text>
+              </View>
+
+              <View style={styles.heroMark} pointerEvents="none">
+                <View style={[styles.heroEye, styles.heroEyeLeft]} />
+                <View style={[styles.heroEye, styles.heroEyeRight]} />
+                <View style={styles.heroSmile} />
+              </View>
             </View>
 
-            <Text style={styles.title}>{BRANDING.slogan}</Text>
-            <Text style={styles.description}>
-              {APP_COPY.login.heroDescription}
-            </Text>
+            <View style={styles.heroChipRow}>
+              <View style={styles.heroChip}>
+                <Text style={styles.heroChipText}>Mobile workflow</Text>
+              </View>
+              <View style={styles.heroChip}>
+                <Text style={styles.heroChipText}>Offline-safe</Text>
+              </View>
+              <View style={styles.heroChip}>
+                <Text style={styles.heroChipText}>Fast approvals</Text>
+              </View>
+            </View>
+
+            <View style={styles.heroPanel}>
+              <Text style={styles.title}>{BRANDING.slogan}</Text>
+              <Text style={styles.description}>
+                {APP_COPY.login.heroDescription}
+              </Text>
+            </View>
           </View>
 
           {bootstrapError ? (
@@ -188,52 +221,147 @@ const styles = StyleSheet.create({
     gap: spacingTokens.lg + spacingTokens.xxs,
     paddingBottom: spacingTokens.xxxl,
   },
-  heroCard: {
-    backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.hero,
-    padding: spacingTokens.xl + spacingTokens.xxs,
-    gap: spacingTokens.md + spacingTokens.xxs,
-    borderWidth: 1,
-    borderColor: AppColors.border,
+  heroShell: {
+    gap: spacingTokens.lg,
+  },
+  heroTopRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: spacingTokens.md,
+  },
+  heroCopyBlock: {
+    flex: 1,
+    gap: spacingTokens.sm,
   },
   heroBadge: {
     alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacingTokens.sm,
-    backgroundColor: AppColors.primarySoft,
+    backgroundColor: AppColors.surface,
     paddingHorizontal: spacingTokens.sm + spacingTokens.xxs,
     paddingVertical: spacingTokens.xs,
     borderRadius: radiusTokens.pill,
+    borderWidth: 1,
+    borderColor: AppColors.border,
   },
   heroBadgeText: {
     fontSize: typographyTokens.caption,
     fontWeight: '700',
-    color: AppColors.primary,
+    color: AppColors.accent,
+  },
+  displayTitle: {
+    fontSize: 54,
+    lineHeight: 54,
+    fontWeight: '800',
+    color: AppColors.text,
+    letterSpacing: -2,
+  },
+  displaySubtitle: {
+    fontSize: typographyTokens.titleLg,
+    lineHeight: 28,
+    color: AppColors.accent,
+  },
+  heroMark: {
+    width: 132,
+    height: 132,
+    position: 'relative',
+  },
+  heroEye: {
+    position: 'absolute',
+    width: 26,
+    height: 40,
+    borderRadius: radiusTokens.pill,
+    backgroundColor: AppColors.primary,
+    top: 10,
+  },
+  heroEyeLeft: {
+    right: 70,
+    transform: [{ rotate: '-20deg' }],
+  },
+  heroEyeRight: {
+    right: 28,
+    transform: [{ rotate: '-28deg' }],
+  },
+  heroSmile: {
+    position: 'absolute',
+    width: 110,
+    height: 110,
+    right: 0,
+    bottom: 0,
+    borderRadius: radiusTokens.pill,
+    borderWidth: 16,
+    borderColor: AppColors.primary,
+    borderTopColor: 'transparent',
+    borderLeftColor: 'transparent',
+    transform: [{ rotate: '18deg' }],
+  },
+  heroChipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacingTokens.sm,
+  },
+  heroChip: {
+    borderRadius: radiusTokens.pill,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    backgroundColor: AppColors.surface,
+    paddingHorizontal: spacingTokens.md,
+    paddingVertical: spacingTokens.sm,
+  },
+  heroChipText: {
+    fontSize: typographyTokens.bodySm,
+    fontWeight: '700',
+    color: AppColors.accent,
+  },
+  heroPanel: {
+    backgroundColor: AppColors.primary,
+    borderRadius: radiusTokens.hero,
+    padding: spacingTokens.xl + spacingTokens.xxs,
+    gap: spacingTokens.sm + spacingTokens.xxs,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 14,
+    },
+    shadowRadius: 24,
+    elevation: 3,
   },
   title: {
     fontSize: typographyTokens.headline,
-    lineHeight: 38,
+    lineHeight: 40,
     fontWeight: '800',
-    color: AppColors.text,
+    color: AppColors.accent,
+    letterSpacing: -0.8,
   },
   description: {
     fontSize: typographyTokens.bodyLg,
     lineHeight: typographyTokens.lineHeightLg,
-    color: AppColors.textSecondary,
+    color: AppColors.accent,
   },
   formCard: {
     backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.xxl,
+    borderRadius: radiusTokens.hero,
     borderWidth: 1,
     borderColor: AppColors.border,
     padding: spacingTokens.xl,
     gap: spacingTokens.md + spacingTokens.xxs,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowRadius: 20,
+    elevation: 2,
   },
   sectionTitle: {
-    fontSize: typographyTokens.titleLg,
+    fontSize: 24,
     fontWeight: '800',
     color: AppColors.text,
+    letterSpacing: -0.3,
   },
   sectionSubtitle: {
     fontSize: typographyTokens.body,
@@ -251,6 +379,14 @@ const styles = StyleSheet.create({
     borderColor: AppColors.border,
     padding: spacingTokens.xl,
     gap: spacingTokens.md,
+    shadowColor: AppColors.shadow,
+    shadowOpacity: 1,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowRadius: 18,
+    elevation: 2,
   },
   devTitle: {
     fontSize: typographyTokens.titleSm,

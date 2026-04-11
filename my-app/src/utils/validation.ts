@@ -1,4 +1,4 @@
-import { toMinutes } from '@/src/utils/date';
+import { isShiftWindowChronologicallyValid } from '@/src/utils/date';
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_PATTERN = /^\d{2}:\d{2}$/;
@@ -22,7 +22,7 @@ export function isValidTimeInput(value: string) {
 }
 
 export function isStartBeforeEnd(startTime: string, endTime: string) {
-  return toMinutes(startTime) < toMinutes(endTime);
+  return isShiftWindowChronologicallyValid(startTime, endTime);
 }
 
 export function validateOpenShiftFields(input: {
@@ -34,27 +34,27 @@ export function validateOpenShiftFields(input: {
   note: string;
 }) {
   if (!isValidDateInput(input.date)) {
-    return 'Ngày làm việc cần theo định dạng YYYY-MM-DD.';
+    return 'Ngay lam viec can theo dinh dang YYYY-MM-DD.';
   }
 
   if (!isValidTimeInput(input.startTime) || !isValidTimeInput(input.endTime)) {
-    return 'Giờ bắt đầu và kết thúc cần theo định dạng HH:mm.';
+    return 'Gio bat dau va ket thuc can theo dinh dang HH:mm.';
   }
 
   if (!isStartBeforeEnd(input.startTime, input.endTime)) {
-    return 'Giờ kết thúc phải lớn hơn giờ bắt đầu.';
+    return 'Khung gio khong hop le. Gio ket thuc khong duoc trung gio bat dau.';
   }
 
   if (!input.storeName.trim()) {
-    return 'Vui lòng nhập cửa hàng.';
+    return 'Vui long nhap cua hang.';
   }
 
   if (!input.position.trim()) {
-    return 'Vui lòng nhập vị trí.';
+    return 'Vui long nhap vi tri.';
   }
 
   if (!input.note.trim()) {
-    return 'Vui lòng nhập lý do hoặc ghi chú cho ca trống.';
+    return 'Vui long nhap ly do hoac ghi chu cho ca trong.';
   }
 
   return null;
@@ -62,11 +62,11 @@ export function validateOpenShiftFields(input: {
 
 export function validateReason(reason: string) {
   if (!reason.trim()) {
-    return 'Vui lòng nhập lý do.';
+    return 'Vui long nhap ly do.';
   }
 
   if (reason.trim().length < 6) {
-    return 'Lý do cần đủ rõ ràng để quản lý xem xét.';
+    return 'Ly do can du ro rang de quan ly xem xet.';
   }
 
   return null;
