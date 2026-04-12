@@ -108,6 +108,8 @@ interface ChecklistItemRow {
   completedAt: string | null;
 }
 
+type UserShellInput = Pick<User, 'id'> & Partial<Omit<User, 'id'>>;
+
 async function getPendingRequestForShift(
   db: SQLiteDatabase,
   shiftId: string,
@@ -175,6 +177,75 @@ export async function replaceUsersCache(db: SQLiteDatabase, users: User[]) {
   });
 
   return getUsers(db);
+}
+
+function normalizeUserShell(user: UserShellInput): User {
+  const fullName = user.fullName?.trim() ? user.fullName.trim() : user.id;
+
+  return {
+    id: user.id,
+    fullName,
+    role: user.role ?? 'employee',
+    phone: user.phone ?? '',
+    email: user.email ?? '',
+    status: user.status ?? 'active',
+  };
+}
+
+function mergeUserShell(current: User, next: User) {
+  const currentHasRealName =
+    current.fullName.trim().length > 0 && current.fullName !== current.id;
+  const nextHasRealName =
+    next.fullName.trim().length > 0 && next.fullName !== next.id;
+
+  return {
+    id: current.id,
+    fullName:
+      !currentHasRealName && nextHasRealName ? next.fullName : current.fullName,
+    role:
+      current.role === 'manager' || next.role === 'manager'
+        ? 'manager'
+        : 'employee',
+    phone: current.phone || next.phone,
+    email: current.email || next.email,
+    status: current.status === 'inactive' ? current.status : next.status,
+  };
+}
+
+export async function ensureUsersExist(
+  db: SQLiteDatabase,
+  users: UserShellInput[],
+) {
+  const userMap = new Map<string, User>();
+
+  for (const user of users) {
+    if (!user?.id) {
+      continue;
+    }
+
+    const normalized = normalizeUserShell(user);
+    const existing = userMap.get(normalized.id);
+    userMap.set(
+      normalized.id,
+      existing ? mergeUserShell(existing, normalized) : normalized,
+    );
+  }
+
+  for (const user of userMap.values()) {
+    await db.runAsync(
+      `INSERT INTO users (id, full_name, role, phone, email, status)
+       VALUES (?, ?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO NOTHING`,
+      user.id,
+      user.fullName,
+      user.role,
+      user.phone,
+      user.email,
+      user.status,
+    );
+  }
+
+  return Array.from(userMap.values());
 }
 
 export async function getShiftsByEmployee(
@@ -331,6 +402,17 @@ export async function replaceOpenShiftsCache(
   openShifts: OpenShiftView[],
 ) {
   await db.withTransactionAsync(async () => {
+    await ensureUsersExist(
+      db,
+      openShifts
+        .filter((openShift) => Boolean(openShift.claimedByEmployeeId))
+        .map((openShift) => ({
+          id: openShift.claimedByEmployeeId!,
+          fullName:
+            openShift.claimedByEmployeeName ?? openShift.claimedByEmployeeId!,
+        })),
+    );
+
     await db.runAsync('DELETE FROM open_shifts');
 
     for (const openShift of openShifts) {
@@ -486,6 +568,14 @@ export async function upsertShiftCache(
   shifts: ShiftView[],
 ) {
   await db.withTransactionAsync(async () => {
+    await ensureUsersExist(
+      db,
+      shifts.map((shift) => ({
+        id: shift.employeeId,
+        fullName: shift.employeeName,
+      })),
+    );
+
     for (const shift of shifts) {
       await db.runAsync(
         `INSERT INTO shifts (id, employee_id, date, start_time, end_time, store_name, position, status)
@@ -518,6 +608,52 @@ export async function upsertRequestCache(
   requests: RequestView[],
 ) {
   await db.withTransactionAsync(async () => {
+    await ensureUsersExist(
+      db,
+      requests.flatMap((request) => {
+        const users: UserShellInput[] = [
+          {
+            id: request.createdByEmployeeId,
+            fullName: request.createdByEmployeeName,
+          },
+        ];
+
+        if (request.targetEmployeeId) {
+          users.push({
+            id: request.targetEmployeeId,
+            fullName:
+              request.targetEmployeeName ?? request.targetEmployeeId,
+          });
+        }
+
+        return users;
+      }),
+    );
+
+    for (const request of requests) {
+      await db.runAsync(
+        `INSERT INTO shifts (
+          id,
+          employee_id,
+          date,
+          start_time,
+          end_time,
+          store_name,
+          position,
+          status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO NOTHING`,
+        request.shiftId,
+        request.createdByEmployeeId,
+        request.shiftDate,
+        request.shiftStartTime,
+        request.shiftEndTime,
+        request.shiftStoreName,
+        request.shiftPosition,
+        'scheduled',
+      );
+    }
+
     for (const request of requests) {
       await db.runAsync(
         `INSERT INTO requests (

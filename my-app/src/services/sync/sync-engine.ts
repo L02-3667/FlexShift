@@ -2,6 +2,7 @@ import type { SQLiteDatabase } from '@/src/db/sqlite-provider';
 import {
   acknowledgeAnnouncementCache,
   enqueuePendingMutation,
+  ensureUsersExist,
   ensureOperationalUserScope,
   getCachedAnnouncements,
   getPendingMutationById,
@@ -161,6 +162,15 @@ async function applySyncPull(
 
   if (domains.settings.items[0]) {
     const setting = domains.settings.items[0];
+    const activeUser = getSessionSnapshot().session?.user;
+
+    await ensureUsersExist(
+      db,
+      activeUser && activeUser.id === setting.userId
+        ? [activeUser]
+        : [{ id: setting.userId }],
+    );
+
     await upsertUserSetting(db, {
       userId: setting.userId,
       notificationsEnabled: setting.notificationsEnabled,

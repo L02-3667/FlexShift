@@ -1,6 +1,7 @@
 import type { SQLiteDatabase } from '@/src/db/sqlite-provider';
 
 import {
+  ensureUsersExist,
   getAllRequests,
   getAllShifts,
   getCachedActivityLogs,
@@ -143,6 +144,17 @@ export interface ManagerStatisticsData {
 
 function hasRemoteSession() {
   return Boolean(getSessionSnapshot().session?.accessToken);
+}
+
+async function ensureSettingsUserCache(db: SQLiteDatabase, userId: string) {
+  const sessionUser = getSessionSnapshot().session?.user;
+
+  await ensureUsersExist(
+    db,
+    sessionUser && sessionUser.id === userId
+      ? [sessionUser]
+      : [{ id: userId }],
+  );
 }
 
 function mergeUsers(currentUser: User | null, employees: User[]) {
@@ -1227,6 +1239,7 @@ export async function getSettingsData(db: SQLiteDatabase, userId: string) {
   if (hasRemoteSession()) {
     try {
       const settings = await getUserSettingsRequest();
+      await ensureSettingsUserCache(db, settings.userId);
       await upsertUserSetting(db, {
         userId: settings.userId,
         notificationsEnabled: settings.notificationsEnabled,
@@ -1254,6 +1267,7 @@ export async function saveSettingsData(
   if (hasRemoteSession()) {
     try {
       const settings = await updateUserSettingsRequest(patch);
+      await ensureSettingsUserCache(db, settings.userId);
       await upsertUserSetting(db, {
         userId: settings.userId,
         notificationsEnabled: settings.notificationsEnabled,
@@ -1267,6 +1281,7 @@ export async function saveSettingsData(
       return settings;
     } catch {
       const current = await getUserSetting(db, userId);
+      await ensureSettingsUserCache(db, userId);
       return upsertUserSetting(db, {
         userId,
         notificationsEnabled:
@@ -1285,6 +1300,7 @@ export async function saveSettingsData(
   }
 
   const current = await getUserSetting(db, userId);
+  await ensureSettingsUserCache(db, userId);
   return upsertUserSetting(db, {
     userId,
     notificationsEnabled:

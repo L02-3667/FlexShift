@@ -1,6 +1,7 @@
 const mockRepositories = {
   acknowledgeAnnouncementCache: jest.fn(),
   enqueuePendingMutation: jest.fn(),
+  ensureUsersExist: jest.fn(),
   ensureOperationalUserScope: jest.fn(),
   getCachedAnnouncements: jest.fn(),
   getPendingMutationById: jest.fn(),
@@ -122,6 +123,50 @@ describe('sync engine resilience', () => {
         networkState: 'online',
         lifecycle: 'idle',
         serverCursor: 3,
+      }),
+    ]);
+  });
+
+  it('ensures the active user exists before writing synced settings', async () => {
+    mockApi.getSyncPullRequest.mockResolvedValue({
+      cursor: 5,
+      serverCursor: 5,
+      hasMore: false,
+      serverTime: '2026-04-11T12:00:00.000Z',
+      staleAfterMs: 300000,
+      domains: {
+        shifts: { items: [], deletedIds: [], cursor: 5 },
+        openShifts: { items: [], deletedIds: [], cursor: 5 },
+        requests: { items: [], deletedIds: [], cursor: 5 },
+        notifications: { items: [], deletedIds: [], cursor: 5 },
+        settings: {
+          items: [
+            {
+              userId: 'employee-1',
+              notificationsEnabled: true,
+              approvalUpdatesEnabled: true,
+              openShiftAlertsEnabled: true,
+              remindersEnabled: true,
+              reminderMinutesBefore: 60,
+              language: 'vi',
+              theme: 'system',
+              updatedAt: '2026-04-11T12:00:00.000Z',
+            },
+          ],
+          deletedIds: [],
+          cursor: 5,
+        },
+        announcements: { items: [], deletedIds: [], cursor: 5 },
+        activity: { items: [], deletedIds: [], cursor: 5 },
+        checklists: { items: [], deletedIds: [], cursor: 5 },
+      },
+    });
+
+    await syncEngine.runSyncCycle(db);
+
+    expect(mockRepositories.ensureUsersExist).toHaveBeenCalledWith(db, [
+      expect.objectContaining({
+        id: 'employee-1',
       }),
     ]);
   });
