@@ -100,7 +100,7 @@ async function parseError(response: Response) {
     return new ApiUnauthorizedError();
   }
 
-  return new ApiError('Khong the ket noi may chu FlexShift.', response.status);
+  return new ApiError('Không thể kết nối máy chủ FlexShift.', response.status);
 }
 
 async function executeFetch(
@@ -128,7 +128,7 @@ async function executeFetch(
   } catch (error) {
     if (isAbortError(error)) {
       throw new ApiError(
-        'May chu phan hoi qua lau. Vui long thu lai.',
+        'Máy chủ phản hồi quá lâu. Vui lòng thử lại.',
         408,
         'REQUEST_TIMEOUT',
       );

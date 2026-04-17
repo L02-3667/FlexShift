@@ -55,10 +55,10 @@ describe('LoginScreen', () => {
   it('validates empty credentials before login', () => {
     render(<LoginScreen />);
 
-    fireEvent.press(screen.getByLabelText('Dang nhap'));
+    fireEvent.press(screen.getByLabelText('Đăng nhập'));
 
     expect(
-      screen.getByText('Vui long nhap day du email va mat khau.'),
+      screen.getByText('Vui lòng nhập đầy đủ email và mật khẩu.'),
     ).toBeTruthy();
     expect(mockLogin).not.toHaveBeenCalled();
   });
@@ -68,8 +68,8 @@ describe('LoginScreen', () => {
 
     render(<LoginScreen />);
 
-    fireEvent.press(screen.getByText('Quan ly'));
-    fireEvent.press(screen.getByLabelText('Dang nhap'));
+    fireEvent.press(screen.getByText('Quản lý'));
+    fireEvent.press(screen.getByLabelText('Đăng nhập'));
 
     await waitFor(() => {
       expect(mockLogin).toHaveBeenCalledWith({

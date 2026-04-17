@@ -28,12 +28,12 @@ export class ApprovalsService {
   private buildAlreadyReviewedConflict(requestId: string) {
     return new DomainConflictException({
       code: 'REQUEST_ALREADY_REVIEWED',
-      message: 'Yeu cau nay da duoc xu ly truoc do.',
+      message: 'Yêu cầu này đã được xử lý trước đó.',
       entityType: 'request',
       entityId: requestId,
       recoverable: true,
       retryable: false,
-      resolution: 'Lam moi trang chi tiet yeu cau de xem ket qua moi nhat.',
+      resolution: 'Làm mới trang chi tiết yêu cầu để xem kết quả mới nhất.',
     });
   }
 
@@ -69,7 +69,7 @@ export class ApprovalsService {
     });
 
     if (!request) {
-      throw new NotFoundException('Khong tim thay yeu cau can duyet.');
+      throw new NotFoundException('Không tìm thấy yêu cầu cần duyệt.');
     }
 
     if (request.status !== 'pending') {
@@ -119,7 +119,7 @@ export class ApprovalsService {
             date: request.shift.date,
             startTime: request.shift.startTime,
             endTime: request.shift.endTime,
-            note: `Ca phat sinh tu yeu cau nghi: ${request.reason}`,
+            note: `Ca phát sinh từ yêu cầu nghỉ: ${request.reason}`,
           },
         });
       });
@@ -127,7 +127,7 @@ export class ApprovalsService {
       derivedOpenShiftId = reopenedOpenShift.id;
     } else {
       if (!request.targetUserId) {
-        throw new BadRequestException('Yeu cau nhuong ca thieu nguoi nhan.');
+        throw new BadRequestException('Yêu cầu nhường ca thiếu người nhận.');
       }
 
       const targetUserId = request.targetUserId;
@@ -162,13 +162,13 @@ export class ApprovalsService {
       if (hasConflict) {
         throw new DomainConflictException({
           code: 'APPROVAL_RACE_CONFLICT',
-          message: 'Nguoi nhan ca dang co lich trung thoi gian.',
+          message: 'Người nhận ca đang có lịch trùng thời gian.',
           entityType: 'request',
           entityId: request.id,
           recoverable: true,
           retryable: false,
           resolution:
-            'Chon dong nghiep khac hoac cap nhat lai yeu cau nhuong ca.',
+            'Chọn đồng nghiệp khác hoặc cập nhật lại yêu cầu nhường ca.',
         });
       }
 
@@ -212,19 +212,19 @@ export class ApprovalsService {
 
     await this.notificationsService.createNotification({
       userId: request.createdById,
-      title: 'Yeu cau da duoc duyet',
+      title: 'Yêu cầu đã được duyệt',
       body:
         request.type === 'leave'
-          ? 'Don xin nghi cua ban da duoc chap thuan.'
-          : 'De nghi nhuong ca cua ban da duoc chap thuan.',
+          ? 'Đơn xin nghỉ của bạn đã được chấp thuận.'
+          : 'Đề nghị nhường ca của bạn đã được chấp thuận.',
       type: 'request_approved',
     });
 
     if (request.type === 'yield' && request.targetUserId) {
       await this.notificationsService.createNotification({
         userId: request.targetUserId,
-        title: 'Ban vua duoc giao ca',
-        body: `${request.shift.position.name} tai ${request.shift.store.name} da duoc chuyen sang lich cua ban.`,
+        title: 'Bạn vừa được giao ca',
+        body: `${request.shift.position.name} tại ${request.shift.store.name} đã được chuyển sang lịch của bạn.`,
         type: 'shift_assigned',
       });
     }
@@ -311,7 +311,7 @@ export class ApprovalsService {
     });
 
     if (!request) {
-      throw new NotFoundException('Khong tim thay yeu cau can tu choi.');
+      throw new NotFoundException('Không tìm thấy yêu cầu cần từ chối.');
     }
 
     if (request.status !== 'pending') {
@@ -348,8 +348,8 @@ export class ApprovalsService {
 
     await this.notificationsService.createNotification({
       userId: request.createdById,
-      title: 'Yeu cau bi tu choi',
-      body: 'Yeu cau cua ban can duoc dieu chinh va gui lai neu van can thiet.',
+      title: 'Yêu cầu bị từ chối',
+      body: 'Yêu cầu của bạn cần được điều chỉnh và gửi lại nếu vẫn cần thiết.',
       type: 'request_rejected',
     });
 

@@ -53,18 +53,12 @@ export class AuthService {
     };
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>(
-        'JWT_ACCESS_SECRET',
-        'flexshift-access-secret',
-      ),
+      secret: this.configService.getOrThrow<string>('JWT_ACCESS_SECRET'),
       expiresIn: this.getAccessTokenExpiresIn(),
     });
 
     const refreshToken = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>(
-        'JWT_REFRESH_SECRET',
-        'flexshift-refresh-secret',
-      ),
+      secret: this.configService.getOrThrow<string>('JWT_REFRESH_SECRET'),
       expiresIn: this.getRefreshTokenExpiresIn(),
     });
 
@@ -142,13 +136,13 @@ export class AuthService {
     const session = await this.sessionsService.findValidSession(refreshToken);
 
     if (!session) {
-      throw new UnauthorizedException('Phien dang nhap khong con hop le.');
+      throw new UnauthorizedException('Phiên đăng nhập không còn hợp lệ.');
     }
 
     const user = await this.usersService.findById(session.userId);
 
     if (!user || !user.isActive) {
-      throw new UnauthorizedException('Tai khoan khong con hop le.');
+      throw new UnauthorizedException('Tài khoản không còn hợp lệ.');
     }
 
     await this.sessionsService.revokeSession(session.id, 'refresh_rotation');
@@ -196,7 +190,7 @@ export class AuthService {
     const user = await this.usersService.findById(userId);
 
     if (!user) {
-      throw new UnauthorizedException('Tai khoan khong ton tai.');
+      throw new UnauthorizedException('Tài khoản không tồn tại.');
     }
 
     const matches = await bcrypt.compare(
@@ -205,7 +199,7 @@ export class AuthService {
     );
 
     if (!matches) {
-      throw new UnauthorizedException('Mat khau hien tai khong dung.');
+      throw new UnauthorizedException('Mật khẩu hiện tại không đúng.');
     }
 
     const passwordHash = await bcrypt.hash(input.nextPassword, 10);

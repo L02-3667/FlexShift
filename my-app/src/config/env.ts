@@ -9,6 +9,12 @@ interface ExpoExtraConfig {
 
 const expoExtra = (Constants.expoConfig?.extra ?? {}) as ExpoExtraConfig;
 
+function parsePositiveNumber(rawValue: string | undefined, fallback: number) {
+  const parsed = Number(rawValue ?? fallback);
+
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
 function getFallbackApiBaseUrl() {
   const port =
     process.env.EXPO_PUBLIC_API_PORT ?? APP_CONFIG.defaultBackendPort;
@@ -25,4 +31,8 @@ export const AppEnv = {
     process.env.EXPO_PUBLIC_API_BASE_URL ??
     expoExtra.apiBaseUrl ??
     getFallbackApiBaseUrl(),
+  syncPollIntervalMs: parsePositiveNumber(
+    process.env.EXPO_PUBLIC_SYNC_INTERVAL_MS,
+    APP_CONFIG.syncPollIntervalMs,
+  ),
 };

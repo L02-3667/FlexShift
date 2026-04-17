@@ -1,32 +1,55 @@
 $ErrorActionPreference = "Stop"
 
-$hostName = $env:POSTGRES_HOST
-if (-not $hostName) { $hostName = "127.0.0.1" }
+$adminUrl = $env:POSTGRES_ADMIN_URL
 
-$port = $env:POSTGRES_PORT
-if (-not $port) { $port = "5432" }
+if ($adminUrl) {
+  $uri = [System.Uri]$adminUrl
+  $hostName = $uri.Host
+  $port = if ($uri.Port -gt 0) { $uri.Port } else { 5432 }
+  $userInfo = $uri.UserInfo.Split(':', 2)
+  $user = [System.Uri]::UnescapeDataString($userInfo[0])
+  $password = if ($userInfo.Count -gt 1) {
+    [System.Uri]::UnescapeDataString($userInfo[1])
+  } else {
+    ""
+  }
+} else {
+  $hostName = $env:POSTGRES_HOST
+  if (-not $hostName) { $hostName = "127.0.0.1" }
 
-$user = $env:POSTGRES_USER
-if (-not $user) { $user = "postgres" }
+  $port = $env:POSTGRES_PORT
+  if (-not $port) { $port = "5432" }
 
-$password = $env:POSTGRES_PASSWORD
-if (-not $password) { $password = "123456" }
+  $user = $env:POSTGRES_USER
+  if (-not $user) { $user = "postgres" }
+
+  $password = $env:POSTGRES_PASSWORD
+}
+
+if (-not $password) {
+  throw "Missing required environment variable POSTGRES_PASSWORD or POSTGRES_ADMIN_URL."
+}
+
+$env:PGPASSWORD = $password
 
 $dbName = $env:POSTGRES_DB
 if (-not $dbName) { $dbName = "flexshift" }
 
 $shadowDbName = $env:POSTGRES_SHADOW_DB
-if (-not $shadowDbName) { $shadowDbName = "flexshift_shadow" }
 
 $psql = Get-Command psql -ErrorAction SilentlyContinue
 
 if (-not $psql) {
   throw "PostgreSQL CLI (psql) was not found in PATH. Install PostgreSQL client tools to run db:create."
 }
+$databases = @($dbName)
 
-$env:PGPASSWORD = $password
+if ($shadowDbName) {
+  $databases += $shadowDbName
+}
 
-& $psql.Source -h $hostName -p $port -U $user -d postgres -c "SELECT 'CREATE DATABASE $dbName' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '$dbName')\\gexec"
-& $psql.Source -h $hostName -p $port -U $user -d postgres -c "SELECT 'CREATE DATABASE $shadowDbName' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '$shadowDbName')\\gexec"
+$databases | ForEach-Object {
+  & $psql.Source -h $hostName -p $port -U $user -d postgres -c "SELECT 'CREATE DATABASE $_' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '$_')\\gexec"
+}
 
-Write-Host "Verified databases: $dbName, $shadowDbName"
+Write-Host "Verified databases: $($databases -join ', ')"

@@ -56,23 +56,23 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
 
   const cashier = await client.position.create({
     data: {
-      name: 'Thu ngan',
+      name: 'Thu ngân',
     },
   });
   const sales = await client.position.create({
     data: {
-      name: 'Ban hang',
+      name: 'Bán hàng',
     },
   });
   const barista = await client.position.create({
     data: {
-      name: 'Pha che',
+      name: 'Pha chế',
     },
   });
 
   const manager = await client.user.create({
     data: {
-      fullName: 'Le Hoang Quan',
+      fullName: 'Lê Hoàng Quân',
       email: 'manager@flexshift.app',
       phone: '0901000001',
       passwordHash,
@@ -82,7 +82,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
 
   const employeeAn = await client.user.create({
     data: {
-      fullName: 'An Nguyen',
+      fullName: 'An Nguyễn',
       email: 'an.nguyen@flexshift.app',
       phone: '0901000002',
       passwordHash,
@@ -91,7 +91,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
   });
   const employeeLinh = await client.user.create({
     data: {
-      fullName: 'Linh Tran',
+      fullName: 'Linh Trần',
       email: 'linh.tran@flexshift.app',
       phone: '0901000003',
       passwordHash,
@@ -100,7 +100,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
   });
   const employeeMinh = await client.user.create({
     data: {
-      fullName: 'Minh Pham',
+      fullName: 'Minh Phạm',
       email: 'minh.pham@flexshift.app',
       phone: '0901000004',
       passwordHash,
@@ -164,7 +164,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
         date: new Date('2026-04-13T00:00:00.000Z'),
         startTime: '09:00',
         endTime: '13:00',
-        note: 'Can bo sung gap cho ca sang.',
+        note: 'Cần bổ sung gấp cho ca sáng.',
         status: 'open',
       },
       {
@@ -173,7 +173,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
         date: new Date('2026-04-14T00:00:00.000Z'),
         startTime: '17:00',
         endTime: '21:00',
-        note: 'Tang cuong cuoi ngay.',
+        note: 'Tăng cường cuối ngày.',
         status: 'open',
       },
     ],
@@ -184,7 +184,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
       type: 'leave',
       shiftId: shiftMorning.id,
       createdById: employeeAn.id,
-      reason: 'Trung lich hoc buoi sang.',
+      reason: 'Trùng lịch học buổi sáng.',
       status: 'pending',
     },
   });
@@ -195,9 +195,9 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
       shiftId: shiftAfternoon.id,
       createdById: employeeLinh.id,
       targetUserId: employeeMinh.id,
-      reason: 'Can doi lich gia dinh trong buoi chieu.',
+      reason: 'Cần đổi lịch gia đình trong buổi chiều.',
       status: 'approved',
-      managerNote: 'Da chuyen cho Minh theo lich moi.',
+      managerNote: 'Đã chuyển cho Minh theo lịch mới.',
     },
   });
 
@@ -206,7 +206,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
       requestId: approvedYieldRequest.id,
       managerId: manager.id,
       action: 'approved',
-      note: 'Da chuyen cho Minh theo lich moi.',
+      note: 'Đã chuyển cho Minh theo lịch mới.',
     },
   });
 
@@ -249,20 +249,20 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
     data: [
       {
         userId: manager.id,
-        title: 'Yeu cau moi can duyet',
-        body: 'An Nguyen vua gui don xin nghi ca sang ngay 11/04.',
+        title: 'Yêu cầu mới cần duyệt',
+        body: 'An Nguyễn vừa gửi đơn xin nghỉ ca sáng ngày 11/04.',
         type: 'schedule_updated',
       },
       {
         userId: employeeAn.id,
-        title: 'Lich hom nay da duoc cap nhat',
-        body: 'Ca sang cua ban dang cho quan ly xem xet.',
+        title: 'Lịch hôm nay đã được cập nhật',
+        body: 'Ca sáng của bạn đang chờ quản lý xem xét.',
         type: 'schedule_updated',
       },
       {
         userId: employeeLinh.id,
-        title: 'De nghi nhuong ca da duoc duyet',
-        body: 'Ca chieu cua ban da duoc chuyen cho Minh.',
+        title: 'Đề nghị nhường ca đã được duyệt',
+        body: 'Ca chiều của bạn đã được chuyển cho Minh.',
         type: 'request_approved',
       },
     ],
@@ -271,15 +271,15 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
   await client.announcement.createMany({
     data: [
       {
-        title: 'Cap nhat quy trinh giao ca',
-        body: 'Tu ngay mai, moi ca toi can xac nhan handover note truoc khi roi cua hang.',
+        title: 'Cập nhật quy trình giao ca',
+        body: 'Từ ngày mai, mỗi ca tối cần xác nhận handover note trước khi rời cửa hàng.',
         scopeRole: 'employee',
         requiresAck: true,
         createdById: manager.id,
       },
       {
-        title: 'Manager daily check',
-        body: 'Xem backlog approval, staffing risk va open shift truoc 09:00 moi ngay.',
+        title: 'Checklist đầu ngày cho quản lý',
+        body: 'Xem backlog approval, staffing risk và open shift trước 09:00 mỗi ngày.',
         scopeRole: 'manager',
         requiresAck: false,
         createdById: manager.id,
@@ -289,8 +289,8 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
 
   const handoverChecklist = await client.checklist.create({
     data: {
-      title: 'Handover cuoi ca',
-      description: 'Checklist handover thu ngan ca toi',
+      title: 'Handover cuối ca',
+      description: 'Checklist handover thu ngân ca tối',
       status: 'open',
       createdById: manager.id,
       assigneeId: employeeAn.id,
@@ -300,11 +300,11 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
       items: {
         create: [
           {
-            label: 'Chot tien mat va doi chieu POS',
+            label: 'Chốt tiền mặt và đối chiếu POS',
             sortOrder: 1,
           },
           {
-            label: 'Ghi chu su co hoac note ban giao',
+            label: 'Ghi chú sự cố hoặc note bàn giao',
             sortOrder: 2,
           },
         ],
@@ -318,7 +318,7 @@ export async function seedFlexShift(client: PrismaClient = prisma) {
       entityType: 'checklist',
       entityId: handoverChecklist.id,
       action: 'checklist.created',
-      summary: 'Created shift handover checklist',
+      summary: 'Đã tạo checklist bàn giao ca',
       payload: {
         assigneeId: employeeAn.id,
       },

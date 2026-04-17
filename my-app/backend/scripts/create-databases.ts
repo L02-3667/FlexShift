@@ -17,12 +17,16 @@ function escapeIdentifier(value: string) {
 }
 
 function buildAdminDatabaseUrl() {
+  const explicitUrl = process.env.POSTGRES_ADMIN_URL?.trim();
+
+  if (explicitUrl) {
+    return explicitUrl;
+  }
+
   const host = getRequiredEnv('POSTGRES_HOST', '127.0.0.1');
   const port = getRequiredEnv('POSTGRES_PORT', '5432');
   const user = encodeURIComponent(getRequiredEnv('POSTGRES_USER', 'postgres'));
-  const password = encodeURIComponent(
-    getRequiredEnv('POSTGRES_PASSWORD', '123456'),
-  );
+  const password = encodeURIComponent(getRequiredEnv('POSTGRES_PASSWORD'));
 
   return `postgresql://${user}:${password}@${host}:${port}/postgres?schema=public`;
 }
@@ -58,17 +62,13 @@ async function main() {
   });
 
   const databaseName = getRequiredEnv('POSTGRES_DB', 'flexshift');
-  const shadowDatabaseName = getRequiredEnv(
-    'POSTGRES_SHADOW_DB',
-    'flexshift_shadow',
-  );
+  const shadowDatabaseName = process.env.POSTGRES_SHADOW_DB?.trim() || null;
 
   try {
     const databaseStatus = await ensureDatabase(prisma, databaseName);
-    const shadowDatabaseStatus = await ensureDatabase(
-      prisma,
-      shadowDatabaseName,
-    );
+    const shadowDatabaseStatus = shadowDatabaseName
+      ? await ensureDatabase(prisma, shadowDatabaseName)
+      : 'skipped';
 
     console.log(
       JSON.stringify(
@@ -78,10 +78,12 @@ async function main() {
             name: databaseName,
             status: databaseStatus,
           },
-          shadowDatabase: {
-            name: shadowDatabaseName,
-            status: shadowDatabaseStatus,
-          },
+          shadowDatabase: shadowDatabaseName
+            ? {
+                name: shadowDatabaseName,
+                status: shadowDatabaseStatus,
+              }
+            : null,
         },
         null,
         2,

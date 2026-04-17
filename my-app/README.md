@@ -81,34 +81,42 @@ Tạo file backend trong PowerShell:
 Copy-Item backend/.env.example backend/.env
 ```
 
+Backend env precedence:
+
+- runtime OS env vars
+- `backend/.env.local`
+- `backend/.env.development`
+- `backend/.env`
+
+Creating a Neon database does not switch the backend by itself. The backend only uses the `DATABASE_URL` that wins under the precedence above, so an ignored local `backend/.env` can still keep local runs on `127.0.0.1`.
+
 Biến backend tối thiểu:
 
 ```env
 APP_ENV=development
 PORT=3000
-POSTGRES_HOST=127.0.0.1
-POSTGRES_PORT=5432
-POSTGRES_DB=flexshift
-POSTGRES_SHADOW_DB=flexshift_shadow
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=123456
-DATABASE_URL=postgresql://postgres:123456@127.0.0.1:5432/flexshift?schema=public
-DIRECT_URL=postgresql://postgres:123456@127.0.0.1:5432/flexshift?schema=public
-SHADOW_DATABASE_URL=postgresql://postgres:123456@127.0.0.1:5432/flexshift_shadow?schema=public
-JWT_ACCESS_SECRET=flexshift-access-secret
-JWT_REFRESH_SECRET=flexshift-refresh-secret
+DATABASE_URL=postgresql://<db-user>:<db-password>@<db-host>:<db-port>/<db-name>?schema=public
+JWT_ACCESS_SECRET=replace-with-a-long-random-access-secret
+JWT_REFRESH_SECRET=replace-with-a-long-random-refresh-secret
+CORS_ALLOWED_ORIGINS=http://localhost:8081,http://127.0.0.1:8081
+CORS_ALLOW_CREDENTIALS=false
+PUBLIC_API_BASE_URL=http://127.0.0.1:3000
+API_DOCS_ENABLED=true
+API_DOCS_PATH=docs
 SYNC_BATCH_LIMIT=250
 SYNC_DEFAULT_STALE_MS=300000
 ```
 
 Lưu ý:
 
-- backend tự đọc lần lượt `.env`, `.env.development`, `.env.local`
+- backend resolves env in this order: runtime env, `.env.local`, `.env.development`, `.env`
 - nếu `PORT=3000` đang bị chiếm, hãy đổi sang cổng khác và cập nhật `EXPO_PUBLIC_API_BASE_URL`
+- với local bootstrap thuần PostgreSQL, có thể thêm `POSTGRES_ADMIN_URL`, `POSTGRES_DB` và `POSTGRES_SHADOW_DB` theo mẫu trong `backend/.env.example`
+- trên Render, không copy local env files; hãy đặt `DATABASE_URL` thật của Neon trong service secret
 
 ## 5. Chuẩn bị database
 
-Tạo database chính và shadow database:
+Nếu bạn đang bootstrap PostgreSQL local từ đầu, có thể tạo database bằng:
 
 ```bash
 npm run backend:db:create
@@ -120,22 +128,37 @@ Kiểm tra kết nối PostgreSQL:
 npm run backend:db:check
 ```
 
+Lệnh này sẽ in ra source hiện hành của `DATABASE_URL`, URL đã được redact, host, database name, schema, `sslmode`, và cờ `isLoopback`. Đây là bước nhanh nhất để biết backend đang trỏ Neon hay vẫn đang trỏ localhost.
+
 Generate Prisma client:
 
 ```bash
 npm run backend:prisma:generate
 ```
 
-Nếu database mới hoàn toàn, chạy migrate:
+Nếu database mới hoàn toàn, áp toàn bộ migration đã có:
+
+```bash
+npm run backend:prisma:migrate:deploy
+```
+
+Cho Neon / Render production:
+
+- `prisma migrate deploy` là đường đi đúng
+- không dùng `prisma migrate dev`
+- Neon chưa sẵn sàng cho FlexShift cho đến khi migration này chạy xong trên đúng `DATABASE_URL`
+- boot thành công vào Neon vẫn cần readiness trả về `database: up`
+
+Chỉ dùng lệnh dưới đây khi đang phát triển schema mới ở local và muốn tạo thêm migration:
 
 ```bash
 npm run backend:prisma:migrate
 ```
 
-Nếu đang xử lý local DB cũ và cần đồng bộ schema có kiểm soát, đọc thêm:
+Nếu đang xử lý local DB cũ hoặc chuẩn bị rollout cloud/Render có kiểm soát, đọc thêm:
 
 - `docs/flexshift-phase-3-production.md`
-- `docs/flexshift-production-migration.md`
+- `docs/render-deployment.md`
 
 Seed dữ liệu mẫu:
 
@@ -146,6 +169,9 @@ npm run backend:prisma:seed
 Lưu ý quan trọng:
 
 - script seed hiện tại sẽ reset dữ liệu các bảng nghiệp vụ trước khi bơm lại dữ liệu mẫu
+- seed là tùy chọn cho production; chỉ chạy khi bạn thực sự muốn dữ liệu mẫu/bootstrap
+- API docs public sau khi backend chạy sẽ nằm tại `/api/docs` và OpenAPI JSON tại `/api/docs-json`
+- quy trình Render + Neon đầy đủ nằm ở `docs/render-deployment.md`
 
 ## 6. Chạy dự án
 
@@ -334,6 +360,14 @@ Các nguyên tắc giữ hiệu năng:
 `Seed chạy xong nhưng dữ liệu biến mất`
 
 - đúng hành vi hiện tại vì seed có reset bảng nghiệp vụ
+
+`Neon đã tạo rồi nhưng backend vẫn hành xử như đang dùng Postgres local`
+
+- chạy `npm run backend:db:check`
+- nếu output cho thấy `source` là local file hoặc `databaseTarget.isLoopback=true`, backend vẫn đang dùng cấu hình local
+- cập nhật `DATABASE_URL` thắng theo thứ tự ưu tiên env ở trên
+- trên Render, kiểm tra lại service secret `DATABASE_URL` rồi redeploy để `preDeployCommand` chạy `prisma migrate deploy` với đúng Neon URL
+- sau deploy, kiểm tra `/api/health/readiness`, `/api/docs`, `/api/docs-json`, và log startup của Prisma
 
 `verify:release` fail ở E2E
 

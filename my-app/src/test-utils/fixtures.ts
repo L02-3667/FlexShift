@@ -9,7 +9,7 @@ import type {
 
 export const managerUser: User = {
   id: 'manager-1',
-  fullName: 'Le Hoang Quan',
+  fullName: 'Lê Hoàng Quân',
   role: 'manager',
   phone: '0901000001',
   email: 'manager@flexshift.app',
@@ -18,7 +18,7 @@ export const managerUser: User = {
 
 export const employeeUser: User = {
   id: 'employee-1',
-  fullName: 'An Nguyen',
+  fullName: 'An Nguyễn',
   role: 'employee',
   phone: '0901000002',
   email: 'an.nguyen@flexshift.app',
@@ -31,8 +31,8 @@ export const sampleOpenShift: OpenShiftView = {
   startTime: '09:00',
   endTime: '13:00',
   storeName: 'Central Market',
-  position: 'Thu ngan',
-  note: 'Can bo sung gap cho ca sang.',
+  position: 'Thu ngân',
+  note: 'Cần bổ sung gấp cho ca sáng.',
   status: 'open',
   claimedByEmployeeId: null,
   claimedByEmployeeName: null,
@@ -45,7 +45,7 @@ export const sampleRequest: RequestView = {
   createdByEmployeeId: employeeUser.id,
   shiftId: 'shift-1',
   targetEmployeeId: null,
-  reason: 'Can nghi mot buoi de xu ly viec gia dinh.',
+  reason: 'Cần nghỉ một buổi để xử lý việc gia đình.',
   status: 'pending',
   managerNote: null,
   createdAt: '2026-04-10T08:00:00.000Z',
@@ -57,13 +57,13 @@ export const sampleRequest: RequestView = {
   shiftStartTime: '08:00',
   shiftEndTime: '12:00',
   shiftStoreName: 'Central Market',
-  shiftPosition: 'Thu ngan',
+  shiftPosition: 'Thu ngân',
 };
 
 export const sampleAnnouncement: AnnouncementItem = {
   id: 'announcement-1',
-  title: 'Cap nhat quy trinh giao ca',
-  body: 'Moi ca toi can xac nhan handover note truoc khi roi cua hang.',
+  title: 'Cập nhật quy trình giao ca',
+  body: 'Mỗi ca tối cần xác nhận handover note trước khi rời cửa hàng.',
   requiresAck: true,
   acknowledgedAt: null,
   publishedAt: '2026-04-10T08:00:00.000Z',

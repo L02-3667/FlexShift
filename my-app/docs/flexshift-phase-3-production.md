@@ -611,13 +611,19 @@ Format Prisma schema:
 npm --prefix backend run prisma:format
 ```
 
-Recommended controlled rollout command on a fresh or migration-managed DB:
+Recommended rollout command for a fresh cloud DB or any migration-managed environment:
+
+```bash
+npm --prefix backend exec prisma migrate deploy -- --schema prisma/schema.prisma
+```
+
+When authoring a brand-new migration locally, use:
 
 ```bash
 npm --prefix backend exec prisma migrate dev -- --schema prisma/schema.prisma --name phase3_production_hardening
 ```
 
-Local verification fallback used on April 10, 2026 because the existing DB had no prior Prisma migration history:
+Historical local verification fallback used on April 10, 2026 because the existing DB had no prior Prisma migration history. Do not use this path for Render or cloud deployment:
 
 ```bash
 npm --prefix backend exec prisma db push -- --schema prisma/schema.prisma
@@ -990,23 +996,24 @@ Retry semantics:
 - `backend/.env`
 - optionally `backend/.env.local` to override machine-specific values
 
-### Required local DBs
+### Optional local DBs for bootstrap only
 
 - `flexshift`
-- `flexshift_shadow`
+- `flexshift_shadow` when you need a local shadow database for Prisma development workflows
 
 ### Verified command order
 
 ```bash
 npm --prefix backend run db:create
 npm --prefix backend run prisma:generate
+npm --prefix backend run db:migrate:deploy
 npm --prefix backend run typecheck
 npm run typecheck
 npm --prefix backend run db:check
 npm --prefix backend run build
 ```
 
-If local DB has no migration history yet, sync it first:
+Historical note for legacy local DBs that predated the Prisma migration chain:
 
 ```bash
 npm --prefix backend exec prisma db push -- --schema prisma/schema.prisma
@@ -1016,11 +1023,11 @@ npm --prefix backend exec prisma db push -- --schema prisma/schema.prisma
 
 - `npm --prefix backend run db:check`
   - returned status `ok`
-  - returned `databaseUrl: postgresql://postgres:123456@127.0.0.1:5432/flexshift?schema=public`
+  - returned `databaseUrl: postgresql://<redacted>@127.0.0.1:5432/flexshift?schema=public`
   - returned server time `2026-04-10 20:39:05.145044+07`
 - `npm --prefix backend run db:create`
   - verified `flexshift`
-  - created `flexshift_shadow`
+  - created `flexshift_shadow` for local development support
 - live readiness probe on port `3100`
   - `/api/health/readiness` returned `status: ready`, `database: up`
   - `/api/health` returned `status: ready`, `liveness: alive`
@@ -1034,7 +1041,8 @@ npm --prefix backend exec prisma db push -- --schema prisma/schema.prisma
 
 - A baseline migration SQL file was generated at:
   - `backend/prisma/migrations/20260410_phase3_production_hardening/migration.sql`
-- The existing local DB did not already have a clean Prisma migration history chain, so Phase 3 verification used `db push` for safe local convergence and kept the migration SQL artifact for controlled rollout.
+- Cloud and Render rollout should use `prisma migrate deploy` against the provided `DATABASE_URL`.
+- The `db push` step above was a historical local-convergence workaround only, not the production rollout path.
 
 ## M. Risks, Technical Debt And Phase 4
 
@@ -1047,8 +1055,8 @@ npm --prefix backend exec prisma db push -- --schema prisma/schema.prisma
 
 ### Temporary foundation choices
 
-- `db push` was used to verify local DB convergence because the local DB was not already under a clean Prisma migration chain
-- baseline migration SQL is present, but migration history rollout still needs a controlled environment strategy
+- `db push` was used once to verify local DB convergence because the original local DB was not already under a clean Prisma migration chain
+- current rollout strategy for fresh cloud databases is now `prisma migrate deploy` with the checked-in migration chain
 
 ### Phase 4 recommendations
 

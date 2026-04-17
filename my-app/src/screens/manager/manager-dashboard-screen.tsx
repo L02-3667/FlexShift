@@ -64,7 +64,7 @@ export function ManagerDashboardScreen() {
         <View style={styles.hero}>
           <View style={styles.heroHeader}>
             <View style={styles.heroCopy}>
-              <Text style={styles.kicker}>Manager console</Text>
+              <Text style={styles.kicker}>Bảng điều phối</Text>
               <Text style={styles.title}>
                 {APP_COPY.managerDashboard.title}
               </Text>
@@ -84,10 +84,10 @@ export function ManagerDashboardScreen() {
               <Text style={styles.heroChipText}>{BRANDING.appName}</Text>
             </View>
             <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Approval race safe</Text>
+              <Text style={styles.heroChipText}>Duyệt an toàn</Text>
             </View>
             <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Realtime-ready</Text>
+              <Text style={styles.heroChipText}>Sẵn sàng realtime</Text>
             </View>
           </View>
         </View>
@@ -96,19 +96,19 @@ export function ManagerDashboardScreen() {
 
         <View style={styles.metricRow}>
           <MetricCard
-            label="Yeu cau cho duyet"
+            label="Yêu cầu chờ duyệt"
             value={data.pendingCount}
             tone="warning"
           />
           <MetricCard
-            label="Ca dang mo"
+            label="Ca đang mở"
             value={data.openShiftCount}
             tone="primary"
           />
         </View>
 
         <MetricCard
-          label="Ca da chot"
+          label="Ca đã chốt"
           value={data.confirmedShiftCount}
           tone="neutral"
         />
@@ -146,7 +146,7 @@ export function ManagerDashboardScreen() {
         <SectionHeader
           title={APP_COPY.managerDashboard.pendingTitle}
           subtitle={APP_COPY.managerDashboard.pendingSubtitle}
-          actionLabel="Mo danh sach"
+          actionLabel="Mở danh sách"
           onActionPress={() =>
             router.push('/(manager)/(tabs)/approvals' as Href)
           }

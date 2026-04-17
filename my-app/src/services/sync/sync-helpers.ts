@@ -43,7 +43,7 @@ export function buildFailedMutationRecord(
     status:
       error instanceof ApiError && error.status === 409 ? 'conflict' : 'failed',
     lastError:
-      error instanceof Error ? error.message : 'Khong the dong bo thay doi.',
+      error instanceof Error ? error.message : 'Không thể đồng bộ thay đổi.',
   };
 }
 

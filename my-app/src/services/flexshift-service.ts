@@ -336,7 +336,7 @@ function buildActivityLogUpdates(
     id: activity.id,
     title: activity.summary,
     description: activity.actorUserName
-      ? `Thuc hien boi ${activity.actorUserName}`
+      ? `Thực hiện bởi ${activity.actorUserName}`
       : activity.entityType,
     timestampLabel: toRecentLabel(activity.createdAt),
     tone: activity.action.includes('rejected')
@@ -382,15 +382,15 @@ function buildEmployeeUpdates(
     .map<ActivityUpdate>((request) => {
       const title =
         request.status === 'approved'
-          ? 'Yeu cau da duoc duyet'
+          ? 'Yêu cầu đã được duyệt'
           : request.status === 'rejected'
-            ? 'Yeu cau can xem lai'
-            : 'Yeu cau dang cho duyet';
+            ? 'Yêu cầu cần xem lại'
+            : 'Yêu cầu đang chờ duyệt';
 
       const description =
         request.type === 'leave'
           ? `${request.shiftPosition} tai ${request.shiftStoreName}`
-          : `Nhuong ca ${request.shiftPosition} cho ${request.targetEmployeeName ?? 'dong nghiep'}`;
+          : `Nhường ca ${request.shiftPosition} cho ${request.targetEmployeeName ?? 'đồng nghiệp'}`;
 
       return {
         id: request.id,
@@ -412,7 +412,7 @@ function buildEmployeeUpdates(
 
   return upcomingShifts.slice(0, 3).map((shift) => ({
     id: shift.id,
-    title: 'Ca da chot sap toi',
+    title: 'Ca đã chốt sắp tới',
     description: `${shift.position}, ${shift.storeName}`,
     timestampLabel: `${shift.date} ${shift.startTime}`,
     tone: 'primary',
@@ -428,14 +428,14 @@ function buildManagerUpdates(requests: RequestView[]): ActivityUpdate[] {
       id: request.id,
       title:
         request.status === 'pending'
-          ? `${request.createdByEmployeeName} dang cho duyet`
+          ? `${request.createdByEmployeeName} đang chờ duyệt`
           : request.status === 'approved'
-            ? `${request.createdByEmployeeName} da duoc duyet`
-            : `${request.createdByEmployeeName} da bi tu choi`,
+            ? `${request.createdByEmployeeName} đã được duyệt`
+            : `${request.createdByEmployeeName} đã bị từ chối`,
       description:
         request.type === 'leave'
-          ? `Xin nghi ${request.shiftPosition} tai ${request.shiftStoreName}`
-          : `Nhuong ca ${request.shiftPosition} tai ${request.shiftStoreName}`,
+          ? `Xin nghỉ ${request.shiftPosition} tại ${request.shiftStoreName}`
+          : `Nhường ca ${request.shiftPosition} tại ${request.shiftStoreName}`,
       timestampLabel: toRecentLabel(request.reviewedAt ?? request.createdAt),
       tone:
         request.status === 'pending'

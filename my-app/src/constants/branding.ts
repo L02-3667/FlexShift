@@ -1,7 +1,7 @@
 export const BRANDING = {
   appName: 'FlexShift',
   shortName: 'FlexShift',
-  slogan: 'Nhan ca nhanh, duyet ca ro, lich luon trong tam tay',
+  slogan: 'Nhận ca nhanh, duyệt ca rõ, lịch luôn trong tầm tay',
   description:
-    'Ung dung dieu phoi ca lam cho cua hang nho va chuoi cua hang vua, giup lich truc quan hon va giam phu thuoc vao chat.',
+    'Ứng dụng điều phối ca làm cho cửa hàng nhỏ và chuỗi cửa hàng vừa, giúp lịch trực quan hơn và giảm phụ thuộc vào chat.',
 };

@@ -88,7 +88,7 @@ describe('ApprovalDetailScreen', () => {
       screen.getByLabelText('Ghi chu quan ly'),
       'Da xem va dong y.',
     );
-    fireEvent.press(screen.getByLabelText('Duyet yeu cau'));
+    fireEvent.press(screen.getByLabelText('Duyệt yêu cầu'));
 
     await waitFor(() => {
       expect(mockApproveRequestAction).toHaveBeenCalled();

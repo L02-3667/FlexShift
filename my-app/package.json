@@ -35,6 +35,7 @@
     "backend:dev": "node ./scripts/run-workspace-script.mjs backend start:dev",
     "backend:db:create": "node ./scripts/run-workspace-script.mjs backend db:create",
     "backend:db:check": "node ./scripts/run-workspace-script.mjs backend db:check",
+    "backend:prisma:migrate:deploy": "node ./scripts/run-workspace-script.mjs backend db:migrate:deploy",
     "backend:prisma:generate": "node ./scripts/run-workspace-script.mjs backend prisma:generate",
     "backend:prisma:format": "node ./scripts/run-workspace-script.mjs backend prisma:format",
     "backend:prisma:migrate": "node ./scripts/run-workspace-script.mjs backend prisma:migrate",

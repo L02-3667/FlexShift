@@ -34,27 +34,27 @@ export function validateOpenShiftFields(input: {
   note: string;
 }) {
   if (!isValidDateInput(input.date)) {
-    return 'Ngay lam viec can theo dinh dang YYYY-MM-DD.';
+    return 'Ngày làm việc cần theo định dạng YYYY-MM-DD.';
   }
 
   if (!isValidTimeInput(input.startTime) || !isValidTimeInput(input.endTime)) {
-    return 'Gio bat dau va ket thuc can theo dinh dang HH:mm.';
+    return 'Giờ bắt đầu và kết thúc cần theo định dạng HH:mm.';
   }
 
   if (!isStartBeforeEnd(input.startTime, input.endTime)) {
-    return 'Khung gio khong hop le. Gio ket thuc khong duoc trung gio bat dau.';
+    return 'Khung giờ không hợp lệ. Giờ kết thúc không được trùng giờ bắt đầu.';
   }
 
   if (!input.storeName.trim()) {
-    return 'Vui long nhap cua hang.';
+    return 'Vui lòng nhập cửa hàng.';
   }
 
   if (!input.position.trim()) {
-    return 'Vui long nhap vi tri.';
+    return 'Vui lòng nhập vị trí.';
   }
 
   if (!input.note.trim()) {
-    return 'Vui long nhap ly do hoac ghi chu cho ca trong.';
+    return 'Vui lòng nhập lý do hoặc ghi chú cho ca trống.';
   }
 
   return null;
@@ -62,11 +62,11 @@ export function validateOpenShiftFields(input: {
 
 export function validateReason(reason: string) {
   if (!reason.trim()) {
-    return 'Vui long nhap ly do.';
+    return 'Vui lòng nhập lý do.';
   }
 
   if (reason.trim().length < 6) {
-    return 'Ly do can du ro rang de quan ly xem xet.';
+    return 'Lý do cần đủ rõ ràng để quản lý xem xét.';
   }
 
   return null;

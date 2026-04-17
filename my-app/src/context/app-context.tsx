@@ -37,7 +37,7 @@ function toErrorMessage(error: unknown) {
     return error.message;
   }
 
-  return 'Khong the tiep tuc voi phien lam viec hien tai.';
+  return 'Không thể tiếp tục với phiên làm việc hiện tại.';
 }
 
 function mergeUsers(currentUser: User | null, employees: User[]) {

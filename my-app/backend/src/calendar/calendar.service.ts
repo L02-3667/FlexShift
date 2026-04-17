@@ -96,7 +96,7 @@ export class CalendarService {
       shifts: shifts.map((shift) => ({
         id: shift.id,
         employeeId: shift.assignments[0]?.userId ?? '',
-        employeeName: shift.assignments[0]?.user.fullName ?? 'Chua xep',
+        employeeName: shift.assignments[0]?.user.fullName ?? 'Chưa xếp',
         date: shift.date.toISOString().slice(0, 10),
         startTime: shift.startTime,
         endTime: shift.endTime,

@@ -9,12 +9,12 @@ export const APP_CONFIG = {
 
 export const DEV_SEED_ACCOUNTS = [
   {
-    label: 'Quan ly',
+    label: 'Quản lý',
     email: 'manager@flexshift.app',
     password: 'FlexShift123!',
   },
   {
-    label: 'Nhan vien',
+    label: 'Nhân viên',
     email: 'an.nguyen@flexshift.app',
     password: 'FlexShift123!',
   },

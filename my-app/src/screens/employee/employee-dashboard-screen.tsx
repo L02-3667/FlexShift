@@ -63,11 +63,11 @@ export function EmployeeDashboardScreen() {
         <View style={styles.hero}>
           <View style={styles.heroHeader}>
             <View style={styles.heroCopy}>
-              <Text style={styles.kicker}>Employee space</Text>
+              <Text style={styles.kicker}>Không gian nhân viên</Text>
               <Text style={styles.title}>{currentUser.fullName}</Text>
               <Text style={styles.description}>
-                Xem lich tuan, nhan ca phu hop va theo doi yeu cau dang xu ly
-                trong mot nhip thao tac gon va dang tin hon.
+                Xem lịch tuần, nhận ca phù hợp và theo dõi yêu cầu đang xử lý
+                trong một nhịp thao tác gọn và đáng tin hơn.
               </Text>
             </View>
 
@@ -82,10 +82,10 @@ export function EmployeeDashboardScreen() {
               <Text style={styles.heroChipText}>{BRANDING.appName}</Text>
             </View>
             <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Offline queue</Text>
+              <Text style={styles.heroChipText}>Hàng đợi offline</Text>
             </View>
             <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Fast claim</Text>
+              <Text style={styles.heroChipText}>Nhận ca nhanh</Text>
             </View>
           </View>
         </View>
@@ -94,31 +94,31 @@ export function EmployeeDashboardScreen() {
 
         <View style={styles.metricRow}>
           <MetricCard
-            label="Ca tuan nay"
+            label="Ca tuần này"
             value={data.weekShiftCount}
             tone="primary"
           />
           <MetricCard
-            label="Ca can ban"
+            label="Ca cần bạn"
             value={data.openShiftCount}
             tone="warning"
           />
         </View>
 
         <MetricCard
-          label="Yeu cau cho duyet"
+          label="Yêu cầu chờ duyệt"
           value={data.pendingRequestCount}
           tone={data.pendingRequestCount > 0 ? 'warning' : 'neutral'}
         />
 
         <View style={styles.actionRow}>
           <PrimaryButton
-            label="Xem lich tuan nay"
+            label="Xem lịch tuần này"
             onPress={() => router.push('/(employee)/(tabs)/calendar' as Href)}
             style={styles.actionButton}
           />
           <PrimaryButton
-            label="Nhuong ca"
+            label="Nhường ca"
             onPress={() =>
               router.push('/(employee)/requests/create-yield' as Href)
             }
@@ -129,14 +129,14 @@ export function EmployeeDashboardScreen() {
 
         <View style={styles.actionRow}>
           <PrimaryButton
-            label="Ca can ban"
+            label="Ca cần bạn"
             onPress={() =>
               router.push('/(employee)/(tabs)/open-shifts' as Href)
             }
             style={styles.actionButton}
           />
           <PrimaryButton
-            label="Xem so lieu"
+            label="Xem số liệu"
             onPress={() => router.push('/(employee)/(tabs)/statistics' as Href)}
             variant="secondary"
             style={styles.actionButton}
@@ -144,9 +144,9 @@ export function EmployeeDashboardScreen() {
         </View>
 
         <SectionHeader
-          title="Ca sap toi"
-          subtitle="Cac ca da chot gan nhat luon bam theo lich thuc te cua ban."
-          actionLabel="Xin nghi ca"
+          title="Ca sắp tới"
+          subtitle="Các ca đã chốt gần nhất luôn bám theo lịch thực tế của bạn."
+          actionLabel="Xin nghỉ ca"
           onActionPress={() =>
             router.push('/(employee)/requests/create-leave' as Href)
           }
@@ -155,20 +155,20 @@ export function EmployeeDashboardScreen() {
         {loading ? (
           <View style={styles.stateBox}>
             <ActivityIndicator color={AppColors.primary} />
-            <Text style={styles.stateText}>Dang tai trang chu...</Text>
+            <Text style={styles.stateText}>Đang tải trang chủ...</Text>
           </View>
         ) : error ? (
           <EmptyState
-            title="Khong tai duoc trang chu"
+            title="Không tải được trang chủ"
             description={error}
-            actionLabel="Thu lai"
+            actionLabel="Thử lại"
             onAction={reload}
           />
         ) : data.upcomingShifts.length === 0 ? (
           <EmptyState
-            title="Chua co ca nao sap toi"
-            description="Ban chua co ca da chot trong thoi gian gan. Hay mo danh sach ca can nguoi de nhan them khi phu hop."
-            actionLabel="Mo ca can ban"
+            title="Chưa có ca nào sắp tới"
+            description="Bạn chưa có ca đã chốt trong thời gian gần. Hãy mở danh sách ca cần người để nhận thêm khi phù hợp."
+            actionLabel="Mở ca cần bạn"
             onAction={() =>
               router.push('/(employee)/(tabs)/open-shifts' as Href)
             }
@@ -180,14 +180,14 @@ export function EmployeeDashboardScreen() {
         )}
 
         <SectionHeader
-          title="Cap nhat moi nhat"
-          subtitle="Moi thay doi quan trong deu quay ve mot luong cap nhat ngan gon, de doc."
+          title="Cập nhật mới nhất"
+          subtitle="Mọi thay đổi quan trọng đều quay về một luồng cập nhật ngắn gọn, dễ đọc."
         />
 
         {data.recentUpdates.length === 0 ? (
           <EmptyState
-            title="Chua co cap nhat moi"
-            description="Khi lich thay doi hoac yeu cau duoc xu ly, muc nay se tu dong hien thi."
+            title="Chưa có cập nhật mới"
+            description="Khi lịch thay đổi hoặc yêu cầu được xử lý, mục này sẽ tự động hiển thị."
           />
         ) : (
           data.recentUpdates.map((item) => (
@@ -196,14 +196,14 @@ export function EmployeeDashboardScreen() {
         )}
 
         <SectionHeader
-          title="Thong bao van hanh"
-          subtitle="Thong bao can xac nhan se khong bi troi nhu chat roi."
+          title="Thông báo vận hành"
+          subtitle="Thông báo cần xác nhận sẽ không bị trôi như chat rời."
         />
 
         {data.announcements.length === 0 ? (
           <EmptyState
-            title="Chua co thong bao moi"
-            description="Thong bao tu quan ly va cap nhat can xac nhan se hien tai day."
+            title="Chưa có thông báo mới"
+            description="Thông báo từ quản lý và cập nhật cần xác nhận sẽ hiện tại đây."
           />
         ) : (
           data.announcements.map((announcement) => (
@@ -221,18 +221,18 @@ export function EmployeeDashboardScreen() {
                         await reload();
                         Alert.alert(
                           result.delivery === 'sent'
-                            ? 'Da xac nhan thong bao'
-                            : 'Da dua vao hang doi',
+                            ? 'Đã xác nhận thông báo'
+                            : 'Đã đưa vào hàng đợi',
                           result.delivery === 'sent'
-                            ? 'Trang thai xac nhan da duoc dong bo.'
-                            : 'Trang thai xac nhan se tu dong gui khi ket noi on dinh.',
+                            ? 'Trạng thái xác nhận đã được đồng bộ.'
+                            : 'Trạng thái xác nhận sẽ tự động gửi khi kết nối ổn định.',
                         );
                       } catch (error) {
                         Alert.alert(
-                          'Khong the xac nhan',
+                          'Không thể xác nhận',
                           error instanceof Error
                             ? error.message
-                            : 'Vui long thu lai.',
+                            : 'Vui lòng thử lại.',
                         );
                       }
                     }

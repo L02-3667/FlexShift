@@ -39,7 +39,7 @@ describe('api client resilience', () => {
     user: {
       id: 'employee-1',
       email: 'an.nguyen@flexshift.app',
-      fullName: 'An Nguyen',
+      fullName: 'An Nguyễn',
       phone: '0901000002',
       role: 'employee',
       status: 'active',

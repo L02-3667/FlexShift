@@ -192,7 +192,7 @@ function normalizeUserShell(user: UserShellInput): User {
   };
 }
 
-function mergeUserShell(current: User, next: User) {
+function mergeUserShell(current: User, next: User): User {
   const currentHasRealName =
     current.fullName.trim().length > 0 && current.fullName !== current.id;
   const nextHasRealName =
@@ -783,17 +783,17 @@ export async function claimOpenShift(
   const openShift = await getOpenShiftById(db, openShiftId);
 
   if (!openShift) {
-    throw new Error('Khong tim thay ca trong.');
+    throw new Error('Không tìm thấy ca trống.');
   }
 
   if (openShift.status !== 'open') {
-    throw new Error('Ca trong nay khong con kha dung.');
+    throw new Error('Ca trống này không còn khả dụng.');
   }
 
   const isConflict = await detectShiftConflict(db, employeeId, openShift);
 
   if (isConflict) {
-    throw new Error('Ban da co ca trung thoi gian nen khong the nhan ca nay.');
+    throw new Error('Bạn đã có ca trùng thời gian nên không thể nhận ca này.');
   }
 
   const newShiftId = createId('shift');
@@ -830,7 +830,7 @@ export async function createLeaveRequest(
   const shift = await getShiftById(db, input.shiftId);
 
   if (!shift || shift.employeeId !== input.createdByEmployeeId) {
-    throw new Error('Ca lam khong hop le de tao don xin nghi.');
+    throw new Error('Ca làm không hợp lệ để tạo đơn xin nghỉ.');
   }
 
   const existing = await getPendingRequestForShift(
@@ -840,7 +840,7 @@ export async function createLeaveRequest(
   );
 
   if (existing) {
-    throw new Error('Ban da co mot yeu cau dang cho duyet cho ca nay.');
+    throw new Error('Bạn đã có một yêu cầu đang chờ duyệt cho ca này.');
   }
 
   const requestId = createId('request');
@@ -876,11 +876,11 @@ export async function createYieldRequest(
   const shift = await getShiftById(db, input.shiftId);
 
   if (!shift || shift.employeeId !== input.createdByEmployeeId) {
-    throw new Error('Ca lam khong hop le de tao de nghi nhuong ca.');
+    throw new Error('Ca làm không hợp lệ để tạo đề nghị nhường ca.');
   }
 
   if (input.createdByEmployeeId === input.targetEmployeeId) {
-    throw new Error('Ban can chon mot dong nghiep khac de nhan ca.');
+    throw new Error('Bạn cần chọn một đồng nghiệp khác để nhận ca.');
   }
 
   const existing = await getPendingRequestForShift(
@@ -890,7 +890,7 @@ export async function createYieldRequest(
   );
 
   if (existing) {
-    throw new Error('Ban da co mot yeu cau dang cho duyet cho ca nay.');
+    throw new Error('Bạn đã có một yêu cầu đang chờ duyệt cho ca này.');
   }
 
   const target = await db.getFirstAsync<User>(
@@ -907,7 +907,7 @@ export async function createYieldRequest(
   );
 
   if (!target) {
-    throw new Error('Khong tim thay dong nghiep nhan ca.');
+    throw new Error('Không tìm thấy đồng nghiệp nhận ca.');
   }
 
   const requestId = createId('request');
@@ -968,17 +968,17 @@ export async function approveRequest(
   );
 
   if (!request) {
-    throw new Error('Khong tim thay yeu cau can duyet.');
+    throw new Error('Không tìm thấy yêu cầu cần duyệt.');
   }
 
   if (request.status !== 'pending') {
-    throw new Error('Yeu cau nay da duoc xu ly truoc do.');
+    throw new Error('Yêu cầu này đã được xử lý trước đó.');
   }
 
   const shift = await getShiftById(db, request.shiftId);
 
   if (!shift) {
-    throw new Error('Khong tim thay ca lien quan toi yeu cau.');
+    throw new Error('Không tìm thấy ca liên quan tới yêu cầu.');
   }
 
   const reviewedAt = formatIsoTimestamp();
@@ -1023,7 +1023,7 @@ export async function approveRequest(
     });
   } else {
     if (!request.targetEmployeeId) {
-      throw new Error('Yeu cau nhuong ca thieu nguoi nhan ca.');
+      throw new Error('Yêu cầu nhường ca thiếu người nhận ca.');
     }
 
     const isConflict = await detectShiftConflict(
@@ -1035,7 +1035,7 @@ export async function approveRequest(
 
     if (isConflict) {
       throw new Error(
-        'Nguoi nhan ca dang co lich trung thoi gian nen chua the duyet.',
+        'Người nhận ca đang có lịch trùng thời gian nên chưa thể duyệt.',
       );
     }
 
@@ -1080,11 +1080,11 @@ export async function rejectRequest(
   );
 
   if (!request) {
-    throw new Error('Khong tim thay yeu cau can tu choi.');
+    throw new Error('Không tìm thấy yêu cầu cần từ chối.');
   }
 
   if (request.status !== 'pending') {
-    throw new Error('Yeu cau nay da duoc xu ly truoc do.');
+    throw new Error('Yêu cầu này đã được xử lý trước đó.');
   }
 
   const reviewedAt = formatIsoTimestamp();

@@ -97,7 +97,7 @@ describe('employee request and shift screens', () => {
             date: '2026-04-11',
             startTime: '08:00',
             endTime: '12:00',
-            position: 'Thu ngan',
+            position: 'Thu ngân',
             storeName: 'Central Market',
             status: 'scheduled',
           },
@@ -111,12 +111,12 @@ describe('employee request and shift screens', () => {
 
     render(<CreateLeaveRequestScreen />);
 
-    fireEvent.press(screen.getByText('Thu ngan'));
+    fireEvent.press(screen.getByText('Thu ngân'));
     fireEvent.changeText(
-      screen.getByLabelText('Ly do xin nghi'),
-      'Can nghi de xu ly viec gia dinh.',
+      screen.getByLabelText('Lý do xin nghỉ'),
+      'Cần nghỉ để xử lý việc gia đình.',
     );
-    fireEvent.press(screen.getByLabelText('Gui yeu cau xin nghi'));
+    fireEvent.press(screen.getByLabelText('Gửi yêu cầu xin nghỉ'));
 
     await waitFor(() => {
       expect(mockCreateLeaveRequestAction).toHaveBeenCalled();
@@ -132,7 +132,7 @@ describe('employee request and shift screens', () => {
             date: '2026-04-12',
             startTime: '13:00',
             endTime: '17:00',
-            position: 'Ban hang',
+            position: 'Bán hàng',
             storeName: 'Riverside Kiosk',
             status: 'scheduled',
           },
@@ -140,7 +140,7 @@ describe('employee request and shift screens', () => {
         coworkers: [
           {
             id: 'employee-2',
-            fullName: 'Linh Tran',
+            fullName: 'Linh Trần',
             email: 'linh.tran@flexshift.app',
             phone: '0901000003',
           },
@@ -153,13 +153,13 @@ describe('employee request and shift screens', () => {
 
     render(<CreateYieldRequestScreen />);
 
-    fireEvent.press(screen.getByText('Ban hang'));
-    fireEvent.press(screen.getByText('Linh Tran'));
+    fireEvent.press(screen.getByText('Bán hàng'));
+    fireEvent.press(screen.getByText('Linh Trần'));
     fireEvent.changeText(
-      screen.getByLabelText('Ly do nhuong ca'),
-      'Can doi lich voi dong nghiep.',
+      screen.getByLabelText('Lý do nhường ca'),
+      'Cần đổi lịch với đồng nghiệp.',
     );
-    fireEvent.press(screen.getByLabelText('Gui de nghi nhuong ca'));
+    fireEvent.press(screen.getByLabelText('Gửi đề nghị nhường ca'));
 
     await waitFor(() => {
       expect(mockCreateYieldRequestAction).toHaveBeenCalled();
@@ -176,7 +176,7 @@ describe('employee request and shift screens', () => {
 
     render(<OpenShiftDetailScreen />);
 
-    fireEvent.press(screen.getByLabelText('Nhan ca nay'));
+    fireEvent.press(screen.getByLabelText('Nhận ca này'));
 
     await waitFor(() => {
       expect(mockClaimOpenShiftAction).toHaveBeenCalled();

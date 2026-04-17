@@ -26,12 +26,12 @@ export class OpenShiftsService {
   private buildOpenShiftUnavailableConflict(openShiftId: string) {
     return new DomainConflictException({
       code: 'OPEN_SHIFT_ALREADY_CLAIMED',
-      message: 'Ca trong nay khong con kha dung.',
+      message: 'Ca trống này không còn khả dụng.',
       entityType: 'open_shift',
       entityId: openShiftId,
       recoverable: true,
       retryable: false,
-      resolution: 'Lam moi danh sach ca trong de nhan trang thai moi nhat.',
+      resolution: 'Làm mới danh sách ca trống để nhận trạng thái mới nhất.',
     });
   }
 
@@ -88,7 +88,7 @@ export class OpenShiftsService {
     });
 
     if (!openShift) {
-      throw new NotFoundException('Khong tim thay ca trong.');
+      throw new NotFoundException('Không tìm thấy ca trống.');
     }
 
     return mapOpenShiftForMobile(openShift);
@@ -137,8 +137,8 @@ export class OpenShiftsService {
       employees.map((employee) =>
         this.notificationsService.createNotification({
           userId: employee.id,
-          title: 'Ca can ban',
-          body: `${position.name} tai ${store.name} vua duoc mo.`,
+          title: 'Ca cần bạn',
+          body: `${position.name} tại ${store.name} vừa được mở.`,
           type: 'open_shift_match',
         }),
       ),
@@ -213,7 +213,7 @@ export class OpenShiftsService {
     });
 
     if (!openShift) {
-      throw new NotFoundException('Khong tim thay ca trong.');
+      throw new NotFoundException('Không tìm thấy ca trống.');
     }
 
     if (openShift.status !== 'open') {
@@ -245,12 +245,12 @@ export class OpenShiftsService {
     if (isConflict) {
       throw new DomainConflictException({
         code: 'SHIFT_CLAIM_OVERLAP',
-        message: 'Ban da co ca trung thoi gian nen khong the nhan ca nay.',
+        message: 'Bạn đã có ca trùng thời gian nên không thể nhận ca này.',
         entityType: 'shift',
         entityId: openShift.id,
         recoverable: true,
         retryable: false,
-        resolution: 'Chon mot ca khac khong trung lich hien tai.',
+        resolution: 'Chọn một ca khác không trùng lịch hiện tại.',
       });
     }
 
@@ -298,8 +298,8 @@ export class OpenShiftsService {
 
     await this.notificationsService.createNotification({
       userId: currentUser.sub,
-      title: 'Ca da duoc xac nhan',
-      body: `${createdShift.position.name} tai ${createdShift.store.name} da vao lich cua ban.`,
+      title: 'Ca đã được xác nhận',
+      body: `${createdShift.position.name} tại ${createdShift.store.name} đã vào lịch của bạn.`,
       type: 'shift_assigned',
     });
 

@@ -16,10 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>(
-        'JWT_ACCESS_SECRET',
-        'flexshift-access-secret',
-      ),
+      secretOrKey: configService.getOrThrow<string>('JWT_ACCESS_SECRET'),
     });
   }
 
@@ -33,11 +30,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const user = await this.usersService.findById(payload.sub);
 
     if (!user || !user.isActive) {
-      throw new UnauthorizedException('Tai khoan khong con hop le.');
+      throw new UnauthorizedException('Tài khoản không còn hợp lệ.');
     }
 
     if (!payload.sessionId) {
-      throw new UnauthorizedException('Session khong hop le.');
+      throw new UnauthorizedException('Session không hợp lệ.');
     }
 
     const session = await this.sessionsService.findActiveSessionById(
@@ -45,11 +42,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     );
 
     if (!session || session.userId !== user.id) {
-      throw new UnauthorizedException('Session da het han hoac bi thu hoi.');
+      throw new UnauthorizedException('Session đã hết hạn hoặc bị thu hồi.');
     }
 
     if (payload.deviceId && session.deviceId !== payload.deviceId) {
-      throw new UnauthorizedException('Thiet bi session khong hop le.');
+      throw new UnauthorizedException('Thiết bị session không hợp lệ.');
     }
 
     await this.sessionsService.touchSession(session.id, {

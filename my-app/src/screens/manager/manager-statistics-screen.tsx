@@ -54,18 +54,18 @@ export function ManagerStatisticsScreen() {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.content}>
         <SectionHeader
-          title="Thong ke van hanh"
-          subtitle="Tap trung vao do phu ca, so yeu cau cho xu ly va khoi luong gio da phan bo de ra quyet dinh nhanh."
+          title="Thống kê vận hành"
+          subtitle="Tập trung vào độ phủ ca, số yêu cầu chờ xử lý và khối lượng giờ đã phân bổ để ra quyết định nhanh."
         />
 
         {loading ? (
           <View style={styles.stateBox}>
             <ActivityIndicator color={AppColors.primary} />
-            <Text style={styles.stateText}>Dang tai thong ke van hanh...</Text>
+            <Text style={styles.stateText}>Đang tải thống kê vận hành...</Text>
           </View>
         ) : error ? (
           <EmptyState
-            title="Khong tai duoc thong ke"
+            title="Không tải được thống kê"
             description={error}
             actionLabel={APP_COPY.common.retry}
             onAction={reload}
@@ -74,12 +74,12 @@ export function ManagerStatisticsScreen() {
           <>
             <View style={styles.metricRow}>
               <MetricCard
-                label="Ca dang mo"
+                label="Ca đang mở"
                 value={data.openShiftCount}
                 tone="warning"
               />
               <MetricCard
-                label="Yeu cau cho duyet"
+                label="Yêu cầu chờ duyệt"
                 value={data.pendingRequestCount}
                 tone="primary"
               />
@@ -87,12 +87,12 @@ export function ManagerStatisticsScreen() {
 
             <View style={styles.metricRow}>
               <MetricCard
-                label="Ty le lap ca"
+                label="Tỷ lệ lấp ca"
                 value={`${data.fillRate}%`}
                 tone="primary"
               />
               <MetricCard
-                label="Ca da chot"
+                label="Ca đã chốt"
                 value={data.confirmedShiftCount}
                 tone="neutral"
               />
@@ -100,26 +100,26 @@ export function ManagerStatisticsScreen() {
 
             <View style={styles.metricRow}>
               <MetricCard
-                label="Gio da phan bo"
+                label="Giờ đã phân bổ"
                 value={formatHours(data.allocatedHoursThisWeek)}
                 tone="neutral"
               />
               <MetricCard
-                label="Duyet / tu choi"
+                label="Duyệt / từ chối"
                 value={`${data.approvedRequestCount} / ${data.rejectedRequestCount}`}
                 tone="neutral"
               />
             </View>
 
             <View style={styles.breakdownCard}>
-              <Text style={styles.breakdownTitle}>Theo cua hang</Text>
+              <Text style={styles.breakdownTitle}>Theo cửa hàng</Text>
               {data.storeBreakdown.map((store) => (
                 <View key={store.storeName} style={styles.breakdownRow}>
                   <View style={styles.breakdownTextBlock}>
                     <Text style={styles.breakdownName}>{store.storeName}</Text>
                     <Text style={styles.breakdownMeta}>
-                      {store.confirmedShiftCount} ca da chot,{' '}
-                      {store.openShiftCount} ca dang mo
+                      {store.confirmedShiftCount} ca đã chốt,{' '}
+                      {store.openShiftCount} ca đang mở
                     </Text>
                   </View>
                 </View>

@@ -11,8 +11,8 @@ describe('validation helpers', () => {
         startTime: '22:00',
         endTime: '02:00',
         storeName: 'Central Market',
-        position: 'Thu ngan',
-        note: 'Ca dem can bo sung.',
+        position: 'Thu ngân',
+        note: 'Ca đêm cần bổ sung.',
       }),
     ).toBeNull();
 
@@ -22,14 +22,14 @@ describe('validation helpers', () => {
         startTime: '22:00',
         endTime: '22:00',
         storeName: 'Central Market',
-        position: 'Thu ngan',
-        note: 'Khong hop le.',
+        position: 'Thu ngân',
+        note: 'Không hợp lệ.',
       }),
-    ).toContain('Khung gio khong hop le');
+    ).toContain('Khung giờ không hợp lệ');
   });
 
   it('rejects short reasons and missing fields', () => {
-    expect(validateReason('')).toContain('Vui long nhap ly do');
-    expect(validateReason('abc')).toContain('Ly do can du ro rang');
+    expect(validateReason('')).toContain('Vui lòng nhập lý do');
+    expect(validateReason('abc')).toContain('Lý do cần đủ rõ ràng');
   });
 });

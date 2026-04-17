@@ -95,7 +95,7 @@ describe('concurrency integration', () => {
       .set('Authorization', `Bearer ${employeeSession.accessToken}`)
       .send({
         shiftId: leaveShift.id,
-        reason: 'Can nghi mot buoi de xu ly viec gia dinh.',
+        reason: 'Cần nghỉ một buổi để xử lý việc gia đình.',
       })
       .expect(201);
 
@@ -104,13 +104,13 @@ describe('concurrency integration', () => {
         .post(`/api/approvals/${leaveRequest.body.id}/approve`)
         .set('Authorization', `Bearer ${managerSession.accessToken}`)
         .send({
-          note: 'Duyet lan 1.',
+          note: 'Duyệt lần 1.',
         }),
       request(context.app.getHttpServer())
         .post(`/api/approvals/${leaveRequest.body.id}/approve`)
         .set('Authorization', `Bearer ${managerSession.accessToken}`)
         .send({
-          note: 'Duyet lan 2.',
+          note: 'Duyệt lần 2.',
         }),
     ]);
 

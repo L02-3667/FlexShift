@@ -11,7 +11,7 @@ import {
 
 import { useAppQueryClient } from '@/src/hooks/use-app-query-client';
 import { useAppState } from '@/src/hooks/use-app-state';
-import { APP_CONFIG } from '@/src/constants/config';
+import { AppEnv } from '@/src/config/env';
 import {
   getPendingAnnouncementCount,
   hydrateSyncStatus,
@@ -96,7 +96,7 @@ export function SyncProvider({ children }: PropsWithChildren) {
     );
     const interval = setInterval(() => {
       void syncNow();
-    }, APP_CONFIG.syncPollIntervalMs);
+    }, AppEnv.syncPollIntervalMs);
 
     return () => {
       appStateSubscription.remove();

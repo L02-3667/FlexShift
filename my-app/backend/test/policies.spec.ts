@@ -63,12 +63,12 @@ describe('backend policy helpers', () => {
         claimedById: null,
         updatedAt: new Date('2026-04-10T08:00:00.000Z'),
         store: { name: 'Central Market' },
-        position: { name: 'Thu ngan' },
+        position: { name: 'Thu ngân' },
       }),
     ).toMatchObject({
       id: 'open-1',
       storeName: 'Central Market',
-      position: 'Thu ngan',
+      position: 'Thu ngân',
     });
 
     expect(
@@ -80,18 +80,18 @@ describe('backend policy helpers', () => {
         status: 'scheduled',
         updatedAt: new Date('2026-04-10T08:00:00.000Z'),
         store: { name: 'Central Market' },
-        position: { name: 'Thu ngan' },
+        position: { name: 'Thu ngân' },
         assignments: [
           {
             userId: 'employee-1',
-            user: { fullName: 'An Nguyen' },
+            user: { fullName: 'An Nguyễn' },
           },
         ],
       }),
     ).toMatchObject({
       id: 'shift-1',
       employeeId: 'employee-1',
-      employeeName: 'An Nguyen',
+      employeeName: 'An Nguyễn',
     });
 
     expect(
@@ -111,15 +111,15 @@ describe('backend policy helpers', () => {
           startTime: '09:00',
           endTime: '13:00',
           store: { name: 'Central Market' },
-          position: { name: 'Thu ngan' },
+          position: { name: 'Thu ngân' },
         },
-        createdBy: { fullName: 'An Nguyen' },
+        createdBy: { fullName: 'An Nguyễn' },
         targetUser: null,
         approvalActions: [],
       }),
     ).toMatchObject({
       id: 'request-1',
-      createdByEmployeeName: 'An Nguyen',
+      createdByEmployeeName: 'An Nguyễn',
       shiftStoreName: 'Central Market',
     });
   });

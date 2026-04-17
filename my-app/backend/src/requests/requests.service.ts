@@ -46,7 +46,7 @@ export class RequestsService {
     });
 
     if (!shift) {
-      throw new BadRequestException('Ca lam khong hop le cho yeu cau nay.');
+      throw new BadRequestException('Ca làm không hợp lệ cho yêu cầu này.');
     }
 
     return shift;
@@ -111,13 +111,13 @@ export class RequestsService {
     });
 
     if (!request) {
-      throw new NotFoundException('Khong tim thay yeu cau.');
+      throw new NotFoundException('Không tìm thấy yêu cầu.');
     }
 
     if (
       !canViewRequest(currentUser.role, request.createdById, currentUser.sub)
     ) {
-      throw new ForbiddenException('Ban khong duoc xem yeu cau nay.');
+      throw new ForbiddenException('Bạn không được xem yêu cầu này.');
     }
 
     return mapRequestForMobile(request);
@@ -154,12 +154,12 @@ export class RequestsService {
     if (pendingRequest) {
       throw new DomainConflictException({
         code: 'DUPLICATE_PENDING_REQUEST',
-        message: 'Ban da co mot yeu cau dang cho duyet cho ca nay.',
+        message: 'Bạn đã có một yêu cầu đang chờ duyệt cho ca này.',
         entityType: 'request',
         entityId: pendingRequest.id,
         recoverable: true,
         retryable: false,
-        resolution: 'Mo danh sach yeu cau de theo doi trang thai hien tai.',
+        resolution: 'Mở danh sách yêu cầu để theo dõi trạng thái hiện tại.',
       });
     }
 
@@ -194,8 +194,8 @@ export class RequestsService {
       managers.map((manager) =>
         this.notificationsService.createNotification({
           userId: manager.id,
-          title: 'Yeu cau xin nghi moi',
-          body: `${request.createdBy.fullName} vua gui yeu cau nghi ca ${shift.position.name}.`,
+          title: 'Yêu cầu xin nghỉ mới',
+          body: `${request.createdBy.fullName} vừa gửi yêu cầu nghỉ ca ${shift.position.name}.`,
           type: 'schedule_updated',
         }),
       ),
@@ -265,7 +265,7 @@ export class RequestsService {
 
     if (input.targetEmployeeId === currentUser.sub) {
       throw new BadRequestException(
-        'Ban can chon mot dong nghiep khac de nhan ca.',
+        'Bạn cần chọn một đồng nghiệp khác để nhận ca.',
       );
     }
 
@@ -278,7 +278,7 @@ export class RequestsService {
     });
 
     if (!targetUser) {
-      throw new NotFoundException('Khong tim thay dong nghiep nhan ca.');
+      throw new NotFoundException('Không tìm thấy đồng nghiệp nhận ca.');
     }
 
     const pendingRequest = await this.prisma.request.findFirst({
@@ -292,12 +292,12 @@ export class RequestsService {
     if (pendingRequest) {
       throw new DomainConflictException({
         code: 'DUPLICATE_PENDING_REQUEST',
-        message: 'Ban da co mot yeu cau dang cho duyet cho ca nay.',
+        message: 'Bạn đã có một yêu cầu đang chờ duyệt cho ca này.',
         entityType: 'request',
         entityId: pendingRequest.id,
         recoverable: true,
         retryable: false,
-        resolution: 'Mo danh sach yeu cau de theo doi trang thai hien tai.',
+        resolution: 'Mở danh sách yêu cầu để theo dõi trạng thái hiện tại.',
       });
     }
 
@@ -333,8 +333,8 @@ export class RequestsService {
       managers.map((manager) =>
         this.notificationsService.createNotification({
           userId: manager.id,
-          title: 'De nghi nhuong ca moi',
-          body: `${request.createdBy.fullName} muon nhuong ca ${shift.position.name}.`,
+          title: 'Đề nghị nhường ca mới',
+          body: `${request.createdBy.fullName} muốn nhường ca ${shift.position.name}.`,
           type: 'schedule_updated',
         }),
       ),

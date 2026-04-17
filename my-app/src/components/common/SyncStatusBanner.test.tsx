@@ -22,12 +22,12 @@ describe('SyncStatusBanner', () => {
   it('renders offline sync state and triggers a manual sync', () => {
     render(<SyncStatusBanner />);
 
-    expect(screen.getByText('Trang thai dong bo')).toBeTruthy();
+    expect(screen.getByText('Trạng thái đồng bộ')).toBeTruthy();
     expect(
-      screen.getByText('Dang offline. Thay doi moi se vao hang doi an toan.'),
+      screen.getByText('Đang offline. Thay đổi mới sẽ vào hàng đợi an toàn.'),
     ).toBeTruthy();
 
-    fireEvent.press(screen.getByLabelText('Dong bo ngay'));
+    fireEvent.press(screen.getByLabelText('Đồng bộ ngay'));
     expect(mockSyncNow).toHaveBeenCalledTimes(1);
   });
 });

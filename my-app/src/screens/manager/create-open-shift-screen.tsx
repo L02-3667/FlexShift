@@ -35,22 +35,22 @@ const initialForm = {
 const quickDateOptions = Array.from({ length: 4 }, (_, index) => {
   const value = formatDateInput(addDays(new Date(), index));
 
-  return {
-    value,
-    label:
-      index === 0
-        ? 'Hom nay'
+    return {
+      value,
+      label:
+        index === 0
+        ? 'Hôm nay'
         : index === 1
-          ? 'Ngay mai'
+          ? 'Ngày mai'
           : formatDisplayDate(value),
   };
 });
 
 const timeRangeOptions = [
-  { startTime: '07:00', endTime: '11:00', label: 'Ca sang 07:00 - 11:00' },
-  { startTime: '09:00', endTime: '13:00', label: 'Ca giua ngay 09:00 - 13:00' },
-  { startTime: '13:00', endTime: '17:00', label: 'Ca chieu 13:00 - 17:00' },
-  { startTime: '17:00', endTime: '21:00', label: 'Ca toi 17:00 - 21:00' },
+  { startTime: '07:00', endTime: '11:00', label: 'Ca sáng 07:00 - 11:00' },
+  { startTime: '09:00', endTime: '13:00', label: 'Ca giữa ngày 09:00 - 13:00' },
+  { startTime: '13:00', endTime: '17:00', label: 'Ca chiều 13:00 - 17:00' },
+  { startTime: '17:00', endTime: '21:00', label: 'Ca tối 17:00 - 21:00' },
 ];
 
 export function CreateOpenShiftScreen() {
@@ -75,16 +75,16 @@ export function CreateOpenShiftScreen() {
       await refreshData();
       setForm(initialForm);
       Alert.alert(
-        result.delivery === 'sent' ? 'Da tao ca trong' : 'Da dua vao hang doi',
+        result.delivery === 'sent' ? 'Đã tạo ca trống' : 'Đã đưa vào hàng đợi',
         result.delivery === 'sent'
-          ? 'Ca trong moi da san sang de nhan vien nhan nhanh.'
-          : 'Ca trong moi da duoc luu local va se gui len server khi ket noi on dinh.',
+          ? 'Ca trống mới đã sẵn sàng để nhân viên nhận nhanh.'
+          : 'Ca trống mới đã được lưu local và sẽ gửi lên server khi kết nối ổn định.',
       );
     } catch (creationError) {
       setFormError(
         creationError instanceof Error
           ? creationError.message
-          : 'Khong the tao ca trong.',
+          : 'Không thể tạo ca trống.',
       );
     } finally {
       setSubmitting(false);
@@ -102,14 +102,14 @@ export function CreateOpenShiftScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <SectionHeader
-            title="Tao ca trong"
-            subtitle="Chon nhanh ngay, khung gio va vi tri de ca moi xuat hien ngay o man Nhan ca nhanh."
+            title="Tạo ca trống"
+            subtitle="Chọn nhanh ngày, khung giờ và vị trí để ca mới xuất hiện ngay ở màn Nhận ca nhanh."
           />
 
           <SyncStatusBanner />
 
           <View style={styles.group}>
-            <Text style={styles.groupTitle}>Chon ngay nhanh</Text>
+            <Text style={styles.groupTitle}>Chọn ngày nhanh</Text>
             <View style={styles.chipWrap}>
               {quickDateOptions.map((option) => {
                 const selected = form.date === option.value;
@@ -137,8 +137,8 @@ export function CreateOpenShiftScreen() {
           </View>
 
           <AppInput
-            label="Ngay lam viec"
-            hint="Ban van co the nhap tay theo dinh dang YYYY-MM-DD neu can."
+            label="Ngày làm việc"
+            hint="Bạn vẫn có thể nhập tay theo định dạng YYYY-MM-DD nếu cần."
             value={form.date}
             onChangeText={(value) =>
               setForm((current) => ({ ...current, date: value }))
@@ -147,7 +147,7 @@ export function CreateOpenShiftScreen() {
           />
 
           <View style={styles.group}>
-            <Text style={styles.groupTitle}>Khung gio goi y</Text>
+            <Text style={styles.groupTitle}>Khung giờ gợi ý</Text>
             <View style={styles.chipWrap}>
               {timeRangeOptions.map((option) => {
                 const selected =
@@ -183,7 +183,7 @@ export function CreateOpenShiftScreen() {
           <View style={styles.row}>
             <View style={styles.rowColumn}>
               <AppInput
-                label="Gio bat dau"
+                label="Giờ bắt đầu"
                 hint="HH:mm"
                 value={form.startTime}
                 onChangeText={(value) =>
@@ -194,7 +194,7 @@ export function CreateOpenShiftScreen() {
             </View>
             <View style={styles.rowColumn}>
               <AppInput
-                label="Gio ket thuc"
+                label="Giờ kết thúc"
                 hint="HH:mm"
                 value={form.endTime}
                 onChangeText={(value) =>
@@ -206,7 +206,7 @@ export function CreateOpenShiftScreen() {
           </View>
 
           <View style={styles.group}>
-            <Text style={styles.groupTitle}>Cua hang</Text>
+            <Text style={styles.groupTitle}>Cửa hàng</Text>
             <View style={styles.chipWrap}>
               {STORE_OPTIONS.map((option) => {
                 const selected = form.storeName === option;
@@ -234,8 +234,8 @@ export function CreateOpenShiftScreen() {
           </View>
 
           <AppInput
-            label="Cua hang"
-            hint="Co the chinh lai neu can."
+            label="Cửa hàng"
+            hint="Có thể chỉnh lại nếu cần."
             value={form.storeName}
             onChangeText={(value) =>
               setForm((current) => ({ ...current, storeName: value }))
@@ -243,7 +243,7 @@ export function CreateOpenShiftScreen() {
           />
 
           <View style={styles.group}>
-            <Text style={styles.groupTitle}>Vi tri can bo sung</Text>
+            <Text style={styles.groupTitle}>Vị trí cần bổ sung</Text>
             <View style={styles.chipWrap}>
               {POSITION_OPTIONS.map((option) => {
                 const selected = form.position === option;
@@ -271,8 +271,8 @@ export function CreateOpenShiftScreen() {
           </View>
 
           <AppInput
-            label="Vi tri"
-            hint="Co the nhap tay neu can vi tri dac biet."
+            label="Vị trí"
+            hint="Có thể nhập tay nếu cần vị trí đặc biệt."
             value={form.position}
             onChangeText={(value) =>
               setForm((current) => ({ ...current, position: value }))
@@ -280,19 +280,19 @@ export function CreateOpenShiftScreen() {
           />
 
           <AppInput
-            label="Ly do / ghi chu"
+            label="Lý do / ghi chú"
             multiline
             value={form.note}
             onChangeText={(value) =>
               setForm((current) => ({ ...current, note: value }))
             }
-            placeholder="Vi du: thieu nguoi ca toi, bo sung cuoi tuan, can thay ca dot xuat..."
+            placeholder="Ví dụ: thiếu người ca tối, bổ sung cuối tuần, cần thay ca đột xuất..."
           />
 
           {formError ? <Text style={styles.errorText}>{formError}</Text> : null}
 
           <PrimaryButton
-            label="Tao ca trong"
+            label="Tạo ca trống"
             onPress={onSubmit}
             loading={submitting}
           />

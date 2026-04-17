@@ -43,15 +43,15 @@ export function OpenShiftsScreen() {
     }
 
     Alert.alert(
-      'Nhan nhanh ca nay?',
-      'Ca phu hop se duoc them ngay vao lich cua ban neu khong bi trung gio.',
+      'Nhận nhanh ca này?',
+      'Ca phù hợp sẽ được thêm ngay vào lịch của bạn nếu không bị trùng giờ.',
       [
         {
-          text: 'Xem lai',
+          text: 'Xem lại',
           style: 'cancel',
         },
         {
-          text: 'Nhan ca',
+          text: 'Nhận ca',
           onPress: async () => {
             try {
               setClaimingId(openShiftId);
@@ -63,18 +63,18 @@ export function OpenShiftsScreen() {
               await refreshData();
               Alert.alert(
                 result.delivery === 'sent'
-                  ? 'Nhan ca thanh cong'
-                  : 'Da dua vao hang doi',
+                  ? 'Nhận ca thành công'
+                  : 'Đã đưa vào hàng đợi',
                 result.delivery === 'sent'
-                  ? 'Ca trong da duoc chuyen vao lich da chot cua ban.'
-                  : 'Ca trong da vao hang doi local va se dong bo ngay khi co mang.',
+                  ? 'Ca trống đã được chuyển vào lịch đã chốt của bạn.'
+                  : 'Ca trống đã vào hàng đợi local và sẽ đồng bộ ngay khi có mạng.',
               );
             } catch (claimError) {
               Alert.alert(
-                'Khong the nhan ca',
+                'Không thể nhận ca',
                 claimError instanceof Error
                   ? claimError.message
-                  : 'Vui long thu lai.',
+                  : 'Vui lòng thử lại.',
               );
             } finally {
               setClaimingId(null);
@@ -94,7 +94,7 @@ export function OpenShiftsScreen() {
         renderItem={({ item }) => (
           <OpenShiftCard
             openShift={item}
-            actionLabel="Nhan nhanh"
+            actionLabel="Nhận nhanh"
             actionLoading={claimingId === item.id}
             onActionPress={() => handleQuickClaim(item.id)}
             onPress={() =>
@@ -109,29 +109,29 @@ export function OpenShiftsScreen() {
           <View style={styles.headerBlock}>
             <SyncStatusBanner />
             <SectionHeader
-              title="Nhan ca nhanh"
-              subtitle="Chon ca phu hop, he thong se tu kiem tra trung lich truoc khi them vao lich da chot."
+              title="Nhận ca nhanh"
+              subtitle="Chọn ca phù hợp, hệ thống sẽ tự kiểm tra trùng lịch trước khi thêm vào lịch đã chốt."
             />
-            <Text style={styles.countText}>{data.total} ca dang kha dung</Text>
+            <Text style={styles.countText}>{data.total} ca đang khả dụng</Text>
           </View>
         }
         ListEmptyComponent={
           loading ? (
             <View style={styles.stateBox}>
               <ActivityIndicator color={AppColors.primary} />
-              <Text style={styles.stateText}>Dang tai ca trong...</Text>
+              <Text style={styles.stateText}>Đang tải ca trống...</Text>
             </View>
           ) : error ? (
             <EmptyState
-              title="Khong tai duoc ca trong"
+              title="Không tải được ca trống"
               description={error}
-              actionLabel="Thu lai"
+              actionLabel="Thử lại"
               onAction={reload}
             />
           ) : (
             <EmptyState
-              title="Hien chua co ca trong"
-              description="Quan ly chua tao them ca moi hoac tat ca ca trong da duoc nhan."
+              title="Hiện chưa có ca trống"
+              description="Quản lý chưa tạo thêm ca mới hoặc tất cả ca trống đã được nhận."
             />
           )
         }

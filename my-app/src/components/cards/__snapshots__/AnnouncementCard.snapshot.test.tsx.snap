@@ -40,7 +40,7 @@ exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
         }
       }
     >
-      Cap nhat quy trinh giao ca
+      Cập nhật quy trình giao ca
     </Text>
     <View
       style={
@@ -62,7 +62,7 @@ exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
           }
         }
       >
-        Can xac nhan
+        Cần xác nhận
       </Text>
     </View>
   </View>
@@ -75,7 +75,7 @@ exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
       }
     }
   >
-    Moi ca toi can xac nhan handover note truoc khi roi cua hang.
+    Mỗi ca tối cần xác nhận handover note trước khi rời cửa hàng.
   </Text>
   <Text
     style={

@@ -54,11 +54,11 @@ export function ApprovalsScreen() {
         ListHeaderComponent={
           <View style={styles.headerBlock}>
             <SectionHeader
-              title="Yeu cau cho duyet"
-              subtitle="Gom toan bo xin nghi va nhuong ca ve mot hang xu ly ro rang, uu tien muc con cho."
+              title="Yêu cầu chờ duyệt"
+              subtitle="Gom toàn bộ xin nghỉ và nhường ca về một hàng xử lý rõ ràng, ưu tiên mục còn chờ."
             />
             <Text style={styles.countText}>
-              {pendingCount} yeu cau dang cho duyet
+              {pendingCount} yêu cầu đang chờ duyệt
             </Text>
           </View>
         }
@@ -67,20 +67,20 @@ export function ApprovalsScreen() {
             <View style={styles.stateBox}>
               <ActivityIndicator color={AppColors.primary} />
               <Text style={styles.stateText}>
-                Dang tai danh sach yeu cau...
+                Đang tải danh sách yêu cầu...
               </Text>
             </View>
           ) : error ? (
             <EmptyState
-              title="Khong tai duoc danh sach yeu cau"
+              title="Không tải được danh sách yêu cầu"
               description={error}
-              actionLabel="Thu lai"
+              actionLabel="Thử lại"
               onAction={reload}
             />
           ) : (
             <EmptyState
-              title="Chua co yeu cau nao"
-              description="Hien chua co don xin nghi hoac nhuong ca nao can xu ly."
+              title="Chưa có yêu cầu nào"
+              description="Hiện chưa có đơn xin nghỉ hoặc nhường ca nào cần xử lý."
             />
           )
         }

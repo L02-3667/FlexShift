@@ -92,7 +92,7 @@ export function LoginScreen() {
 
                 <Text style={styles.displayTitle}>{BRANDING.appName}</Text>
                 <Text style={styles.displaySubtitle}>
-                  Workforce coordination mobile app
+                  Ứng dụng điều phối nhân sự trên di động
                 </Text>
               </View>
 
@@ -105,13 +105,13 @@ export function LoginScreen() {
 
             <View style={styles.heroChipRow}>
               <View style={styles.heroChip}>
-                <Text style={styles.heroChipText}>Mobile workflow</Text>
+                <Text style={styles.heroChipText}>Luồng mobile</Text>
               </View>
               <View style={styles.heroChip}>
-                <Text style={styles.heroChipText}>Offline-safe</Text>
+                <Text style={styles.heroChipText}>An toàn offline</Text>
               </View>
               <View style={styles.heroChip}>
-                <Text style={styles.heroChipText}>Fast approvals</Text>
+                <Text style={styles.heroChipText}>Duyệt nhanh</Text>
               </View>
             </View>
 
@@ -152,7 +152,7 @@ export function LoginScreen() {
             />
 
             <AppInput
-              label="Mat khau"
+              label="Mật khẩu"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -164,7 +164,7 @@ export function LoginScreen() {
             ) : null}
 
             <PrimaryButton
-              label="Dang nhap"
+              label="Đăng nhập"
               onPress={() => void onSubmit()}
               loading={isAuthenticating}
             />

@@ -56,7 +56,7 @@ export class ShiftsService {
       return {
         id: shift.id,
         employeeId: assignee?.id ?? '',
-        employeeName: assignee?.fullName ?? 'Chua xep',
+        employeeName: assignee?.fullName ?? 'Chưa xếp',
         date: shift.date.toISOString().slice(0, 10),
         startTime: shift.startTime,
         endTime: shift.endTime,
@@ -82,7 +82,7 @@ export class ShiftsService {
     });
 
     if (!shift) {
-      throw new NotFoundException('Khong tim thay ca lam.');
+      throw new NotFoundException('Không tìm thấy ca làm.');
     }
 
     const assignee = shift.assignments[0]?.user ?? null;
@@ -90,7 +90,7 @@ export class ShiftsService {
     return {
       id: shift.id,
       employeeId: assignee?.id ?? '',
-      employeeName: assignee?.fullName ?? 'Chua xep',
+      employeeName: assignee?.fullName ?? 'Chưa xếp',
       date: shift.date.toISOString().slice(0, 10),
       startTime: shift.startTime,
       endTime: shift.endTime,

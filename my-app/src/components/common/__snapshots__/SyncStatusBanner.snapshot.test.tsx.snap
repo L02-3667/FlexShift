@@ -51,11 +51,11 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
           }
         }
       >
-        Trang thai dong bo
+        Trạng thái đồng bộ
       </Text>
     </View>
     <View
-      accessibilityLabel="Dong bo ngay"
+      accessibilityLabel="Đồng bộ ngay"
       accessibilityRole="button"
       accessibilityState={
         {
@@ -143,7 +143,7 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
             ]
           }
         >
-          Dong bo ngay
+          Đồng bộ ngay
         </Text>
       </View>
     </View>
@@ -157,7 +157,7 @@ exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] =
       }
     }
   >
-    Dang offline. Thay doi moi se vao hang doi an toan.
+    Đang offline. Thay đổi mới sẽ vào hàng đợi an toàn.
   </Text>
   <Text
     style={

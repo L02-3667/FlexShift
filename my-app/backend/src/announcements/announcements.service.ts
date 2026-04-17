@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 
 import { ActivityWriter } from '../activity/activity-writer';
 import type { AuthenticatedUser } from '../common/interfaces/authenticated-user.interface';
@@ -6,6 +7,7 @@ import { NotificationGateway } from '../notifications/notification-gateway';
 import { PrismaService } from '../prisma/prisma.service';
 import { SyncChangePublisher } from '../sync/sync-change-publisher';
 import { CreateAnnouncementDto } from './dto/create-announcement.dto';
+import { UpdateAnnouncementDto } from './dto/update-announcement.dto';
 
 @Injectable()
 export class AnnouncementsService {
@@ -16,28 +18,66 @@ export class AnnouncementsService {
     private readonly activityService: ActivityWriter,
   ) {}
 
+  private buildVisibilityWhere(
+    currentUser: AuthenticatedUser,
+  ): Prisma.AnnouncementWhereInput {
+    const now = new Date();
+
+    return {
+      publishedAt: {
+        lte: now,
+      },
+      OR: [
+        {
+          expiresAt: null,
+        },
+        {
+          expiresAt: {
+            gt: now,
+          },
+        },
+      ],
+      AND: [
+        {
+          OR: [{ scopeRole: null }, { scopeRole: currentUser.role }],
+        },
+      ],
+    };
+  }
+
+  private mapAnnouncement(
+    announcement: {
+      id: string;
+      title: string;
+      body: string;
+      scopeRole: 'employee' | 'manager' | 'admin' | null;
+      requiresAck: boolean;
+      publishedAt: Date;
+      expiresAt: Date | null;
+      updatedAt: Date;
+      acknowledgements?: Array<{ acknowledgedAt: Date }>;
+    },
+    acknowledgedAt?: string | null,
+  ) {
+    return {
+      id: announcement.id,
+      title: announcement.title,
+      body: announcement.body,
+      scopeRole: announcement.scopeRole,
+      requiresAck: announcement.requiresAck,
+      acknowledgedAt:
+        acknowledgedAt ??
+        announcement.acknowledgements?.[0]?.acknowledgedAt?.toISOString() ??
+        null,
+      publishedAt: announcement.publishedAt.toISOString(),
+      expiresAt: announcement.expiresAt?.toISOString() ?? null,
+      updatedAt: announcement.updatedAt.toISOString(),
+    };
+  }
+
   async list(currentUser: AuthenticatedUser) {
     const announcements = await this.prisma.announcement.findMany({
-      where: {
-        publishedAt: {
-          lte: new Date(),
-        },
-        OR: [
-          {
-            expiresAt: null,
-          },
-          {
-            expiresAt: {
-              gt: new Date(),
-            },
-          },
-        ],
-        AND: [
-          {
-            OR: [{ scopeRole: null }, { scopeRole: currentUser.role }],
-          },
-        ],
-      },
+      where: this.buildVisibilityWhere(currentUser),
       include: {
         acknowledgements: {
           where: {
@@ -51,17 +91,45 @@ export class AnnouncementsService {
       },
     });
 
-    return announcements.map((announcement) => ({
-      id: announcement.id,
-      title: announcement.title,
-      body: announcement.body,
-      requiresAck: announcement.requiresAck,
-      acknowledgedAt:
-        announcement.acknowledgements[0]?.acknowledgedAt?.toISOString() ?? null,
-      publishedAt: announcement.publishedAt.toISOString(),
-      expiresAt: announcement.expiresAt?.toISOString() ?? null,
-      updatedAt: announcement.updatedAt.toISOString(),
-    }));
+    return announcements.map((announcement) => this.mapAnnouncement(announcement));
+  }
+
+  async findOne(currentUser: AuthenticatedUser, id: string) {
+    const canManageAll =
+      currentUser.role === 'manager' || currentUser.role === 'admin';
+
+    const announcement = canManageAll
+      ? await this.prisma.announcement.findUnique({
+          where: { id },
+          include: {
+            acknowledgements: {
+              where: {
+                userId: currentUser.sub,
+              },
+              take: 1,
+            },
+          },
+        })
+      : await this.prisma.announcement.findFirst({
+          where: {
+            id,
+            ...this.buildVisibilityWhere(currentUser),
+          },
+          include: {
+            acknowledgements: {
+              where: {
+                userId: currentUser.sub,
+              },
+              take: 1,
+            },
+          },
+        });
+
+    if (!announcement) {
+      throw new NotFoundException('Không tìm thấy thông báo.');
+    }
+
+    return this.mapAnnouncement(announcement);
   }
 
   async create(currentUser: AuthenticatedUser, input: CreateAnnouncementDto) {
@@ -89,8 +157,8 @@ export class AnnouncementsService {
       recipients.map((recipient) =>
         this.notificationsService.createNotification({
           userId: recipient.id,
-          title: input.title.trim(),
-          body: input.body.trim(),
+          title: announcement.title,
+          body: announcement.body,
           type: 'announcement_published',
         }),
       ),
@@ -103,7 +171,7 @@ export class AnnouncementsService {
       entityType: 'announcement',
       entityId: announcement.id,
       action: 'announcement.created',
-      summary: `Published announcement "${announcement.title}"`,
+      summary: `Đã đăng thông báo "${announcement.title}"`,
       payload: {
         scopeRole: announcement.scopeRole,
         requiresAck: announcement.requiresAck,
@@ -123,25 +191,117 @@ export class AnnouncementsService {
       },
     ]);
 
-    return {
-      id: announcement.id,
-      title: announcement.title,
-      body: announcement.body,
-      requiresAck: announcement.requiresAck,
-      publishedAt: announcement.publishedAt.toISOString(),
-      updatedAt: announcement.updatedAt.toISOString(),
-    };
+    return this.mapAnnouncement(announcement, null);
+  }
+
+  async update(
+    currentUser: AuthenticatedUser,
+    id: string,
+    input: UpdateAnnouncementDto,
+  ) {
+    const announcement = await this.prisma.announcement.findUnique({
+      where: { id },
+    });
+
+    if (!announcement) {
+      throw new NotFoundException('Không tìm thấy thông báo.');
+    }
+
+    const updatedAnnouncement = await this.prisma.announcement.update({
+      where: { id },
+      data: {
+        ...(input.title !== undefined ? { title: input.title.trim() } : {}),
+        ...(input.body !== undefined ? { body: input.body.trim() } : {}),
+        ...(input.scopeRole !== undefined ? { scopeRole: input.scopeRole } : {}),
+        ...(input.requiresAck !== undefined
+          ? { requiresAck: input.requiresAck }
+          : {}),
+      },
+    });
+
+    await this.activityService.record({
+      actorUserId: currentUser.sub,
+      sessionId: currentUser.sessionId,
+      deviceId: currentUser.deviceId,
+      entityType: 'announcement',
+      entityId: updatedAnnouncement.id,
+      action: 'announcement.updated',
+      summary: `Đã cập nhật thông báo "${updatedAnnouncement.title}"`,
+    });
+
+    await this.syncPublisher.record([
+      {
+        domain: 'announcements',
+        entityType: 'announcement',
+        entityId: updatedAnnouncement.id,
+      },
+      {
+        domain: 'activity',
+        entityType: 'audit_log',
+        entityId: updatedAnnouncement.id,
+      },
+    ]);
+
+    return this.mapAnnouncement(updatedAnnouncement, null);
+  }
+
+  async remove(currentUser: AuthenticatedUser, id: string) {
+    const announcement = await this.prisma.announcement.findUnique({
+      where: { id },
+    });
+
+    if (!announcement) {
+      throw new NotFoundException('Không tìm thấy thông báo.');
+    }
+
+    await this.prisma.$transaction([
+      this.prisma.announcementAck.deleteMany({
+        where: {
+          announcementId: id,
+        },
+      }),
+      this.prisma.announcement.delete({
+        where: { id },
+      }),
+    ]);
+
+    await this.activityService.record({
+      actorUserId: currentUser.sub,
+      sessionId: currentUser.sessionId,
+      deviceId: currentUser.deviceId,
+      entityType: 'announcement',
+      entityId: id,
+      action: 'announcement.deleted',
+      summary: `Đã xóa thông báo "${announcement.title}"`,
+    });
+
+    await this.syncPublisher.record([
+      {
+        domain: 'announcements',
+        entityType: 'announcement',
+        entityId: id,
+        operation: 'delete',
+      },
+      {
+        domain: 'activity',
+        entityType: 'audit_log',
+        entityId: id,
+      },
+    ]);
+
+    return { success: true };
   }
 
   async acknowledge(currentUser: AuthenticatedUser, id: string) {
-    const announcement = await this.prisma.announcement.findUnique({
+    const announcement = await this.prisma.announcement.findFirst({
       where: {
         id,
+        ...this.buildVisibilityWhere(currentUser),
       },
     });
 
     if (!announcement) {
-      throw new NotFoundException('Khong tim thay thong bao.');
+      throw new NotFoundException('Không tìm thấy thông báo.');
     }
 
     const acknowledgement = await this.prisma.announcementAck.upsert({
@@ -167,7 +327,7 @@ export class AnnouncementsService {
       entityType: 'announcement',
       entityId: announcement.id,
       action: 'announcement.acknowledged',
-      summary: `Acknowledged announcement "${announcement.title}"`,
+      summary: `Đã xác nhận đã đọc thông báo "${announcement.title}"`,
     });
 
     await this.syncPublisher.record([

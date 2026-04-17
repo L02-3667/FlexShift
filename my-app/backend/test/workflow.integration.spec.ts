@@ -37,7 +37,7 @@ describe('workflow integration', () => {
         startTime: '09:00',
         endTime: '13:00',
         storeName: 'Central Market',
-        position: 'Thu ngan',
+        position: 'Thu ngân',
         note: 'Manager only',
       })
       .expect(403);
@@ -115,7 +115,7 @@ describe('workflow integration', () => {
       .set('Authorization', `Bearer ${employeeAn.accessToken}`)
       .send({
         shiftId: anShift.id,
-        reason: 'Can nghi mot buoi de xu ly viec gia dinh.',
+        reason: 'Cần nghỉ một buổi để xử lý việc gia đình.',
       })
       .expect(201);
 
@@ -125,7 +125,7 @@ describe('workflow integration', () => {
       .post(`/api/approvals/${leaveResponse.body.id}/reject`)
       .set('Authorization', `Bearer ${manager.accessToken}`)
       .send({
-        note: 'Can cap nhat de nghi va gui lai.',
+        note: 'Cần cập nhật đề nghị và gửi lại.',
       })
       .expect(201);
 
@@ -160,7 +160,7 @@ describe('workflow integration', () => {
       .send({
         shiftId: linhShift.id,
         targetEmployeeId: minhUser.id,
-        reason: 'Can doi lich voi dong nghiep.',
+        reason: 'Cần đổi lịch với đồng nghiệp.',
       })
       .expect(201);
 
@@ -168,7 +168,7 @@ describe('workflow integration', () => {
       .post(`/api/approvals/${yieldResponse.body.id}/approve`)
       .set('Authorization', `Bearer ${manager.accessToken}`)
       .send({
-        note: 'Thu duyet trong dieu kien race conflict.',
+        note: 'Thử duyệt trong điều kiện race conflict.',
       })
       .expect(409);
 

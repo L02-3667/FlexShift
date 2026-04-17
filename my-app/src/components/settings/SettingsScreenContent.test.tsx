@@ -62,8 +62,8 @@ describe('SettingsScreenContent', () => {
   it('saves a theme change and supports logout', async () => {
     render(
       <SettingsScreenContent
-        title="Cai dat"
-        subtitle="Dong bo uu tien va thong bao."
+        title="Cài đặt"
+        subtitle="Đồng bộ ưu tiên và thông báo."
       />,
     );
 
@@ -73,7 +73,7 @@ describe('SettingsScreenContent', () => {
       expect(mockSaveSettingsData).toHaveBeenCalled();
     });
 
-    fireEvent.press(screen.getByLabelText('Dang xuat'));
+    fireEvent.press(screen.getByLabelText('Đăng xuất'));
 
     await waitFor(() => {
       expect(mockLogout).toHaveBeenCalled();
