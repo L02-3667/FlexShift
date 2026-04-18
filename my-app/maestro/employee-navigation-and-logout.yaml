@@ -1,34 +1,59 @@
-appId: com.lehoangluan1.flexshiftmobile
+appId: host.exp.exponent
 ---
 - launchApp:
     clearState: true
+    stopApp: true
+- openLink: "${MAESTRO_EXPO_URL}"
+- extendedWaitUntil:
+    visible:
+      id: login-screen
+    timeout: 60000
 - assertVisible:
     id: login-screen
+- scrollUntilVisible:
+    element:
+      id: login-seed-account-employee
+    direction: DOWN
+    timeout: 20000
 - tapOn:
-    id: login-email-input
-- inputText: 'an.nguyen@flexshift.app'
-- tapOn:
-    id: login-password-input
-- inputText: 'FlexShift123!'
+    id: login-seed-account-employee
+- scrollUntilVisible:
+    element:
+      id: login-submit-button
+    direction: UP
+    timeout: 20000
 - tapOn:
     id: login-submit-button
+- extendedWaitUntil:
+    visible:
+      id: employee-dashboard-screen
+    timeout: 30000
 - assertVisible:
     id: employee-dashboard-screen
-- tapOn: 'Lich'
+- tapOn: 'Lịch'
 - assertVisible:
     id: employee-calendar-screen
-- tapOn: 'Ca trong'
+- tapOn: 'Ca trống'
 - assertVisible:
     id: employee-open-shifts-screen
-- tapOn: 'Yeu cau'
+- tapOn: 'Yêu cầu'
 - assertVisible:
     id: employee-requests-screen
-- tapOn: 'So lieu'
+- tapOn: 'Số liệu'
 - assertVisible:
     id: employee-statistics-screen
-- tapOn: 'Cai dat'
+- tapOn: 'Cài đặt'
 - assertVisible:
     id: employee-settings-screen
-- tapOn: 'Dang xuat'
+- scrollUntilVisible:
+    element:
+      text: Đăng xuất
+    direction: DOWN
+    timeout: 20000
+- tapOn: 'Đăng xuất'
+- extendedWaitUntil:
+    visible:
+      id: login-screen
+    timeout: 30000
 - assertVisible:
     id: login-screen
