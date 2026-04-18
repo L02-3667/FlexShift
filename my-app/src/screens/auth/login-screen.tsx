@@ -149,6 +149,7 @@ export function LoginScreen() {
               autoCapitalize="none"
               keyboardType="email-address"
               placeholder="name@company.com"
+              testID="login-email-input"
             />
 
             <AppInput
@@ -157,6 +158,7 @@ export function LoginScreen() {
               onChangeText={setPassword}
               secureTextEntry
               placeholder={APP_COPY.login.passwordPlaceholder}
+              testID="login-password-input"
             />
 
             {errorMessage ? (
@@ -169,6 +171,7 @@ export function LoginScreen() {
               label="Đăng nhập"
               onPress={() => void onSubmit()}
               loading={isAuthenticating}
+              testID="login-submit-button"
             />
           </View>
 

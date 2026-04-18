@@ -1,9 +1,17 @@
 appId: com.lehoangluan1.flexshiftmobile
 ---
-- launchApp
+- launchApp:
+    clearState: true
+- assertVisible:
+    id: login-screen
 - tapOn:
-    id: login-seed-account-manager
-- tapOn: 'Dang nhap'
+    id: login-email-input
+- inputText: 'manager@flexshift.app'
+- tapOn:
+    id: login-password-input
+- inputText: 'FlexShift123!'
+- tapOn:
+    id: login-submit-button
 - assertVisible:
     id: manager-dashboard-screen
 - tapOn: 'Tao ca'

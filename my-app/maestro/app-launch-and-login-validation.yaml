@@ -1,8 +1,10 @@
 appId: com.lehoangluan1.flexshiftmobile
 ---
-- launchApp
+- launchApp:
+    clearState: true
 - assertVisible:
     id: login-screen
-- tapOn: 'Dang nhap'
+- tapOn:
+    id: login-submit-button
 - assertVisible:
     id: login-error-message

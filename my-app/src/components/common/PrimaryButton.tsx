@@ -27,6 +27,7 @@ interface PrimaryButtonProps {
   variant?: ButtonVariant;
   leadingIcon?: AppIconName;
   style?: ViewStyle;
+  testID?: string;
 }
 
 const VARIANT_STYLES: Record<
@@ -63,6 +64,7 @@ export function PrimaryButton({
   variant = 'primary',
   leadingIcon,
   style,
+  testID,
 }: PrimaryButtonProps) {
   const palette = VARIANT_STYLES[variant];
   const isDisabled = disabled || loading;
@@ -74,6 +76,7 @@ export function PrimaryButton({
       accessibilityState={{ disabled: isDisabled, busy: loading }}
       disabled={isDisabled}
       onPress={onPress}
+      testID={testID}
       style={({ pressed }) => [
         styles.button,
         {

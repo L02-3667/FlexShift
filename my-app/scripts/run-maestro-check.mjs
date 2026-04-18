@@ -12,6 +12,7 @@ const statusPath = path.join(reportsDir, 'maestro-status.json');
 const summaryPath = path.join(reportsDir, 'maestro-summary.md');
 const outputLogPath = path.join(reportsDir, 'maestro-output.log');
 const runMode = process.argv.includes('--run');
+const maestroNativeAppId = 'com.lehoangluan1.flexshiftmobile';
 
 await mkdir(reportsDir, { recursive: true });
 
@@ -158,6 +159,17 @@ function buildMarkdown(status) {
   ].join('\n');
 }
 
+function deriveRunFailureReason(output = '') {
+  if (
+    output.includes(`Package ${maestroNativeAppId} is not installed`) ||
+    output.includes(`Unable to launch app ${maestroNativeAppId}`)
+  ) {
+    return `Maestro could not launch ${maestroNativeAppId} because that app package is not installed on the connected device.`;
+  }
+
+  return 'Maestro flows failed or were interrupted.';
+}
+
 async function persist(status) {
   await writeFile(statusPath, JSON.stringify(status, null, 2));
   await writeFile(outputLogPath, status.output ?? '');
@@ -227,7 +239,7 @@ const status = {
   reason:
     testResult.code === 0
       ? 'Maestro flows completed successfully.'
-      : 'Maestro flows failed or were interrupted.',
+      : deriveRunFailureReason(testResult.output),
   generatedAt: new Date().toISOString(),
   cliAvailable: true,
   flowFiles: requiredFiles.map((filePath) => toRelative(filePath)),

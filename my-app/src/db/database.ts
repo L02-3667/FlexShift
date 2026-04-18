@@ -7,6 +7,7 @@ import {
   buildSeedShifts,
   buildSeedUsers,
 } from '@/src/db/seed';
+import { runInWriteTransaction } from '@/src/db/transaction';
 
 export async function initializeDatabase(db: SQLiteDatabase) {
   await db.execAsync(`
@@ -187,7 +188,7 @@ export async function seedDatabase(db: SQLiteDatabase) {
   const requests = buildSeedRequests();
   const notifications = buildSeedNotifications();
 
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     for (const user of users) {
       await db.runAsync(
         `INSERT INTO users (id, full_name, role, phone, email, status)

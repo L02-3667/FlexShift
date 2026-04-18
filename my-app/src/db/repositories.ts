@@ -30,6 +30,7 @@ import {
 } from '@/src/utils/date';
 import { createId } from '@/src/utils/id';
 import { checkShiftConflict } from '@/src/utils/shift-conflicts';
+import { runInWriteTransaction } from '@/src/db/transaction';
 
 interface UserSettingRow {
   userId: string;
@@ -155,7 +156,7 @@ export async function getEmployeeUsers(db: SQLiteDatabase) {
 }
 
 export async function replaceUsersCache(db: SQLiteDatabase, users: User[]) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     for (const user of users) {
       await db.runAsync(
         `INSERT INTO users (id, full_name, role, phone, email, status)
@@ -401,7 +402,7 @@ export async function replaceOpenShiftsCache(
   db: SQLiteDatabase,
   openShifts: OpenShiftView[],
 ) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await ensureUsersExist(
       db,
       openShifts
@@ -567,7 +568,7 @@ export async function upsertShiftCache(
   db: SQLiteDatabase,
   shifts: ShiftView[],
 ) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await ensureUsersExist(
       db,
       shifts.map((shift) => ({
@@ -607,7 +608,7 @@ export async function upsertRequestCache(
   db: SQLiteDatabase,
   requests: RequestView[],
 ) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await ensureUsersExist(
       db,
       requests.flatMap((request) => {
@@ -798,7 +799,7 @@ export async function claimOpenShift(
 
   const newShiftId = createId('shift');
 
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await db.runAsync(
       `UPDATE open_shifts
        SET status = 'claimed', claimed_by_employee_id = ?
@@ -985,7 +986,7 @@ export async function approveRequest(
   const safeNote = managerNote?.trim() || null;
 
   if (request.type === 'leave') {
-    await db.withTransactionAsync(async () => {
+    await runInWriteTransaction(db, async () => {
       await db.runAsync(
         `UPDATE shifts SET status = 'cancelled' WHERE id = ?`,
         request.shiftId,
@@ -1039,7 +1040,7 @@ export async function approveRequest(
       );
     }
 
-    await db.withTransactionAsync(async () => {
+    await runInWriteTransaction(db, async () => {
       await db.runAsync(
         `UPDATE shifts
          SET employee_id = ?
@@ -1276,7 +1277,7 @@ export async function replaceCachedNotifications(
   db: SQLiteDatabase,
   notifications: NotificationItem[],
 ) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await db.runAsync('DELETE FROM notifications');
 
     for (const notification of notifications) {
@@ -1331,7 +1332,7 @@ export async function replaceCachedAnnouncements(
   db: SQLiteDatabase,
   announcements: AnnouncementItem[],
 ) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await db.runAsync('DELETE FROM announcements');
 
     for (const announcement of announcements) {
@@ -1415,7 +1416,7 @@ export async function replaceCachedActivityLogs(
   db: SQLiteDatabase,
   activityLogs: ActivityLogItem[],
 ) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await db.runAsync('DELETE FROM activity_logs');
 
     for (const activity of activityLogs) {
@@ -1717,7 +1718,7 @@ export async function ensureOperationalUserScope(
   const activeUserId = await getSyncStateValue(db, 'active_user_id');
 
   if (activeUserId && activeUserId !== userId) {
-    await db.withTransactionAsync(async () => {
+    await runInWriteTransaction(db, async () => {
       await db.runAsync('DELETE FROM shifts');
       await db.runAsync('DELETE FROM open_shifts');
       await db.runAsync('DELETE FROM requests');
@@ -1735,7 +1736,7 @@ export async function ensureOperationalUserScope(
 }
 
 export async function clearOperationalState(db: SQLiteDatabase) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await db.runAsync('DELETE FROM shifts');
     await db.runAsync('DELETE FROM open_shifts');
     await db.runAsync('DELETE FROM requests');
@@ -1808,7 +1809,7 @@ export async function replaceCachedChecklists(
   db: SQLiteDatabase,
   checklists: Checklist[],
 ) {
-  await db.withTransactionAsync(async () => {
+  await runInWriteTransaction(db, async () => {
     await db.runAsync('DELETE FROM checklist_items');
     await db.runAsync('DELETE FROM checklists');
 
