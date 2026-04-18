@@ -18,12 +18,14 @@ interface RequestCardProps {
   request: RequestView;
   onPress?: () => void;
   showRequester?: boolean;
+  testID?: string;
 }
 
 export function RequestCard({
   request,
   onPress,
   showRequester = false,
+  testID,
 }: RequestCardProps) {
   const content = (
     <View style={styles.card}>
@@ -99,6 +101,7 @@ export function RequestCard({
         request.shiftStartTime,
         request.shiftEndTime,
       )}`}
+      testID={testID}
       onPress={onPress}
       style={({ pressed }) => [{ opacity: pressed ? 0.92 : 1 }]}
     >

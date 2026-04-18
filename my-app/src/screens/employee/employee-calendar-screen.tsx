@@ -73,7 +73,7 @@ export function EmployeeCalendarScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="employee-calendar-screen">
       <ScrollView contentContainerStyle={styles.content}>
         <SectionHeader
           title="Lịch tuần này"

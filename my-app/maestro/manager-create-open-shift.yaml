@@ -1,0 +1,23 @@
+appId: com.lehoangluan1.flexshiftmobile
+---
+- launchApp
+- tapOn:
+    id: login-seed-account-manager
+- tapOn: 'Dang nhap'
+- assertVisible:
+    id: manager-dashboard-screen
+- tapOn: 'Tao ca'
+- assertVisible:
+    id: manager-create-open-shift-screen
+- tapOn: 'Tao ca trong'
+- assertVisible:
+    id: manager-create-open-shift-error
+- tapOn:
+    id: manager-open-shift-date-option-1
+- tapOn:
+    id: manager-open-shift-time-option-1
+- tapOn:
+    id: manager-open-shift-note-input
+- inputText: 'Bo sung nhan su cho ca sang.'
+- tapOn: 'Tao ca trong'
+- assertVisible: 'Da tao ca trong'

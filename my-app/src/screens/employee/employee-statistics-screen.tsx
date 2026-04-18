@@ -47,7 +47,7 @@ export function EmployeeStatisticsScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="employee-statistics-screen">
       <ScrollView contentContainerStyle={styles.content}>
         <SectionHeader
           title="Thống kê của bạn"

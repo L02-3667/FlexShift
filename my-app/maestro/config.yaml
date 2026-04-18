@@ -1,6 +1,10 @@
 appId: com.lehoangluan1.flexshiftmobile
 flows:
+  - app-launch-and-login-validation.yaml
+  - employee-navigation-and-logout.yaml
+  - employee-create-leave-request.yaml
   - login-and-claim-open-shift.yaml
+  - manager-create-open-shift.yaml
   - manager-review-request.yaml
   - offline-queue-smoke.yaml
 testOutputDir: reports/e2e/maestro

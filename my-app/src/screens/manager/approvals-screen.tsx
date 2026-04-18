@@ -32,15 +32,16 @@ export function ApprovalsScreen() {
   ).length;
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="manager-approvals-screen">
       <FlatList
         contentContainerStyle={styles.content}
         data={data}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <RequestCard
             request={item}
             showRequester
+            testID={`manager-approval-request-card-${index + 1}`}
             onPress={() =>
               router.push({
                 pathname: '/(manager)/approvals/[id]',

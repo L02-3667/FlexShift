@@ -33,7 +33,7 @@ export function MyRequestsScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="employee-requests-screen">
       <FlatList
         contentContainerStyle={styles.content}
         data={data}

@@ -69,7 +69,7 @@ export function ConfirmedScheduleScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="manager-calendar-screen">
       <ScrollView contentContainerStyle={styles.content}>
         <SectionHeader
           title="Lịch điều phối"

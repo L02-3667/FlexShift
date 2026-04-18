@@ -19,6 +19,7 @@ interface OpenShiftCardProps {
   actionLabel?: string;
   actionLoading?: boolean;
   onActionPress?: () => void;
+  testID?: string;
 }
 
 export function OpenShiftCard({
@@ -27,6 +28,7 @@ export function OpenShiftCard({
   actionLabel,
   actionLoading = false,
   onActionPress,
+  testID,
 }: OpenShiftCardProps) {
   const details = (
     <>
@@ -61,13 +63,14 @@ export function OpenShiftCard({
             openShift.startTime,
             openShift.endTime,
           )}`}
+          testID={testID}
           onPress={onPress}
           style={({ pressed }) => [{ opacity: pressed ? 0.92 : 1 }]}
         >
           {details}
         </Pressable>
       ) : (
-        details
+        <View testID={testID}>{details}</View>
       )}
 
       {actionLabel && onActionPress ? (

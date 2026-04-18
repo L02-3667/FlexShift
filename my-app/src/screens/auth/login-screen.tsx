@@ -69,7 +69,7 @@ export function LoginScreen() {
   const errorMessage = formError ?? authError;
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="login-screen">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.flex}
@@ -160,7 +160,9 @@ export function LoginScreen() {
             />
 
             {errorMessage ? (
-              <Text style={styles.errorText}>{errorMessage}</Text>
+              <Text style={styles.errorText} testID="login-error-message">
+                {errorMessage}
+              </Text>
             ) : null}
 
             <PrimaryButton
@@ -184,6 +186,11 @@ export function LoginScreen() {
                     setEmail(account.email);
                     setPassword(account.password);
                   }}
+                  testID={
+                    account.email === 'manager@flexshift.app'
+                      ? 'login-seed-account-manager'
+                      : 'login-seed-account-employee'
+                  }
                   style={({ pressed }) => [
                     styles.seedRow,
                     pressed ? styles.seedRowPressed : null,

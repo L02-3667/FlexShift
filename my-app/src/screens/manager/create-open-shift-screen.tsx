@@ -92,7 +92,10 @@ export function CreateOpenShiftScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      style={styles.safeArea}
+      testID="manager-create-open-shift-screen"
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.flex}
@@ -111,12 +114,13 @@ export function CreateOpenShiftScreen() {
           <View style={styles.group}>
             <Text style={styles.groupTitle}>Chọn ngày nhanh</Text>
             <View style={styles.chipWrap}>
-              {quickDateOptions.map((option) => {
+              {quickDateOptions.map((option, index) => {
                 const selected = form.date === option.value;
 
                 return (
                   <Pressable
                     key={option.value}
+                    testID={`manager-open-shift-date-option-${index + 1}`}
                     onPress={() =>
                       setForm((current) => ({ ...current, date: option.value }))
                     }
@@ -149,7 +153,7 @@ export function CreateOpenShiftScreen() {
           <View style={styles.group}>
             <Text style={styles.groupTitle}>Khung giờ gợi ý</Text>
             <View style={styles.chipWrap}>
-              {timeRangeOptions.map((option) => {
+              {timeRangeOptions.map((option, index) => {
                 const selected =
                   form.startTime === option.startTime &&
                   form.endTime === option.endTime;
@@ -157,6 +161,7 @@ export function CreateOpenShiftScreen() {
                 return (
                   <Pressable
                     key={option.label}
+                    testID={`manager-open-shift-time-option-${index + 1}`}
                     onPress={() =>
                       setForm((current) => ({
                         ...current,
@@ -282,6 +287,7 @@ export function CreateOpenShiftScreen() {
           <AppInput
             label="Lý do / ghi chú"
             multiline
+            testID="manager-open-shift-note-input"
             value={form.note}
             onChangeText={(value) =>
               setForm((current) => ({ ...current, note: value }))
@@ -289,7 +295,11 @@ export function CreateOpenShiftScreen() {
             placeholder="Ví dụ: thiếu người ca tối, bổ sung cuối tuần, cần thay ca đột xuất..."
           />
 
-          {formError ? <Text style={styles.errorText}>{formError}</Text> : null}
+          {formError ? (
+            <Text style={styles.errorText} testID="manager-create-open-shift-error">
+              {formError}
+            </Text>
+          ) : null}
 
           <PrimaryButton
             label="Tạo ca trống"

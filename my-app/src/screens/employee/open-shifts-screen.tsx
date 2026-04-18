@@ -86,17 +86,18 @@ export function OpenShiftsScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="employee-open-shifts-screen">
       <FlatList
         contentContainerStyle={styles.content}
         data={data.openShifts}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <OpenShiftCard
             openShift={item}
             actionLabel="Nhận nhanh"
             actionLoading={claimingId === item.id}
             onActionPress={() => handleQuickClaim(item.id)}
+            testID={`employee-open-shift-card-${index + 1}`}
             onPress={() =>
               router.push({
                 pathname: '/(employee)/open-shifts/[id]',

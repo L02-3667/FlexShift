@@ -98,7 +98,10 @@ export function CreateLeaveRequestScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      style={styles.safeArea}
+      testID="employee-create-leave-request-screen"
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.flex}
@@ -141,13 +144,14 @@ export function CreateLeaveRequestScreen() {
                 <Text style={styles.groupTitle}>
                   {APP_COPY.leaveRequest.shiftSectionTitle}
                 </Text>
-                {selectableShifts.map((shift) => {
+                {selectableShifts.map((shift, index) => {
                   const selected = shift.id === selectedShiftId;
 
                   return (
                     <Pressable
                       key={shift.id}
                       onPress={() => setSelectedShiftId(shift.id)}
+                      testID={`leave-request-shift-option-${index + 1}`}
                       style={[
                         styles.selectCard,
                         selected ? styles.selectCardActive : null,
@@ -173,12 +177,15 @@ export function CreateLeaveRequestScreen() {
                 label={APP_COPY.leaveRequest.reasonLabel}
                 hint={APP_COPY.leaveRequest.reasonHint}
                 multiline
+                testID="leave-request-reason-input"
                 value={reason}
                 onChangeText={setReason}
               />
 
               {formError ? (
-                <Text style={styles.errorText}>{formError}</Text>
+                <Text style={styles.errorText} testID="leave-request-error">
+                  {formError}
+                </Text>
               ) : null}
 
               <PrimaryButton

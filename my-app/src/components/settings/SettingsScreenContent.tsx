@@ -38,6 +38,7 @@ import { formatIsoDateTime, joinInlineText } from '@/src/utils/text';
 interface SettingsScreenContentProps {
   title: string;
   subtitle: string;
+  screenTestID?: string;
 }
 
 function createDefaultSettings(userId = ''): UserSetting {
@@ -116,6 +117,7 @@ function ChoiceChip({
 export function SettingsScreenContent({
   title,
   subtitle,
+  screenTestID,
 }: SettingsScreenContentProps) {
   const db = useSQLiteContext();
   const { currentUser, logout } = useAppState();
@@ -169,7 +171,7 @@ export function SettingsScreenContent({
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID={screenTestID}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.heroCard}>
           <View style={styles.heroTopRow}>

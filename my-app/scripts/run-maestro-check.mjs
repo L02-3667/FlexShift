@@ -17,7 +17,11 @@ await mkdir(reportsDir, { recursive: true });
 
 const requiredFiles = [
   path.join(rootDir, 'maestro', 'config.yaml'),
+  path.join(rootDir, 'maestro', 'app-launch-and-login-validation.yaml'),
+  path.join(rootDir, 'maestro', 'employee-navigation-and-logout.yaml'),
+  path.join(rootDir, 'maestro', 'employee-create-leave-request.yaml'),
   path.join(rootDir, 'maestro', 'login-and-claim-open-shift.yaml'),
+  path.join(rootDir, 'maestro', 'manager-create-open-shift.yaml'),
   path.join(rootDir, 'maestro', 'manager-review-request.yaml'),
   path.join(rootDir, 'maestro', 'offline-queue-smoke.yaml'),
 ];

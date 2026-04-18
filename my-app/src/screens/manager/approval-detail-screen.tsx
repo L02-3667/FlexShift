@@ -127,7 +127,10 @@ export function ApprovalDetailScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      style={styles.safeArea}
+      testID="manager-approval-detail-screen"
+    >
       <ScrollView contentContainerStyle={styles.content}>
         <SectionHeader
           title={APP_COPY.approvals.title}

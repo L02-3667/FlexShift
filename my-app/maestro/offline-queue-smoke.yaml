@@ -1,6 +1,13 @@
 appId: com.lehoangluan1.flexshiftmobile
 ---
 - launchApp
+- assertVisible:
+    id: login-screen
+- tapOn:
+    id: login-seed-account-employee
+- tapOn: 'Dang nhap'
+- assertVisible:
+    id: employee-dashboard-screen
 - assertVisible: 'Trang thai dong bo'
 - tapOn: 'Dong bo ngay'
 - extendedWaitUntil:

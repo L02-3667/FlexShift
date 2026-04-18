@@ -1,0 +1,27 @@
+appId: com.lehoangluan1.flexshiftmobile
+---
+- launchApp
+- tapOn:
+    id: login-seed-account-employee
+- tapOn: 'Dang nhap'
+- assertVisible:
+    id: employee-dashboard-screen
+- tapOn: 'Yeu cau'
+- assertVisible:
+    id: employee-requests-screen
+- tapOn: 'Tao don xin nghi'
+- assertVisible:
+    id: employee-create-leave-request-screen
+- tapOn: 'Gui yeu cau xin nghi'
+- assertVisible:
+    id: leave-request-error
+- tapOn:
+    id: leave-request-shift-option-1
+- tapOn: 'Gui yeu cau xin nghi'
+- assertVisible:
+    id: leave-request-error
+- tapOn:
+    id: leave-request-reason-input
+- inputText: 'Can xin nghi de giai quyet viec gia dinh.'
+- tapOn: 'Gui yeu cau xin nghi'
+- assertVisible: 'Da gui yeu cau'

@@ -3,6 +3,7 @@ import { SettingsScreenContent } from '@/src/components/settings/SettingsScreenC
 export function ManagerSettingsScreen() {
   return (
     <SettingsScreenContent
+      screenTestID="manager-settings-screen"
       title="Tài khoản & cài đặt"
       subtitle="Giữ cấu hình thông báo và nhắc lịch nhất quán để xử lý duyệt ca nhanh, rõ và ít bỏ sót."
     />

@@ -51,7 +51,7 @@ export function ManagerStatisticsScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} testID="manager-statistics-screen">
       <ScrollView contentContainerStyle={styles.content}>
         <SectionHeader
           title="Thống kê vận hành"

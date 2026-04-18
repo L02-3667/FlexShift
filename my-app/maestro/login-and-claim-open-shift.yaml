@@ -1,8 +1,17 @@
 appId: com.lehoangluan1.flexshiftmobile
 ---
 - launchApp
-- tapOn: 'Nhan vien'
+- tapOn:
+    id: login-seed-account-employee
 - tapOn: 'Dang nhap'
-- assertVisible: 'Trang thai dong bo'
-- tapOn: 'Chi tiet ca trong'
+- assertVisible:
+    id: employee-dashboard-screen
+- tapOn: 'Ca trong'
+- assertVisible:
+    id: employee-open-shifts-screen
+- tapOn:
+    id: employee-open-shift-card-1
+- assertVisible:
+    id: employee-open-shift-detail-screen
 - tapOn: 'Nhan ca nay'
+- assertVisible: 'Nhan ca thanh cong'
