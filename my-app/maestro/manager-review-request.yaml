@@ -37,5 +37,10 @@ appId: host.exp.exponent
     id: manager-approval-request-card-1
 - assertVisible:
     id: manager-approval-detail-screen
+- scrollUntilVisible:
+    element:
+      text: Duyệt yêu cầu
+    direction: DOWN
+    timeout: 20000
 - tapOn: 'Duyệt yêu cầu'
 - assertVisible: '(Đã duyệt yêu cầu|Đã đưa vào hàng đợi)'
