@@ -1,0 +1,62 @@
+appId: host.exp.exponent
+---
+- launchApp:
+    clearState: true
+    stopApp: true
+- openLink: "${MAESTRO_EXPO_URL}"
+- extendedWaitUntil:
+    visible:
+      id: login-screen
+    timeout: 60000
+- assertVisible:
+    id: login-screen
+- scrollUntilVisible:
+    element:
+      id: login-seed-account-employee
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: login-seed-account-employee
+- scrollUntilVisible:
+    element:
+      id: login-submit-button
+    direction: UP
+    timeout: 20000
+- tapOn:
+    id: login-submit-button
+- extendedWaitUntil:
+    visible:
+      id: employee-dashboard-screen
+    timeout: 30000
+- assertVisible:
+    id: employee-dashboard-screen
+- tapOn: 'Yêu cầu'
+- assertVisible:
+    id: employee-requests-screen
+- tapOn: 'Tạo đơn xin nghỉ'
+- assertVisible:
+    id: employee-create-leave-request-screen
+- scrollUntilVisible:
+    element:
+      id: leave-request-shift-option-1
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: leave-request-shift-option-1
+- scrollUntilVisible:
+    element:
+      id: leave-request-reason-input
+    direction: DOWN
+    timeout: 20000
+- assertVisible:
+    id: leave-request-reason-input
+- tapOn:
+    id: leave-request-reason-input
+- inputText: 'Xin nghi ca ca nhan.'
+- scrollUntilVisible:
+    element:
+      text: Gửi yêu cầu xin nghỉ
+    direction: DOWN
+    timeout: 20000
+- tapOn: 'Gửi yêu cầu xin nghỉ'
+- assertVisible: 'Đã (gửi yêu cầu|đưa vào hàng đợi)'

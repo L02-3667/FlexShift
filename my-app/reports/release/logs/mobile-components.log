@@ -1,0 +1,16 @@
+
+> flexshift-mobile@1.0.0 test:components
+> jest --config jest.config.js --runInBand src/components src/screens --testPathIgnorePatterns snapshot\.test\.tsx$
+
+PASS src/screens/employee/request-flows.test.tsx
+PASS src/components/settings/SettingsScreenContent.test.tsx
+PASS src/screens/manager/approval-detail-screen.test.tsx
+PASS src/screens/auth/login-screen.test.tsx
+PASS src/components/cards/AnnouncementCard.test.tsx
+PASS src/components/common/SyncStatusBanner.test.tsx
+
+Test Suites: 6 passed, 6 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        5.659 s, estimated 18 s
+Ran all test suites matching /src\\components|src\\screens/i.

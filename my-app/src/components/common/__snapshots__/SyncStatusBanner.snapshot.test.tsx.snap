@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SyncStatusBanner snapshot matches the stable sync banner snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#FFFDF8",
+      "borderColor": "#F2D7C6",
+      "borderRadius": 24,
+      "borderWidth": 1,
+      "elevation": 2,
+      "gap": 12,
+      "padding": 20,
+      "shadowColor": "rgba(41, 25, 12, 0.08)",
+      "shadowOffset": {
+        "height": 10,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 18,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 12,
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "gap": 8,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#17120D",
+            "fontSize": 16,
+            "fontWeight": "800",
+            "letterSpacing": -0.1,
+          }
+        }
+      >
+        Trạng thái đồng bộ
+      </Text>
+    </View>
+    <View
+      accessibilityLabel="Đồng bộ ngay"
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": false,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "alignItems": "center",
+            "borderRadius": 16,
+            "borderWidth": 1,
+            "elevation": 2,
+            "justifyContent": "center",
+            "minHeight": 48,
+            "paddingHorizontal": 20,
+            "paddingVertical": 12,
+            "shadowColor": "rgba(41, 25, 12, 0.08)",
+            "shadowOffset": {
+              "height": 10,
+              "width": 0,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 18,
+          },
+          {
+            "backgroundColor": "transparent",
+            "borderColor": "transparent",
+            "opacity": 1,
+            "transform": [
+              {
+                "scale": 1,
+              },
+            ],
+          },
+          null,
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+          }
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontSize": 16,
+                "fontWeight": "700",
+                "letterSpacing": 0.1,
+              },
+              {
+                "color": "#FF8A3D",
+              },
+            ]
+          }
+        >
+          Đồng bộ ngay
+        </Text>
+      </View>
+    </View>
+  </View>
+  <Text
+    style={
+      {
+        "color": "#5E4738",
+        "fontSize": 15,
+        "lineHeight": 22,
+      }
+    }
+  >
+    Đang offline. Thay đổi mới sẽ vào hàng đợi an toàn.
+  </Text>
+  <Text
+    style={
+      {
+        "color": "#8D6D5A",
+        "fontSize": 12,
+        "letterSpacing": 0.4,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    2 thay đổi đang chờ gửi | 1 thông báo cần xác nhận
+  </Text>
+</View>
+`;

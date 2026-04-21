@@ -1,0 +1,46 @@
+appId: host.exp.exponent
+---
+- launchApp:
+    clearState: true
+    stopApp: true
+- openLink: "${MAESTRO_EXPO_URL}"
+- extendedWaitUntil:
+    visible:
+      id: login-screen
+    timeout: 60000
+- assertVisible:
+    id: login-screen
+- scrollUntilVisible:
+    element:
+      id: login-seed-account-manager
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: login-seed-account-manager
+- scrollUntilVisible:
+    element:
+      id: login-submit-button
+    direction: UP
+    timeout: 20000
+- tapOn:
+    id: login-submit-button
+- extendedWaitUntil:
+    visible:
+      id: manager-dashboard-screen
+    timeout: 30000
+- assertVisible:
+    id: manager-dashboard-screen
+- tapOn: 'Duyệt'
+- assertVisible:
+    id: manager-approvals-screen
+- tapOn:
+    id: manager-approval-request-card-1
+- assertVisible:
+    id: manager-approval-detail-screen
+- scrollUntilVisible:
+    element:
+      text: Duyệt yêu cầu
+    direction: DOWN
+    timeout: 20000
+- tapOn: 'Duyệt yêu cầu'
+- assertVisible: '(Đã duyệt yêu cầu|Đã đưa vào hàng đợi)'

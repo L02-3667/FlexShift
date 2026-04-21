@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-04-11T15:55:10.656Z",
+  "audits": [
+    {
+      "name": "forbidden-vector-icon-imports",
+      "description": "Ensures runtime UI code only uses the centralized AppIcon wrapper.",
+      "severity": "error",
+      "status": "passed",
+      "findingCount": 0,
+      "findings": []
+    },
+    {
+      "name": "anti-plain-text-icon",
+      "description": "Detects fake icon glyphs that bypass the design-system icon pipeline.",
+      "severity": "error",
+      "status": "passed",
+      "findingCount": 0,
+      "findings": []
+    },
+    {
+      "name": "anti-hardcoded-runtime-endpoints",
+      "description": "Detects hardcoded runtime network targets outside the approved configuration seam.",
+      "severity": "error",
+      "status": "passed",
+      "findingCount": 0,
+      "findings": []
+    },
+    {
+      "name": "icon-only-pressable-accessibility",
+      "description": "Flags icon-only pressables that do not provide an accessibility label.",
+      "severity": "error",
+      "status": "passed",
+      "findingCount": 0,
+      "findings": []
+    },
+    {
+      "name": "backend-solid-hotspots",
+      "description": "Highlights oversized backend services/controllers for controlled SOLID refactors.",
+      "severity": "warn",
+      "status": "warn",
+      "findingCount": 4,
+      "findings": [
+        {
+          "file": "backend\\src\\approvals\\approvals.service.ts",
+          "line": 1,
+          "message": "Service file is 401 lines long and should be reviewed for SOLID split opportunities."
+        },
+        {
+          "file": "backend\\src\\open-shifts\\open-shifts.service.ts",
+          "line": 1,
+          "message": "Service file is 353 lines long and should be reviewed for SOLID split opportunities."
+        },
+        {
+          "file": "backend\\src\\requests\\requests.service.ts",
+          "line": 1,
+          "message": "Service file is 386 lines long and should be reviewed for SOLID split opportunities."
+        },
+        {
+          "file": "backend\\src\\sync\\sync.service.ts",
+          "line": 1,
+          "message": "Service file is 422 lines long and should be reviewed for SOLID split opportunities."
+        }
+      ]
+    }
+  ]
+}

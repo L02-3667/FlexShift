@@ -1,0 +1,4 @@
+
+> flexshift-mobile@1.0.0 audit:static
+> node ./scripts/run-static-audits.mjs
+

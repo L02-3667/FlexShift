@@ -1,0 +1,125 @@
+
+> flexshift-mobile@1.0.0 test:coverage
+> jest --config jest.config.js --runInBand --coverage
+
+PASS src/screens/employee/request-flows.test.tsx (6.085 s)
+PASS src/context/app-context.offline.test.tsx
+PASS src/components/common/SyncStatusBanner.snapshot.test.tsx
+PASS src/components/settings/SettingsScreenContent.test.tsx
+PASS src/screens/manager/approval-detail-screen.test.tsx
+PASS src/screens/auth/login-screen.test.tsx
+PASS src/components/common/SyncStatusBanner.test.tsx
+PASS src/components/cards/AnnouncementCard.test.tsx
+PASS src/utils/date.test.ts
+PASS src/utils/shift-conflicts.test.ts
+PASS src/components/cards/AnnouncementCard.snapshot.test.tsx
+PASS src/services/sync/sync-helpers.test.ts
+PASS src/services/api/api-client.test.ts
+PASS src/utils/validation.test.ts
+PASS src/services/sync/sync-engine.test.ts
+----------------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------------------
+File                              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                                    
+----------------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------------------
+All files                         |   27.54 |    23.45 |    22.2 |   27.79 |                                                                                      
+ components/calendar              |       0 |        0 |       0 |       0 |                                                                                      
+  WeekCalendarStrip.tsx           |       0 |        0 |       0 |       0 | 19-93                                                                                
+ components/cards                 |    40.9 |     42.1 |    37.5 |    40.9 |                                                                                      
+  ActivityCard.tsx                |       0 |      100 |       0 |       0 | 18-59                                                                                
+  AnnouncementCard.tsx            |     100 |    77.77 |     100 |     100 | 28-30                                                                                
+  OpenShiftCard.tsx               |      75 |    44.44 |      50 |      75 | 65                                                                                   
+  RequestCard.tsx                 |   66.66 |    38.46 |      50 |   66.66 | 94-103                                                                               
+  ShiftCard.tsx                   |       0 |        0 |       0 |       0 | 27-67                                                                                
+ components/common                |   70.73 |    54.54 |   76.92 |   70.73 |                                                                                      
+  AppIcon.tsx                     |     100 |       40 |     100 |     100 | 116-117,123                                                                          
+  AppInput.tsx                    |     100 |    83.33 |     100 |     100 | 39                                                                                   
+  DateTimeRow.tsx                 |     100 |      100 |     100 |     100 |                                                                                      
+  EmptyState.tsx                  |      50 |        0 |       0 |      50 | 25                                                                                   
+  MetricCard.tsx                  |       0 |        0 |       0 |       0 | 16-48                                                                                
+  PrimaryButton.tsx               |     100 |    82.35 |     100 |     100 | 83-85                                                                                
+  SectionHeader.tsx               |   66.66 |     37.5 |      50 |   66.66 | 34                                                                                   
+  StatusBadge.tsx                 |     100 |      100 |     100 |     100 |                                                                                      
+  SyncStatusBanner.tsx            |   57.14 |    42.85 |     100 |   57.14 | 17,24-32                                                                             
+ components/settings              |   71.05 |    62.96 |   57.89 |   71.05 |                                                                                      
+  SettingsScreenContent.tsx       |   71.05 |    62.96 |   57.89 |   71.05 | 128,138,155-156,229-262,273-304                                                      
+ config                           |   83.33 |    77.77 |     100 |   83.33 |                                                                                      
+  env.ts                          |   83.33 |    77.77 |     100 |   83.33 | 17                                                                                   
+ constants                        |     100 |      100 |     100 |     100 |                                                                                      
+  branding.ts                     |     100 |      100 |     100 |     100 |                                                                                      
+  colors.ts                       |     100 |      100 |     100 |     100 |                                                                                      
+  config.ts                       |     100 |      100 |     100 |     100 |                                                                                      
+  copy.ts                         |     100 |      100 |     100 |     100 |                                                                                      
+  options.ts                      |     100 |      100 |     100 |     100 |                                                                                      
+ context                          |   37.64 |    34.78 |   41.66 |    37.2 |                                                                                      
+  app-context.tsx                 |   49.62 |    44.44 |   57.69 |   49.61 | 40,49,94,105-117,120-124,147,163-166,171,179-186,202-220,227-244,249-256,260-261,317 
+  sync-context.tsx                |       0 |        0 |       0 |       0 | 30-126                                                                               
+ db                               |       0 |        0 |       0 |       0 |                                                                                      
+  database.ts                     |       0 |        0 |       0 |       0 | 12-263                                                                               
+  repositories.ts                 |       0 |        0 |       0 |       0 | 116-1720                                                                             
+  seed.ts                         |       0 |      100 |       0 |       0 | 10-199                                                                               
+  sqlite-provider.native.tsx      |       0 |        0 |       0 |       0 | 15-52                                                                                
+  sqlite-provider.web.tsx         |       0 |      100 |       0 |       0 | 9-35                                                                                 
+ hooks                            |    2.63 |        0 |      10 |    2.63 |                                                                                      
+  use-app-query-client.ts         |     100 |      100 |     100 |     100 |                                                                                      
+  use-app-state.ts                |       0 |      100 |       0 |       0 | 4                                                                                    
+  use-async-data.ts               |       0 |        0 |       0 |       0 | 11-81                                                                                
+ providers                        |      75 |      100 |      60 |      75 |                                                                                      
+  query-provider.tsx              |      75 |      100 |      60 |      75 | 25,45                                                                                
+ screens/auth                     |   91.66 |    63.63 |   85.71 |   91.66 |                                                                                      
+  login-screen.tsx                |   91.66 |    63.63 |   85.71 |   91.66 | 63,132                                                                               
+ screens/employee                 |   38.88 |    21.21 |   23.43 |   38.88 |                                                                                      
+  create-leave-request-screen.tsx |   77.14 |    46.15 |   71.42 |   77.14 | 45,51,62-63,67-68,90,136                                                             
+  create-swap-request-screen.tsx  |       0 |        0 |       0 |       0 |                                                                                      
+  create-yield-request-screen.tsx |   76.19 |       50 |   77.77 |   76.19 | 47,53,64-65,69-70,74-75,98,144                                                       
+  employee-calendar-screen.tsx    |       0 |        0 |       0 |       0 | 28-196                                                                               
+  employee-dashboard-screen.tsx   |       0 |        0 |       0 |       0 | 37-249                                                                               
+  employee-profile-screen.tsx     |       0 |        0 |       0 |       0 |                                                                                      
+  employee-settings-screen.tsx    |       0 |      100 |       0 |       0 | 4                                                                                    
+  employee-statistics-screen.tsx  |       0 |        0 |       0 |       0 | 22-125                                                                               
+  my-requests-screen.tsx          |       0 |        0 |       0 |       0 | 22-98                                                                                
+  open-shift-detail-screen.tsx    |   78.26 |    44.44 |      60 |   78.26 | 38,44,49,66,106                                                                      
+  open-shifts-screen.tsx          |       0 |        0 |       0 |       0 | 24-145                                                                               
+ screens/manager                  |   13.12 |     9.92 |    4.41 |      14 |                                                                                      
+  approval-detail-screen.tsx      |   58.33 |    34.21 |      50 |   58.33 | 46,56,61,83,95-125,156                                                               
+  approvals-screen.tsx            |       0 |        0 |       0 |       0 | 21-92                                                                                
+  confirmed-schedule-screen.tsx   |       0 |        0 |       0 |       0 | 28-199                                                                               
+  create-open-shift-screen.tsx    |       0 |        0 |       0 |       0 | 26-305                                                                               
+  manager-dashboard-screen.tsx    |       0 |        0 |       0 |       0 | 38-261                                                                               
+  manager-profile-screen.tsx      |       0 |        0 |       0 |       0 |                                                                                      
+  manager-settings-screen.tsx     |       0 |      100 |       0 |       0 | 4                                                                                    
+  manager-statistics-screen.tsx   |       0 |        0 |       0 |       0 | 28-135                                                                               
+ services                         |    0.59 |        0 |       0 |     0.6 |                                                                                      
+  flexshift-actions.ts            |       0 |        0 |       0 |       0 | 27-201                                                                               
+  flexshift-service.ts            |    0.67 |        0 |       0 |    0.68 | 145-1288                                                                             
+ services/api                     |   49.61 |    45.23 |   34.09 |   49.61 |                                                                                      
+  api-client.ts                   |   77.92 |    69.09 |   92.85 |   77.92 | 51,55-58,68,80,96-103,137,148-149,164-165,195,223                                    
+  api-errors.ts                   |     100 |        0 |     100 |     100 | 13                                                                                   
+  flexshift-api.ts                |       0 |        0 |       0 |       0 | 51-282                                                                               
+ services/session                 |    6.66 |        0 |       0 |    6.74 |                                                                                      
+  auth-storage.native.ts          |      20 |        0 |       0 |      20 | 6-15                                                                                 
+  auth-storage.ts                 |       0 |        0 |       0 |       0 | 4-42                                                                                 
+  auth-storage.web.ts             |       0 |        0 |       0 |       0 | 1-24                                                                                 
+  device-context.ts               |    9.52 |        0 |       0 |    9.52 | 19-62                                                                                
+  session-store.ts                |    8.57 |        0 |       0 |    8.82 | 21-85                                                                                
+ services/sync                    |   65.55 |    40.57 |   88.23 |   65.55 |                                                                                      
+  sync-engine.ts                  |   66.25 |    37.03 |   83.33 |   66.25 | 82,98-136,147,151,155,159,163-164,177,181,185,214-226,250,280-282,316,329-334        
+  sync-helpers.ts                 |      60 |    53.33 |     100 |      60 | 14-23                                                                                
+ test-utils                       |     100 |      100 |     100 |     100 |                                                                                      
+  fixtures.ts                     |     100 |      100 |     100 |     100 |                                                                                      
+ theme                            |     100 |      100 |     100 |     100 |                                                                                      
+  tokens.ts                       |     100 |      100 |     100 |     100 |                                                                                      
+ types                            |       0 |        0 |       0 |       0 |                                                                                      
+  models.ts                       |       0 |        0 |       0 |       0 |                                                                                      
+ utils                            |   76.59 |    71.15 |   80.64 |   76.59 |                                                                                      
+  date.ts                         |   73.33 |    69.23 |   72.22 |   73.33 | 45-55,126-128,134,149-151                                                            
+  id.ts                           |     100 |      100 |     100 |     100 |                                                                                      
+  routes.ts                       |       0 |        0 |       0 |       0 | 6                                                                                    
+  shift-conflicts.ts              |     100 |      100 |     100 |     100 |                                                                                      
+  text.ts                         |   85.71 |    66.66 |     100 |   85.71 | 16,22                                                                                
+  validation.ts                   |   75.86 |    73.07 |     100 |   75.86 | 8,17,37,41,49,53,57                                                                  
+----------------------------------|---------|----------|---------|---------|--------------------------------------------------------------------------------------
+
+Test Suites: 15 passed, 15 total
+Tests:       28 passed, 28 total
+Snapshots:   2 passed, 2 total
+Time:        16.418 s
+Ran all test suites.

@@ -1,0 +1,12 @@
+
+> flexshift-mobile@1.0.0 test:snapshots
+> jest --config jest.config.js --runInBand snapshot.test.tsx
+
+PASS src/components/common/SyncStatusBanner.snapshot.test.tsx
+PASS src/components/cards/AnnouncementCard.snapshot.test.tsx
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   2 passed, 2 total
+Time:        1.82 s, estimated 2 s
+Ran all test suites matching /snapshot.test.tsx/i.

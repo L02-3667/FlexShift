@@ -1,0 +1,85 @@
+name: Backend Render CI
+
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-render.yml'
+      - 'render.yaml'
+      - 'README.md'
+      - 'docs/render-deployment.md'
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-render.yml'
+      - 'render.yaml'
+      - 'README.md'
+      - 'docs/render-deployment.md'
+
+jobs:
+  backend-ci:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: flexshift_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d flexshift_ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    defaults:
+      run:
+        working-directory: backend
+
+    env:
+      APP_ENV: test
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/flexshift_ci?schema=public
+      JWT_ACCESS_SECRET: test-access-secret-for-ci-only
+      JWT_REFRESH_SECRET: test-refresh-secret-for-ci-only
+      CORS_ALLOWED_ORIGINS: http://localhost:8081,http://127.0.0.1:8081
+      CORS_ALLOW_CREDENTIALS: "false"
+      API_DOCS_ENABLED: "true"
+      API_DOCS_PATH: docs
+      PUBLIC_API_BASE_URL: http://127.0.0.1:3000
+      SYNC_BATCH_LIMIT: "250"
+      SYNC_DEFAULT_STALE_MS: "300000"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install backend dependencies
+        run: npm ci
+
+      - name: Apply Prisma migrations
+        run: npx prisma migrate deploy
+
+      - name: Generate Prisma client
+        run: npm run prisma:generate
+
+      - name: Typecheck backend
+        run: npm run typecheck
+
+      - name: Run backend tests
+        run: npm run test
+
+      - name: Build backend
+        run: npm run build

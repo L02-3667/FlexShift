@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnnouncementCard snapshot matches the stable card snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#FFFDF8",
+      "borderColor": "#F2D7C6",
+      "borderRadius": 28,
+      "borderWidth": 1,
+      "elevation": 2,
+      "gap": 12,
+      "padding": 22,
+      "shadowColor": "rgba(41, 25, 12, 0.08)",
+      "shadowOffset": {
+        "height": 12,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 20,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "gap": 12,
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#17120D",
+          "flex": 1,
+          "fontSize": 17,
+          "fontWeight": "800",
+        }
+      }
+    >
+      Cập nhật quy trình giao ca
+    </Text>
+    <View
+      style={
+        {
+          "alignSelf": "flex-start",
+          "backgroundColor": "#FFE3CF",
+          "borderRadius": 999,
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "#231A14",
+            "fontSize": 12,
+            "fontWeight": "700",
+          }
+        }
+      >
+        Cần xác nhận
+      </Text>
+    </View>
+  </View>
+  <Text
+    style={
+      {
+        "color": "#5E4738",
+        "fontSize": 16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    Mỗi ca tối cần xác nhận handover note trước khi rời cửa hàng.
+  </Text>
+  <Text
+    style={
+      {
+        "color": "#8D6D5A",
+        "fontSize": 12,
+      }
+    }
+  >
+    15:00 10/4/26
+  </Text>
+</View>
+`;

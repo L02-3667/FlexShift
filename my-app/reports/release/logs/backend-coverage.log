@@ -1,0 +1,125 @@
+
+> flexshift-mobile@1.0.0 test:backend:coverage
+> node ./scripts/run-workspace-script.mjs backend test:coverage
+
+
+> flexshift-backend@0.1.0 test:coverage
+> jest --config jest.config.js --runInBand --coverage
+
+PASS test/concurrency.integration.spec.ts (11.374 s)
+PASS test/workflow.integration.spec.ts
+PASS test/sync-health.integration.spec.ts
+PASS test/auth.integration.spec.ts
+PASS test/policies.spec.ts
+--------------------------------|---------|----------|---------|---------|--------------------------------------------------
+File                            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                
+--------------------------------|---------|----------|---------|---------|--------------------------------------------------
+All files                       |   75.73 |    40.78 |   60.73 |   74.39 |                                                  
+ activity                       |    82.6 |        0 |      50 |   83.33 |                                                  
+  activity-writer.ts            |     100 |      100 |     100 |     100 |                                                  
+  activity.controller.ts        |      90 |        0 |      50 |    87.5 | 18                                               
+  activity.service.ts           |      75 |        0 |      50 |   77.77 | 30-46                                            
+ announcements                  |   69.56 |        0 |      40 |   68.29 |                                                  
+  announcements.controller.ts   |   82.35 |      100 |      50 |      80 | 17,25-26                                         
+  announcements.service.ts      |   62.06 |        0 |   33.33 |   61.53 | 20-126,144                                       
+ announcements/dto              |     100 |      100 |     100 |     100 |                                                  
+  create-announcement.dto.ts    |     100 |      100 |     100 |     100 |                                                  
+ approvals                      |      81 |    37.83 |    90.9 |    80.2 |                                                  
+  approvals.controller.ts       |     100 |      100 |     100 |     100 |                                                  
+  approvals.service.ts          |   77.38 |    37.83 |    87.5 |   76.82 | 53,72,76,130,175-203,224,241,306,314,318,336,365 
+ approvals/dto                  |     100 |      100 |     100 |     100 |                                                  
+  review-request.dto.ts         |     100 |      100 |     100 |     100 |                                                  
+ auth                           |   83.03 |    62.26 |   88.23 |   82.07 |                                                  
+  auth.constants.ts             |     100 |      100 |     100 |     100 |                                                  
+  auth.controller.ts            |      96 |    83.33 |   83.33 |   95.65 | 68                                               
+  auth.service.ts               |   77.04 |    57.14 |   88.88 |   76.27 | 103,112,151,191-214                              
+  jwt.strategy.ts               |   83.33 |    66.66 |     100 |   81.81 | 36,40,48,52                                      
+ auth/dto                       |     100 |      100 |     100 |     100 |                                                  
+  login.dto.ts                  |     100 |      100 |     100 |     100 |                                                  
+  logout.dto.ts                 |     100 |      100 |     100 |     100 |                                                  
+  refresh-session.dto.ts        |     100 |      100 |     100 |     100 |                                                  
+  update-password.dto.ts        |     100 |      100 |     100 |     100 |                                                  
+ calendar                       |   61.53 |        0 |   28.57 |   54.54 |                                                  
+  calendar.controller.ts        |    90.9 |      100 |      50 |   88.88 | 19                                               
+  calendar.service.ts           |      40 |        0 |      20 |   30.76 | 12-119                                           
+ calendar/dto                   |     100 |      100 |     100 |     100 |                                                  
+  query-calendar.dto.ts         |     100 |      100 |     100 |     100 |                                                  
+ common/decorators              |   88.88 |      100 |      50 |     100 |                                                  
+  current-user.decorator.ts     |     100 |      100 |     100 |     100 |                                                  
+  roles.decorator.ts            |      80 |      100 |       0 |     100 |                                                  
+ common/exceptions              |     100 |      100 |     100 |     100 |                                                  
+  domain-conflict.exception.ts  |     100 |      100 |     100 |     100 |                                                  
+ common/filters                 |   92.85 |    53.84 |     100 |   91.66 |                                                  
+  all-exceptions.filter.ts      |   92.85 |    53.84 |     100 |   91.66 | 37                                               
+ common/guards                  |      75 |    33.33 |     100 |   68.75 |                                                  
+  jwt-auth.guard.ts             |     100 |      100 |     100 |     100 |                                                  
+  roles.guard.ts                |   66.66 |    33.33 |     100 |   61.53 | 27-38                                            
+ common/http                    |     100 |      100 |     100 |     100 |                                                  
+  request-context.middleware.ts |     100 |      100 |     100 |     100 |                                                  
+ common/policies                |     100 |      100 |     100 |     100 |                                                  
+  request-access.policy.ts      |     100 |      100 |     100 |     100 |                                                  
+  role-policy.ts                |     100 |      100 |     100 |     100 |                                                  
+  schedule-conflict.policy.ts   |     100 |      100 |     100 |     100 |                                                  
+ common/utils                   |   71.42 |    57.14 |   66.66 |   71.42 |                                                  
+  date.utils.ts                 |       0 |      100 |       0 |       0 | 1-8                                              
+  shift.utils.ts                |    86.2 |    57.14 |   85.71 |    86.2 | 49-53                                            
+ config                         |   83.33 |    63.63 |     100 |   81.81 |                                                  
+  env.ts                        |   83.33 |    63.63 |     100 |   81.81 | 42,52                                            
+ health                         |    91.3 |      100 |      75 |   89.47 |                                                  
+  health.controller.ts          |   91.66 |      100 |      75 |      90 | 16                                               
+  health.service.ts             |    90.9 |      100 |      75 |   88.88 | 10                                               
+ notifications                  |   72.72 |        0 |    37.5 |   71.42 |                                                  
+  notification-gateway.ts       |     100 |      100 |     100 |     100 |                                                  
+  notifications.controller.ts   |   83.33 |      100 |   33.33 |      80 | 15,23                                            
+  notifications.service.ts      |      65 |        0 |      40 |    64.7 | 20-27,60-79                                      
+ open-shifts                    |   64.94 |    21.42 |      50 |   64.13 |                                                  
+  open-shift.mapper.ts          |     100 |       50 |     100 |     100 | 45-46                                            
+  open-shifts.controller.ts     |   85.71 |      100 |      60 |   84.21 | 18,23,32                                         
+  open-shifts.service.ts        |   55.71 |       10 |   36.36 |   55.22 | 42-188,204,216,241,246,270,309                   
+ open-shifts/dto                |     100 |      100 |     100 |     100 |                                                  
+  claim-open-shift.dto.ts       |     100 |      100 |     100 |     100 |                                                  
+  create-open-shift.dto.ts      |     100 |      100 |     100 |     100 |                                                  
+ prisma                         |     100 |      100 |     100 |     100 |                                                  
+  prisma.service.ts             |     100 |      100 |     100 |     100 |                                                  
+ requests                       |   73.95 |     23.8 |   66.66 |   73.62 |                                                  
+  request.mapper.ts             |     100 |    83.33 |     100 |     100 | 35                                               
+  requests.controller.ts        |   89.47 |      100 |      60 |   88.23 | 29,37                                            
+  requests.service.ts           |   68.91 |        0 |   66.66 |   69.01 | 49,56-123,138,155,207,258,267,281,293,346        
+ requests/dto                   |     100 |      100 |     100 |     100 |                                                  
+  create-leave-request.dto.ts   |     100 |      100 |     100 |     100 |                                                  
+  create-yield-request.dto.ts   |     100 |      100 |     100 |     100 |                                                  
+  query-requests.dto.ts         |     100 |      100 |     100 |     100 |                                                  
+ sessions                       |   72.72 |    31.81 |      60 |   71.79 |                                                  
+  sessions.controller.ts        |   83.33 |      100 |   33.33 |      80 | 15,26                                            
+  sessions.service.ts           |   68.75 |    31.81 |   66.66 |   68.96 | 79,121-156                                       
+ settings                       |   72.41 |      100 |   33.33 |      68 |                                                  
+  settings.controller.ts        |   84.61 |      100 |   33.33 |   81.81 | 16,24                                            
+  settings.service.ts           |    62.5 |      100 |   33.33 |   57.14 | 17-70                                            
+ settings/dto                   |     100 |      100 |     100 |     100 |                                                  
+  update-user-setting.dto.ts    |     100 |      100 |     100 |     100 |                                                  
+ shifts                         |   45.94 |        0 |   28.57 |   39.39 |                                                  
+  shifts.controller.ts          |   84.61 |      100 |   33.33 |   81.81 | 19,24                                            
+  shifts.service.ts             |      25 |        0 |      25 |   18.18 | 12-90                                            
+ shifts/dto                     |     100 |      100 |     100 |     100 |                                                  
+  query-shifts.dto.ts           |     100 |      100 |     100 |     100 |                                                  
+ statistics                     |   28.81 |        0 |      10 |   23.63 |                                                  
+  statistics.controller.ts      |   73.33 |      100 |   33.33 |   69.23 | 16-17,22-23                                      
+  statistics.service.ts         |   13.63 |        0 |    5.88 |    9.52 | 11-186                                           
+ sync                           |   88.23 |    62.12 |   84.37 |    88.4 |                                                  
+  mutation-ledger.service.ts    |    62.5 |    33.33 |      60 |   57.14 | 10,23,42-48,68                                   
+  sync-change-publisher.ts      |     100 |      100 |     100 |     100 |                                                  
+  sync-publisher.service.ts     |    92.3 |       80 |     100 |    90.9 | 16                                               
+  sync.controller.ts            |     100 |      100 |     100 |     100 |                                                  
+  sync.service.ts               |   93.18 |    62.06 |   86.36 |   97.05 | 314                                              
+ sync/dto                       |   85.71 |      100 |      50 |   85.71 |                                                  
+  query-sync.dto.ts             |   85.71 |      100 |      50 |   85.71 | 12                                               
+ users                          |   73.07 |     37.5 |      50 |   71.42 |                                                  
+  users.controller.ts           |   66.66 |        0 |      25 |   66.66 | 15-16,21-22                                      
+  users.service.ts              |   81.81 |       50 |   66.66 |   77.77 | 22-34                                            
+--------------------------------|---------|----------|---------|---------|--------------------------------------------------
+
+Test Suites: 5 passed, 5 total
+Tests:       14 passed, 14 total
+Snapshots:   0 total
+Time:        24.409 s
+Ran all test suites.

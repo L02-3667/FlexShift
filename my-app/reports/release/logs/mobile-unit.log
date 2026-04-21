@@ -1,0 +1,17 @@
+
+> flexshift-mobile@1.0.0 test:unit
+> jest --config jest.config.js --runInBand src/utils src/services src/context src/hooks
+
+PASS src/context/app-context.offline.test.tsx
+PASS src/services/sync/sync-engine.test.ts
+PASS src/services/api/api-client.test.ts
+PASS src/services/sync/sync-helpers.test.ts
+PASS src/utils/date.test.ts
+PASS src/utils/validation.test.ts
+PASS src/utils/shift-conflicts.test.ts
+
+Test Suites: 7 passed, 7 total
+Tests:       17 passed, 17 total
+Snapshots:   0 total
+Time:        3.17 s
+Ran all test suites matching /src\\utils|src\\services|src\\context|src\\hooks/i.

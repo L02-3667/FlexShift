@@ -1,0 +1,30 @@
+=3100 : The term '=3100' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ ='3100'; Set-Location 'c:\Users\LUAN\Downloads\expo_test\my-app\backe ...
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=3100:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+[31m[Nest] 45840  - [39m04/10/2026, 8:53:22 PM [31m  ERROR[39m [38;5;3m[NestApplication] [39m[31mError: listen EADDRINUSE: address already in use :::3000[39m[38;5;3m +2ms[39m
+node:net:1939
+    const ex = new UVExceptionWithHostPort(err, 'listen', address, port);
+               ^
+
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1939:16)
+    at listenInCluster (node:net:1996:12)
+    at Server.listen (node:net:2101:7)
+    at ExpressAdapter.listen (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\@nestjs\platform-express\adapters\express-adapter.js:115:32)
+    at C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\@nestjs\core\nest-application.js:188:30
+    at new Promise (<anonymous>)
+    at NestApplication.listen (C:\Users\LUAN\Downloads\expo_test\my-app\backend\node_modules\@nestjs\core\nest-application.js:178:16)
+    at async bootstrap (C:\Users\LUAN\Downloads\expo_test\my-app\backend\dist\main.js:21:5) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+
+Node.js v23.11.0

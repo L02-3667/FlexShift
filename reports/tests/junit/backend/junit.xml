@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="41.651">
+  <testsuite name="announcements integration" errors="0" failures="0" skipped="0" timestamp="2026-04-17T13:02:03" time="36.476" tests="2">
+    <testcase classname="announcements integration supports manager CRUD flow for announcements" name="announcements integration supports manager CRUD flow for announcements" time="1.894">
+    </testcase>
+    <testcase classname="announcements integration allows an employee to acknowledge a visible announcement" name="announcements integration allows an employee to acknowledge a visible announcement" time="0.846">
+    </testcase>
+  </testsuite>
+  <testsuite name="sync and health integration" errors="0" failures="0" skipped="0" timestamp="2026-04-17T13:02:40" time="3.592" tests="3">
+    <testcase classname="sync and health integration serves health summary and readiness against the real database" name="sync and health integration serves health summary and readiness against the real database" time="0.512">
+    </testcase>
+    <testcase classname="sync and health integration returns the sync pull contract for an authenticated employee" name="sync and health integration returns the sync pull contract for an authenticated employee" time="0.801">
+    </testcase>
+    <testcase classname="sync and health integration acknowledges an announcement for the signed-in employee" name="sync and health integration acknowledges an announcement for the signed-in employee" time="0.883">
+    </testcase>
+  </testsuite>
+</testsuites>

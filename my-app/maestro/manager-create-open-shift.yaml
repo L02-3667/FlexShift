@@ -1,0 +1,64 @@
+appId: host.exp.exponent
+---
+- launchApp:
+    clearState: true
+    stopApp: true
+- openLink: "${MAESTRO_EXPO_URL}"
+- extendedWaitUntil:
+    visible:
+      id: login-screen
+    timeout: 60000
+- assertVisible:
+    id: login-screen
+- scrollUntilVisible:
+    element:
+      id: login-seed-account-manager
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: login-seed-account-manager
+- scrollUntilVisible:
+    element:
+      id: login-submit-button
+    direction: UP
+    timeout: 20000
+- tapOn:
+    id: login-submit-button
+- extendedWaitUntil:
+    visible:
+      id: manager-dashboard-screen
+    timeout: 30000
+- assertVisible:
+    id: manager-dashboard-screen
+- tapOn: 'Tạo ca'
+- assertVisible:
+    id: manager-create-open-shift-screen
+- scrollUntilVisible:
+    element:
+      id: manager-open-shift-date-option-1
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: manager-open-shift-date-option-1
+- scrollUntilVisible:
+    element:
+      id: manager-open-shift-time-option-1
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: manager-open-shift-time-option-1
+- scrollUntilVisible:
+    element:
+      id: manager-open-shift-note-input
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: manager-open-shift-note-input
+- inputText: 'Bo sung nhan su cho ca sang.'
+- scrollUntilVisible:
+    element:
+      text: Tạo ca trống
+    direction: DOWN
+    timeout: 20000
+- tapOn: 'Tạo ca trống'
+- assertVisible: 'Đã (tạo ca trống|đưa vào hàng đợi)'

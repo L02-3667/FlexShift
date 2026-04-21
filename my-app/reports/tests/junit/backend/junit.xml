@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="16" failures="0" errors="0" time="31.275">
+  <testsuite name="announcements integration" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:35:58" time="16.316" tests="2">
+    <testcase classname="announcements integration supports manager CRUD flow for announcements" name="announcements integration supports manager CRUD flow for announcements" time="1.108">
+    </testcase>
+    <testcase classname="announcements integration allows an employee to acknowledge a visible announcement" name="announcements integration allows an employee to acknowledge a visible announcement" time="0.799">
+    </testcase>
+  </testsuite>
+  <testsuite name="workflow integration" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:36:15" time="4.571" tests="3">
+    <testcase classname="workflow integration blocks employees from manager-only open shift creation" name="workflow integration blocks employees from manager-only open shift creation" time="0.809">
+    </testcase>
+    <testcase classname="workflow integration claims an open shift once and returns a conflict on the second claim" name="workflow integration claims an open shift once and returns a conflict on the second claim" time="1.031">
+    </testcase>
+    <testcase classname="workflow integration creates leave and yield requests, then rejects and conflicts approvals correctly" name="workflow integration creates leave and yield requests, then rejects and conflicts approvals correctly" time="1.304">
+    </testcase>
+  </testsuite>
+  <testsuite name="sync and health integration" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:36:19" time="3.28" tests="3">
+    <testcase classname="sync and health integration serves health summary and readiness against the real database" name="sync and health integration serves health summary and readiness against the real database" time="0.589">
+    </testcase>
+    <testcase classname="sync and health integration returns the sync pull contract for an authenticated employee" name="sync and health integration returns the sync pull contract for an authenticated employee" time="0.791">
+    </testcase>
+    <testcase classname="sync and health integration acknowledges an announcement for the signed-in employee" name="sync and health integration acknowledges an announcement for the signed-in employee" time="0.667">
+    </testcase>
+  </testsuite>
+  <testsuite name="concurrency integration" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:36:23" time="3.228" tests="2">
+    <testcase classname="concurrency integration allows only one employee to claim the same open shift during a race" name="concurrency integration allows only one employee to claim the same open shift during a race" time="0.996">
+    </testcase>
+    <testcase classname="concurrency integration lets only one approval decision win when the same request is submitted twice" name="concurrency integration lets only one approval decision win when the same request is submitted twice" time="1.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="auth integration" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:36:26" time="3.106" tests="2">
+    <testcase classname="auth integration logs in and resolves /auth/me" name="auth integration logs in and resolves /auth/me" time="0.721">
+    </testcase>
+    <testcase classname="auth integration refreshes and then revokes a session on logout" name="auth integration refreshes and then revokes a session on logout" time="1.059">
+    </testcase>
+  </testsuite>
+  <testsuite name="backend policy helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:36:29" time="0.189" tests="4">
+    <testcase classname="backend policy helpers detects schedule overlap conflicts" name="backend policy helpers detects schedule overlap conflicts" time="0.002">
+    </testcase>
+    <testcase classname="backend policy helpers detects overnight overlap conflicts on adjacent dates" name="backend policy helpers detects overnight overlap conflicts on adjacent dates" time="0.001">
+    </testcase>
+    <testcase classname="backend policy helpers allows managers or owners to view a request" name="backend policy helpers allows managers or owners to view a request" time="0.001">
+    </testcase>
+    <testcase classname="backend policy helpers maps open shifts, shifts, and requests into mobile payloads" name="backend policy helpers maps open shifts, shifts, and requests into mobile payloads" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>
