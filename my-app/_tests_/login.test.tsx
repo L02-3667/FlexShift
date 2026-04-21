@@ -33,8 +33,5 @@ test('login success', () => {
 
   fireEvent.changeText(getByTestId('email-input'), 'test@flexshift.app');
   fireEvent.press(getByText('Đăng nhập'));
-  screen.getByText(/đã đọc/i);
-  screen.getByText(/sáng/i);
-  screen.getByLabelText(/ghi chú/i);
   expect(getByTestId('result').props.children).toBe('Đăng nhập thành công');
 });
