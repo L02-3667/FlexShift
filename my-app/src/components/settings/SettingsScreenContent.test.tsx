@@ -67,7 +67,11 @@ describe('SettingsScreenContent', () => {
       />,
     );
 
+<<<<<<< HEAD
     fireEvent.press(screen.getByText('Sáng'));
+=======
+    fireEvent.press(screen.getByText('Sang'));
+>>>>>>> b41e4a99ab1041207bc76cbd43deaa053ee6ff1d
 
     await waitFor(() => {
       expect(mockSaveSettingsData).toHaveBeenCalled();

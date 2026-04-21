@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuites name="jest tests" tests="29" failures="0" errors="0" time="7.073">
   <testsuite name="SettingsScreenContent" errors="0" failures="0" skipped="0" timestamp="2026-04-21T09:09:54" time="3.146" tests="1">
     <testcase classname="SettingsScreenContent saves a theme change and supports logout" name="SettingsScreenContent saves a theme change and supports logout" time="0.664">
@@ -54,10 +55,28 @@
   </testsuite>
   <testsuite name="validation helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-21T09:10:01" time="0.108" tests="2">
     <testcase classname="validation helpers accepts overnight open-shift windows but rejects zero-length windows" name="validation helpers accepts overnight open-shift windows but rejects zero-length windows" time="0.002">
+=======
+<testsuites name="jest tests" tests="8" failures="0" errors="0" time="46.509">
+  <testsuite name="employee request and shift screens" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:04" time="41.459" tests="3">
+    <testcase classname="employee request and shift screens creates a leave request from a selected shift" name="employee request and shift screens creates a leave request from a selected shift" time="10.708">
+    </testcase>
+    <testcase classname="employee request and shift screens creates a yield request with a selected coworker" name="employee request and shift screens creates a yield request with a selected coworker" time="0.125">
+    </testcase>
+    <testcase classname="employee request and shift screens claims an open shift from the detail screen" name="employee request and shift screens claims an open shift from the detail screen" time="0.098">
+    </testcase>
+  </testsuite>
+  <testsuite name="AnnouncementCard snapshot" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:46" time="0.431" tests="1">
+    <testcase classname="AnnouncementCard snapshot matches the stable card snapshot" name="AnnouncementCard snapshot matches the stable card snapshot" time="0.023">
+    </testcase>
+  </testsuite>
+  <testsuite name="validation helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:46" time="0.19" tests="2">
+    <testcase classname="validation helpers accepts overnight open-shift windows but rejects zero-length windows" name="validation helpers accepts overnight open-shift windows but rejects zero-length windows" time="0.006">
+>>>>>>> b41e4a99ab1041207bc76cbd43deaa053ee6ff1d
     </testcase>
     <testcase classname="validation helpers rejects short reasons and missing fields" name="validation helpers rejects short reasons and missing fields" time="0.001">
     </testcase>
   </testsuite>
+<<<<<<< HEAD
   <testsuite name="api client resilience" errors="0" failures="0" skipped="0" timestamp="2026-04-21T09:10:01" time="0.124" tests="2">
     <testcase classname="api client resilience reuses a single refresh flow when multiple requests hit 401 together" name="api client resilience reuses a single refresh flow when multiple requests hit 401 together" time="0.003">
     </testcase>
@@ -86,6 +105,12 @@
     <testcase classname="sync helpers marks 409 errors as conflict mutations" name="sync helpers marks 409 errors as conflict mutations" time="0.001">
     </testcase>
     <testcase classname="sync helpers detects likely offline errors and counts pending acknowledgements" name="sync helpers detects likely offline errors and counts pending acknowledgements" time="0.001">
+=======
+  <testsuite name="api client resilience" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:47" time="0.338" tests="2">
+    <testcase classname="api client resilience reuses a single refresh flow when multiple requests hit 401 together" name="api client resilience reuses a single refresh flow when multiple requests hit 401 together" time="0.017">
+    </testcase>
+    <testcase classname="api client resilience surfaces request timeouts as actionable API errors" name="api client resilience surfaces request timeouts as actionable API errors" time="0.01">
+>>>>>>> b41e4a99ab1041207bc76cbd43deaa053ee6ff1d
     </testcase>
   </testsuite>
 </testsuites>

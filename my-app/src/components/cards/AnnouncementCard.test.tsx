@@ -15,7 +15,11 @@ describe('AnnouncementCard', () => {
     );
 
     expect(screen.getByText(sampleAnnouncement.title)).toBeTruthy();
+<<<<<<< HEAD
     fireEvent.press(screen.getByText('Đã đọc và xác nhận'));
+=======
+    fireEvent.press(screen.getByText('Da doc va xac nhan'));
+>>>>>>> b41e4a99ab1041207bc76cbd43deaa053ee6ff1d
 
     expect(onAcknowledge).toHaveBeenCalledTimes(1);
   });
