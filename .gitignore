@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Expo / React Native
+.expo/
+**/.expo/
+dist/
+web-build/
+expo-env.d.ts
+.metro-health-check*
+
+# Generated native folders
+ios/
+android/
+**/ios/
+**/android/
+.kotlin/
+
+# Build output
+build/
+coverage/
+**/coverage/
+backend/dist/
+**/backend/dist/
+*.tsbuildinfo
+
+# Test and report output
+reports/tests/
+**/reports/tests/
+**/reports/e2e/maestro/
+**/reports/e2e/*.log
+**/reports/e2e/*.json
+
+# Logs
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+pnpm-debug.*
+
+# Local environment
+.env
+.env.*
+backend/.env
+**/backend/.env
+!.env.example
+!**/.env.example
+
+# Secrets and signing material
+*.pem
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Misc
+*.orig.*
+app-example/

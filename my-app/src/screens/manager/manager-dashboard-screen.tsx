@@ -17,9 +17,7 @@ import { MetricCard } from '@/src/components/common/MetricCard';
 import { PrimaryButton } from '@/src/components/common/PrimaryButton';
 import { SectionHeader } from '@/src/components/common/SectionHeader';
 import { SyncStatusBanner } from '@/src/components/common/SyncStatusBanner';
-import { BRANDING } from '@/src/constants/branding';
 import { AppColors } from '@/src/constants/colors';
-import { APP_COPY } from '@/src/constants/copy';
 import { useSQLiteContext } from '@/src/db/sqlite-provider';
 import { useAsyncData } from '@/src/hooks/use-async-data';
 import { useAppState } from '@/src/hooks/use-app-state';
@@ -61,34 +59,15 @@ export function ManagerDashboardScreen() {
   return (
     <SafeAreaView style={styles.safeArea} testID="manager-dashboard-screen">
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.hero}>
-          <View style={styles.heroHeader}>
-            <View style={styles.heroCopy}>
-              <Text style={styles.kicker}>Bảng điều phối</Text>
-              <Text style={styles.title}>
-                {APP_COPY.managerDashboard.title}
-              </Text>
-              <Text style={styles.description}>
-                {APP_COPY.managerDashboard.description}
-              </Text>
-            </View>
-
-            <View style={styles.heroBadge}>
-              <Text style={styles.heroBadgeValue}>{data.pendingCount}</Text>
-              <Text style={styles.heroBadgeLabel}>cho duyet</Text>
-            </View>
+        <View style={styles.header}>
+          <View style={styles.headerCopy}>
+            <Text style={styles.kicker}>Tổng quan</Text>
+            <Text style={styles.title}>Điều phối ca</Text>
           </View>
 
-          <View style={styles.heroChipRow}>
-            <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>{BRANDING.appName}</Text>
-            </View>
-            <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Duyệt an toàn</Text>
-            </View>
-            <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Sẵn sàng realtime</Text>
-            </View>
+          <View style={styles.summaryPill}>
+            <Text style={styles.summaryValue}>{data.pendingCount}</Text>
+            <Text style={styles.summaryLabel}>chờ duyệt</Text>
           </View>
         </View>
 
@@ -96,14 +75,16 @@ export function ManagerDashboardScreen() {
 
         <View style={styles.metricRow}>
           <MetricCard
-            label="Yêu cầu chờ duyệt"
+            label="Chờ duyệt"
             value={data.pendingCount}
             tone="warning"
+            compact
           />
           <MetricCard
             label="Ca đang mở"
             value={data.openShiftCount}
             tone="primary"
+            compact
           />
         </View>
 
@@ -111,32 +92,31 @@ export function ManagerDashboardScreen() {
           label="Ca đã chốt"
           value={data.confirmedShiftCount}
           tone="neutral"
+          compact
         />
 
-        <View style={styles.actionRow}>
+        <View style={styles.actionPanel}>
           <PrimaryButton
-            label={APP_COPY.managerDashboard.openScheduleAction}
+            label="Mở lịch"
             onPress={() => router.push('/(manager)/(tabs)/calendar' as Href)}
             style={styles.actionButton}
           />
           <PrimaryButton
-            label={APP_COPY.managerDashboard.createOpenShiftAction}
+            label="Tạo ca trống"
             onPress={() =>
               router.push('/(manager)/(tabs)/create-open-shift' as Href)
             }
             variant="secondary"
             style={styles.actionButton}
           />
-        </View>
-
-        <View style={styles.actionRow}>
           <PrimaryButton
-            label={APP_COPY.managerDashboard.openApprovalsAction}
+            label="Duyệt ca"
             onPress={() => router.push('/(manager)/(tabs)/approvals' as Href)}
+            variant="secondary"
             style={styles.actionButton}
           />
           <PrimaryButton
-            label={APP_COPY.managerDashboard.openStatisticsAction}
+            label="Số liệu"
             onPress={() => router.push('/(manager)/(tabs)/statistics' as Href)}
             variant="secondary"
             style={styles.actionButton}
@@ -144,8 +124,7 @@ export function ManagerDashboardScreen() {
         </View>
 
         <SectionHeader
-          title={APP_COPY.managerDashboard.pendingTitle}
-          subtitle={APP_COPY.managerDashboard.pendingSubtitle}
+          title="Yêu cầu cần xử lý"
           actionLabel="Mở danh sách"
           onActionPress={() =>
             router.push('/(manager)/(tabs)/approvals' as Href)
@@ -155,22 +134,20 @@ export function ManagerDashboardScreen() {
         {loading ? (
           <View style={styles.stateBox}>
             <ActivityIndicator color={AppColors.primary} />
-            <Text style={styles.stateText}>
-              {APP_COPY.managerDashboard.loading}
-            </Text>
+            <Text style={styles.stateText}>Đang tải tổng quan...</Text>
           </View>
         ) : error ? (
           <EmptyState
-            title={APP_COPY.managerDashboard.loadFailedTitle}
+            title="Không tải được tổng quan"
             description={error}
-            actionLabel={APP_COPY.common.retry}
+            actionLabel="Thử lại"
             onAction={reload}
           />
         ) : data.pendingRequests.length === 0 ? (
           <EmptyState
-            title={APP_COPY.managerDashboard.noPendingTitle}
-            description={APP_COPY.managerDashboard.noPendingDescription}
-            actionLabel={APP_COPY.managerDashboard.openScheduleAction}
+            title="Không có yêu cầu đang chờ"
+            description="Lịch hiện chưa có yêu cầu cần xử lý."
+            actionLabel="Mở lịch"
             onAction={() => router.push('/(manager)/(tabs)/calendar' as Href)}
           />
         ) : (
@@ -189,15 +166,12 @@ export function ManagerDashboardScreen() {
           ))
         )}
 
-        <SectionHeader
-          title={APP_COPY.managerDashboard.recentTitle}
-          subtitle={APP_COPY.managerDashboard.recentSubtitle}
-        />
+        <SectionHeader title="Cập nhật mới" />
 
         {data.recentUpdates.length === 0 ? (
           <EmptyState
-            title={APP_COPY.managerDashboard.noUpdatesTitle}
-            description={APP_COPY.managerDashboard.noUpdatesDescription}
+            title="Chưa có cập nhật mới"
+            description="Thay đổi lịch và yêu cầu sẽ hiển thị tại đây."
           />
         ) : (
           data.recentUpdates.map((item) => (
@@ -205,15 +179,12 @@ export function ManagerDashboardScreen() {
           ))
         )}
 
-        <SectionHeader
-          title={APP_COPY.managerDashboard.announcementsTitle}
-          subtitle={APP_COPY.managerDashboard.announcementsSubtitle}
-        />
+        <SectionHeader title="Thông báo" />
 
         {data.announcements.length === 0 ? (
           <EmptyState
-            title={APP_COPY.managerDashboard.noAnnouncementsTitle}
-            description={APP_COPY.managerDashboard.noAnnouncementsDescription}
+            title="Chưa có thông báo mới"
+            description="Thông báo vận hành sẽ hiển thị tại đây."
           />
         ) : (
           data.announcements.map((announcement) => (
@@ -231,20 +202,18 @@ export function ManagerDashboardScreen() {
                         await reload();
                         Alert.alert(
                           result.delivery === 'sent'
-                            ? APP_COPY.managerDashboard.acknowledgeSentTitle
-                            : APP_COPY.managerDashboard.acknowledgeQueuedTitle,
+                            ? 'Đã xác nhận thông báo'
+                            : 'Đã đưa vào hàng đợi',
                           result.delivery === 'sent'
-                            ? APP_COPY.managerDashboard
-                                .acknowledgeSentDescription
-                            : APP_COPY.managerDashboard
-                                .acknowledgeQueuedDescription,
+                            ? 'Trạng thái xác nhận đã được đồng bộ.'
+                            : 'Trạng thái xác nhận sẽ tự động gửi khi có kết nối ổn định.',
                         );
                       } catch (error) {
                         Alert.alert(
-                          APP_COPY.managerDashboard.acknowledgeFailedTitle,
+                          'Không thể xác nhận',
                           error instanceof Error
                             ? error.message
-                            : APP_COPY.common.tryAgain,
+                            : 'Vui lòng thử lại.',
                         );
                       }
                     }
@@ -264,32 +233,17 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.background,
   },
   content: {
-    padding: spacingTokens.xl,
-    gap: spacingTokens.lg + spacingTokens.xxs,
+    padding: spacingTokens.lg,
+    gap: spacingTokens.md,
     paddingBottom: spacingTokens.xxxl + spacingTokens.xxs,
   },
-  hero: {
-    backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.hero,
-    borderWidth: 1,
-    borderColor: AppColors.border,
-    padding: spacingTokens.xl + spacingTokens.xxs,
-    gap: spacingTokens.md,
-    shadowColor: AppColors.shadow,
-    shadowOpacity: 1,
-    shadowOffset: {
-      width: 0,
-      height: 14,
-    },
-    shadowRadius: 24,
-    elevation: 3,
-  },
-  heroHeader: {
+  header: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     gap: spacingTokens.md,
   },
-  heroCopy: {
+  headerCopy: {
     flex: 1,
     gap: spacingTokens.xs,
   },
@@ -298,79 +252,61 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: AppColors.primary,
     textTransform: 'uppercase',
-    letterSpacing: 0.4,
+    letterSpacing: 0,
   },
   title: {
-    fontSize: 34,
-    lineHeight: 38,
+    fontSize: typographyTokens.titleLg,
+    lineHeight: 28,
     fontWeight: '800',
     color: AppColors.text,
-    letterSpacing: -0.8,
+    letterSpacing: 0,
   },
-  description: {
-    fontSize: typographyTokens.bodyLg,
-    lineHeight: typographyTokens.lineHeightLg,
-    color: AppColors.textSecondary,
-  },
-  heroBadge: {
-    minWidth: 96,
-    borderRadius: radiusTokens.xl,
-    backgroundColor: AppColors.primary,
-    paddingHorizontal: spacingTokens.md,
-    paddingVertical: spacingTokens.lg,
+  summaryPill: {
+    minWidth: 88,
+    borderRadius: radiusTokens.lg,
+    backgroundColor: AppColors.surface,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    paddingHorizontal: spacingTokens.lg,
+    paddingVertical: spacingTokens.md,
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacingTokens.xxs,
   },
-  heroBadgeValue: {
-    fontSize: 32,
+  summaryValue: {
+    fontSize: 26,
     fontWeight: '800',
-    color: AppColors.accent,
-    letterSpacing: -1,
+    color: AppColors.text,
+    letterSpacing: 0,
   },
-  heroBadgeLabel: {
+  summaryLabel: {
     fontSize: typographyTokens.caption,
     fontWeight: '700',
-    color: AppColors.accent,
+    color: AppColors.textSecondary,
+    textAlign: 'center',
     textTransform: 'uppercase',
-  },
-  heroChipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacingTokens.sm,
-  },
-  heroChip: {
-    borderRadius: radiusTokens.pill,
-    backgroundColor: AppColors.surfaceMuted,
-    borderWidth: 1,
-    borderColor: AppColors.border,
-    paddingHorizontal: spacingTokens.md,
-    paddingVertical: spacingTokens.sm,
-  },
-  heroChipText: {
-    fontSize: typographyTokens.bodySm,
-    fontWeight: '700',
-    color: AppColors.accent,
   },
   metricRow: {
     flexDirection: 'row',
     gap: spacingTokens.md,
   },
-  actionRow: {
+  actionPanel: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: spacingTokens.md,
   },
   actionButton: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: '47%',
   },
   stateBox: {
     backgroundColor: AppColors.surface,
     borderRadius: radiusTokens.xl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: spacingTokens.xl + spacingTokens.xxs,
+    padding: spacingTokens.xl,
     alignItems: 'center',
-    gap: spacingTokens.sm + spacingTokens.xxs,
+    gap: spacingTokens.md,
   },
   stateText: {
     fontSize: typographyTokens.body,

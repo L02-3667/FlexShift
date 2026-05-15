@@ -1,0 +1,42 @@
+* text=auto
+
+# Source and config files should be stable across Windows/macOS/Linux.
+*.cjs text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.jsx text eol=lf
+*.md text eol=lf
+*.mjs text eol=lf
+*.prisma text eol=lf
+*.sql text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.xml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Windows scripts.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Generated reports are noisy in diffs.
+**/reports/tests/** linguist-generated=true
+**/reports/e2e/maestro/** linguist-generated=true
+
+# Binary assets.
+*.avif binary
+*.db binary
+*.gif binary
+*.ico binary
+*.jpeg binary
+*.jpg binary
+*.keystore binary
+*.pdf binary
+*.png binary
+*.sqlite binary
+*.webp binary
+*.woff binary
+*.woff2 binary

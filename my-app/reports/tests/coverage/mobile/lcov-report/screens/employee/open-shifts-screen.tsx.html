@@ -242,7 +242,8 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -341,6 +342,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -466,15 +468,15 @@ export function <span class="fstat-no" title="function not covered" >OpenShiftsS
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    Alert.alert(</span>
-      'Nhan nhanh ca nay?',
-      'Ca phu hop se duoc them ngay vao lich cua ban neu khong bi trung gio.',
+      'Nhận nhanh ca này?',
+      'Ca phù hợp sẽ được thêm ngay vào lịch của bạn nếu không bị trùng giờ.',
       [
         {
-          text: 'Xem lai',
+          text: 'Xem lại',
           style: 'cancel',
         },
         {
-          text: 'Nhan ca',
+          text: 'Nhận ca',
           onPress: <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
 <span class="cstat-no" title="statement not covered" >            try {</span>
 <span class="cstat-no" title="statement not covered" >              setClaimingId(openShiftId);</span>
@@ -486,18 +488,18 @@ export function <span class="fstat-no" title="function not covered" >OpenShiftsS
 <span class="cstat-no" title="statement not covered" >              await refreshData();</span>
 <span class="cstat-no" title="statement not covered" >              Alert.alert(</span>
                 result.delivery === 'sent'
-                  ? 'Nhan ca thanh cong'
-                  : 'Da dua vao hang doi',
+                  ? 'Nhận ca thành công'
+                  : 'Đã đưa vào hàng đợi',
                 result.delivery === 'sent'
-                  ? 'Ca trong da duoc chuyen vao lich da chot cua ban.'
-                  : 'Ca trong da vao hang doi local va se dong bo ngay khi co mang.',
+                  ? 'Ca trống đã được chuyển vào lịch đã chốt của bạn.'
+                  : 'Ca trống đã vào hàng đợi local và sẽ đồng bộ ngay khi có mạng.',
               );
             } catch (claimError) {
 <span class="cstat-no" title="statement not covered" >              Alert.alert(</span>
-                'Khong the nhan ca',
+                'Không thể nhận ca',
                 claimError instanceof Error
                   ? claimError.message
-                  : 'Vui long thu lai.',
+                  : 'Vui lòng thử lại.',
               );
             } finally {
 <span class="cstat-no" title="statement not covered" >              setClaimingId(null);</span>
@@ -509,17 +511,18 @@ export function <span class="fstat-no" title="function not covered" >OpenShiftsS
   };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;SafeAreaView style={styles.safeArea}&gt;
+    &lt;SafeAreaView style={styles.safeArea} testID="employee-open-shifts-screen"&gt;
       &lt;FlatList
         contentContainerStyle={styles.content}
         data={data.openShifts}
         keyExtractor={<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; <span class="cstat-no" title="statement not covered" >item.id}</span>
-        renderItem={<span class="fstat-no" title="function not covered" >({</span> item }) =&gt; (
+        renderItem={<span class="fstat-no" title="function not covered" >({</span> item, index }) =&gt; (
 <span class="cstat-no" title="statement not covered" >          &lt;OpenShiftCard</span>
             openShift={item}
-            actionLabel="Nhan nhanh"
+            actionLabel="Nhận nhanh"
             actionLoading={claimingId === item.id}
             onActionPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >handleQuickClaim(item.id)}</span>
+            testID={`employee-open-shift-card-${index + 1}`}
             onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >              router.push({</span>
                 pathname: '/(employee)/open-shifts/[id]',
@@ -532,29 +535,29 @@ export function <span class="fstat-no" title="function not covered" >OpenShiftsS
           &lt;View style={styles.headerBlock}&gt;
             &lt;SyncStatusBanner /&gt;
             &lt;SectionHeader
-              title="Nhan ca nhanh"
-              subtitle="Chon ca phu hop, he thong se tu kiem tra trung lich truoc khi them vao lich da chot."
+              title="Nhận ca nhanh"
+              subtitle="Chọn ca phù hợp, hệ thống sẽ tự kiểm tra trùng lịch trước khi thêm vào lịch đã chốt."
             /&gt;
-            &lt;Text style={styles.countText}&gt;{data.total} ca dang kha dung&lt;/Text&gt;
+            &lt;Text style={styles.countText}&gt;{data.total} ca đang khả dụng&lt;/Text&gt;
           &lt;/View&gt;
         }
         ListEmptyComponent={
           loading ? (
             &lt;View style={styles.stateBox}&gt;
               &lt;ActivityIndicator color={AppColors.primary} /&gt;
-              &lt;Text style={styles.stateText}&gt;Dang tai ca trong...&lt;/Text&gt;
+              &lt;Text style={styles.stateText}&gt;Đang tải ca trống...&lt;/Text&gt;
             &lt;/View&gt;
           ) : error ? (
             &lt;EmptyState
-              title="Khong tai duoc ca trong"
+              title="Không tải được ca trống"
               description={error}
-              actionLabel="Thu lai"
+              actionLabel="Thử lại"
               onAction={reload}
             /&gt;
           ) : (
             &lt;EmptyState
-              title="Hien chua co ca trong"
-              description="Quan ly chua tao them ca moi hoac tat ca ca trong da duoc nhan."
+              title="Hiện chưa có ca trống"
+              description="Quản lý chưa tạo thêm ca mới hoặc tất cả ca trống đã được nhận."
             /&gt;
           )
         }
@@ -607,7 +610,7 @@ const styles = <span class="cstat-no" title="statement not covered" >StyleSheet.
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-11T15:56:15.412Z
+                at 2026-04-24T01:29:59.592Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

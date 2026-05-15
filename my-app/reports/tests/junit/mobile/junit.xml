@@ -1,27 +1,618 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="8" failures="0" errors="0" time="46.509">
-  <testsuite name="employee request and shift screens" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:04" time="41.459" tests="3">
-    <testcase classname="employee request and shift screens creates a leave request from a selected shift" name="employee request and shift screens creates a leave request from a selected shift" time="10.708">
-    </testcase>
-    <testcase classname="employee request and shift screens creates a yield request with a selected coworker" name="employee request and shift screens creates a yield request with a selected coworker" time="0.125">
-    </testcase>
-    <testcase classname="employee request and shift screens claims an open shift from the detail screen" name="employee request and shift screens claims an open shift from the detail screen" time="0.098">
+<testsuites name="jest tests" tests="29" failures="4" errors="0" time="7.442">
+  <testsuite name="SettingsScreenContent" errors="0" failures="1" skipped="0" timestamp="2026-04-24T01:29:51" time="2.086" tests="1">
+    <testcase classname="SettingsScreenContent saves a theme change and supports logout" name="SettingsScreenContent saves a theme change and supports logout" time="0.608">
+      <failure>Error: Unable to find an element with text: Sang
+
+&lt;View&gt;
+  &lt;RCTScrollView&gt;
+    &lt;View&gt;
+      &lt;View&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Settings
+            &lt;/Text&gt;
+            &lt;View&gt;
+              &lt;View&gt;
+                &lt;Text&gt;
+                  Cài đặt
+                &lt;/Text&gt;
+                &lt;Text&gt;
+                  Đồng bộ ưu tiên và thông báo.
+                &lt;/Text&gt;
+              &lt;/View&gt;
+            &lt;/View&gt;
+          &lt;/View&gt;
+          &lt;View /&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            L
+          &lt;/Text&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Lê Hoàng Quân
+          &lt;/Text&gt;
+          &lt;Text&gt;
+            Quản lý, manager@flexshift.app
+          &lt;/Text&gt;
+          &lt;Text&gt;
+            0901000001
+          &lt;/Text&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Active
+          &lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;Text&gt;
+          Thông báo
+        &lt;/Text&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Nhận cập nhật mới
+            &lt;/Text&gt;
+            &lt;Text&gt;
+              Báo thay đổi lịch, duyệt yêu cầu và phân công mới.
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;RCTSwitch
+            accessibilityRole=&quot;switch&quot;
+            value={true}
+          /&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Thông báo duyệt yêu cầu
+            &lt;/Text&gt;
+            &lt;Text&gt;
+              Ưu tiên cập nhật khi yêu cầu xin nghỉ hoặc nhường ca được xử lý.
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;RCTSwitch
+            accessibilityRole=&quot;switch&quot;
+            value={true}
+          /&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Thông báo ca phù hợp
+            &lt;/Text&gt;
+            &lt;Text&gt;
+              Nhắc khi có ca trống mới phù hợp với lịch làm của bạn.
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;RCTSwitch
+            accessibilityRole=&quot;switch&quot;
+            value={true}
+          /&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;Text&gt;
+          Nhắc lịch
+        &lt;/Text&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Nhắc trước ca làm
+            &lt;/Text&gt;
+            &lt;Text&gt;
+              Giữ ứng dụng chủ động nhắc lịch trước giờ bắt đầu ca.
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;RCTSwitch
+            accessibilityRole=&quot;switch&quot;
+            value={true}
+          /&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;View
+            accessibilityLabel=&quot;30 phut&quot;
+            accessibilityRole=&quot;button&quot;
+            accessibilityState={
+              {
+                &quot;selected&quot;: false,
+              }
+            }
+            accessible={true}
+          &gt;
+            &lt;Text&gt;
+              30 phut
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;View
+            accessibilityLabel=&quot;60 phut&quot;
+            accessibilityRole=&quot;button&quot;
+            accessibilityState={
+              {
+                &quot;selected&quot;: true,
+              }
+            }
+            accessible={true}
+          &gt;
+            &lt;Text&gt;
+              60 phut
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;View
+            accessibilityLabel=&quot;120 phut&quot;
+            accessibilityRole=&quot;button&quot;
+            accessibilityState={
+              {
+                &quot;selected&quot;: false,
+              }
+            }
+            accessible={true}
+          &gt;
+            &lt;Text&gt;
+              120 phut
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;Text&gt;
+          Giao diện
+        &lt;/Text&gt;
+        &lt;Text&gt;
+          Ngôn ngữ
+        &lt;/Text&gt;
+        &lt;View&gt;
+          &lt;View
+            accessibilityLabel=&quot;Tiếng Việt&quot;
+            accessibilityRole=&quot;button&quot;
+            accessibilityState={
+              {
+                &quot;selected&quot;: true,
+              }
+            }
+            accessible={true}
+          &gt;
+            &lt;Text&gt;
+              Tiếng Việt
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+        &lt;Text&gt;
+          Chế độ hiển thị
+        &lt;/Text&gt;
+        &lt;View&gt;
+          &lt;View
+            accessibilityLabel=&quot;Theo hệ thống&quot;
+            accessibilityRole=&quot;button&quot;
+            accessibilityState={
+              {
+                &quot;selected&quot;: true,
+              }
+            }
+            accessible={true}
+          &gt;
+            &lt;Text&gt;
+              Theo hệ thống
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;View
+            accessibilityLabel=&quot;Sáng&quot;
+            accessibilityRole=&quot;button&quot;
+            accessibilityState={
+              {
+                &quot;selected&quot;: false,
+              }
+            }
+            accessible={true}
+          &gt;
+            &lt;Text&gt;
+              Sáng
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;Text&gt;
+          Hỗ trợ
+        &lt;/Text&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Liên hệ
+          &lt;/Text&gt;
+          &lt;Text&gt;
+            support@flexshift.app
+          &lt;/Text&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Quyền riêng tư
+          &lt;/Text&gt;
+          &lt;Text&gt;
+            Chính sách bảo mật và điều khoản sử dụng
+          &lt;/Text&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Phiên bản ứng dụng
+          &lt;/Text&gt;
+          &lt;Text&gt;
+            1.0.0-test
+          &lt;/Text&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Lưu gần nhất
+          &lt;/Text&gt;
+          &lt;Text&gt;
+            15:00 10/4/26
+          &lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;View
+        accessibilityLabel=&quot;Đăng xuất&quot;
+        accessibilityRole=&quot;button&quot;
+        accessibilityState={
+          {
+            &quot;busy&quot;: false,
+            &quot;disabled&quot;: false,
+          }
+        }
+        accessible={true}
+      &gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Đăng xuất
+          &lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  &lt;/RCTScrollView&gt;
+&lt;/View&gt;
+    at Object.getByText (C:\Users\LUAN\Downloads\expo_test\my-app\src\components\settings\SettingsScreenContent.test.tsx:70:28)
+    at Generator.next (&lt;anonymous&gt;)
+    at asyncGeneratorStep (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:3:17)
+    at _next (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:17:9)
+    at C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:22:7
+    at new Promise (&lt;anonymous&gt;)
+    at Object.&lt;anonymous&gt; (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:14:12)
+    at Promise.then.completed (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:316:40)
+    at _runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:444:34)</failure>
     </testcase>
   </testsuite>
-  <testsuite name="AnnouncementCard snapshot" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:46" time="0.431" tests="1">
-    <testcase classname="AnnouncementCard snapshot matches the stable card snapshot" name="AnnouncementCard snapshot matches the stable card snapshot" time="0.023">
+  <testsuite name="SyncStatusBanner snapshot" errors="0" failures="1" skipped="0" timestamp="2026-04-24T01:29:53" time="0.338" tests="1">
+    <testcase classname="SyncStatusBanner snapshot matches the stable sync banner snapshot" name="SyncStatusBanner snapshot matches the stable sync banner snapshot" time="0.035">
+      <failure>Error: expect(received).toMatchSnapshot()
+
+Snapshot name: `SyncStatusBanner snapshot matches the stable sync banner snapshot 1`
+
+- Snapshot  - 1
++ Received  + 1
+
+@@ -164,8 +164,8 @@
+          &quot;letterSpacing&quot;: 0.4,
+          &quot;textTransform&quot;: &quot;uppercase&quot;,
+        }
+      }
+    &gt;
+-     2 thay doi dang cho gui | 1 thong bao can xac nhan
++     2 thay đổi đang chờ gửi | 1 thông báo cần xác nhận
+    &lt;/Text&gt;
+  &lt;/View&gt;
+    at Object.toMatchSnapshot (C:\Users\LUAN\Downloads\expo_test\my-app\src\components\common\SyncStatusBanner.snapshot.test.tsx:19:22)
+    at Promise.then.completed (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:316:40)
+    at _runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:444:34)</failure>
     </testcase>
   </testsuite>
-  <testsuite name="validation helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:46" time="0.19" tests="2">
-    <testcase classname="validation helpers accepts overnight open-shift windows but rejects zero-length windows" name="validation helpers accepts overnight open-shift windows but rejects zero-length windows" time="0.006">
+  <testsuite name="ApprovalDetailScreen" errors="0" failures="1" skipped="0" timestamp="2026-04-24T01:29:53" time="0.76" tests="1">
+    <testcase classname="ApprovalDetailScreen submits an approval action for a pending request" name="ApprovalDetailScreen submits an approval action for a pending request" time="0.098">
+      <failure>Error: Unable to find an element with accessibility label: Ghi chu quan ly
+
+&lt;View
+  testID=&quot;manager-approval-detail-screen&quot;
+&gt;
+  &lt;RCTScrollView&gt;
+    &lt;View&gt;
+      &lt;View&gt;
+        &lt;View&gt;
+          &lt;Text&gt;
+            Chi tiết yêu cầu
+          &lt;/Text&gt;
+          &lt;Text&gt;
+            Xem lý do, ca liên quan và ghi chú xử lý để đưa ra quyết định nhất quán hơn.
+          &lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Trạng thái đồng bộ
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;View
+            accessibilityLabel=&quot;Đồng bộ ngay&quot;
+            accessibilityRole=&quot;button&quot;
+            accessibilityState={
+              {
+                &quot;busy&quot;: false,
+                &quot;disabled&quot;: false,
+              }
+            }
+            accessible={true}
+          &gt;
+            &lt;View&gt;
+              &lt;Text&gt;
+                Đồng bộ ngay
+              &lt;/Text&gt;
+            &lt;/View&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+        &lt;Text&gt;
+          Đang offline. Thay đổi mới sẽ vào hàng đợi an toàn.
+        &lt;/Text&gt;
+        &lt;Text&gt;
+          2 thay đổi đang chờ gửi
+        &lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Xin nghỉ
+            &lt;/Text&gt;
+            &lt;Text&gt;
+              Th 7, 11/04/2026, 08:00 - 12:00
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Chờ duyệt
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+        &lt;View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Central Market, Thu ngân
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Người gửi
+              :
+               
+              An Nguyễn
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+        &lt;Text&gt;
+          Cần nghỉ một buổi để xử lý việc gia đình.
+        &lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;Text&gt;
+          Thông tin xử lý
+        &lt;/Text&gt;
+        &lt;Text&gt;
+          Lý do từ nhân viên
+          : 
+          Cần nghỉ một buổi để xử lý việc gia đình.
+        &lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;Text&gt;
+          Ghi chú quản lý
+        &lt;/Text&gt;
+        &lt;Text&gt;
+          Ghi chú này sẽ hiển thị lại trong trạng thái yêu cầu để nhân viên dễ theo dõi.
+        &lt;/Text&gt;
+        &lt;TextInput
+          accessibilityLabel=&quot;Ghi chú quản lý&quot;
+          value=&quot;&quot;
+        /&gt;
+      &lt;/View&gt;
+      &lt;View&gt;
+        &lt;View
+          accessibilityLabel=&quot;Duyệt yêu cầu&quot;
+          accessibilityRole=&quot;button&quot;
+          accessibilityState={
+            {
+              &quot;busy&quot;: false,
+              &quot;disabled&quot;: false,
+            }
+          }
+          accessible={true}
+        &gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Duyệt yêu cầu
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+        &lt;View
+          accessibilityLabel=&quot;Từ chối&quot;
+          accessibilityRole=&quot;button&quot;
+          accessibilityState={
+            {
+              &quot;busy&quot;: false,
+              &quot;disabled&quot;: false,
+            }
+          }
+          accessible={true}
+        &gt;
+          &lt;View&gt;
+            &lt;Text&gt;
+              Từ chối
+            &lt;/Text&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  &lt;/RCTScrollView&gt;
+&lt;/View&gt;
+    at Object.getByLabelText (C:\Users\LUAN\Downloads\expo_test\my-app\src\screens\manager\approval-detail-screen.test.tsx:88:14)
+    at Generator.next (&lt;anonymous&gt;)
+    at asyncGeneratorStep (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:3:17)
+    at _next (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:17:9)
+    at C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:22:7
+    at new Promise (&lt;anonymous&gt;)
+    at Object.&lt;anonymous&gt; (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\@babel\runtime\helpers\asyncToGenerator.js:14:12)
+    at Promise.then.completed (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:316:40)
+    at _runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:444:34)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="AnnouncementCard" errors="0" failures="1" skipped="0" timestamp="2026-04-24T01:29:54" time="0.296" tests="1">
+    <testcase classname="AnnouncementCard renders acknowledgement CTA when required and calls the handler" name="AnnouncementCard renders acknowledgement CTA when required and calls the handler" time="0.027">
+      <failure>Error: Unable to find an element with text: Da doc va xac nhan
+
+&lt;View&gt;
+  &lt;View&gt;
+    &lt;Text&gt;
+      Cập nhật quy trình giao ca
+    &lt;/Text&gt;
+    &lt;View&gt;
+      &lt;Text&gt;
+        Cần xác nhận
+      &lt;/Text&gt;
+    &lt;/View&gt;
+  &lt;/View&gt;
+  &lt;Text&gt;
+    Mỗi ca tối cần xác nhận handover note trước khi rời cửa hàng.
+  &lt;/Text&gt;
+  &lt;Text&gt;
+    15:00 10/4/26
+  &lt;/Text&gt;
+  &lt;View
+    accessibilityLabel=&quot;Đã đọc và xác nhận: Cập nhật quy trình giao ca&quot;
+    accessibilityRole=&quot;button&quot;
+    accessible={true}
+  &gt;
+    &lt;Text&gt;
+      Đã đọc và xác nhận
+    &lt;/Text&gt;
+  &lt;/View&gt;
+&lt;/View&gt;
+    at Object.getByText (C:\Users\LUAN\Downloads\expo_test\my-app\src\components\cards\AnnouncementCard.test.tsx:18:28)
+    at Promise.then.completed (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:316:40)
+    at _runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\LUAN\Downloads\expo_test\my-app\node_modules\jest-runner\build\runTest.js:444:34)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="AppProvider degraded boot" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:54" time="0.486" tests="2">
+    <testcase classname="AppProvider degraded boot boots from cached users when the server is unavailable" name="AppProvider degraded boot boots from cached users when the server is unavailable" time="0.084">
+    </testcase>
+    <testcase classname="AppProvider degraded boot falls back to the session shell when the user cache is empty" name="AppProvider degraded boot falls back to the session shell when the user cache is empty" time="0.061">
+    </testcase>
+  </testsuite>
+  <testsuite name="employee request and shift screens" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:55" time="0.756" tests="3">
+    <testcase classname="employee request and shift screens creates a leave request from a selected shift" name="employee request and shift screens creates a leave request from a selected shift" time="0.161">
+    </testcase>
+    <testcase classname="employee request and shift screens creates a yield request with a selected coworker" name="employee request and shift screens creates a yield request with a selected coworker" time="0.063">
+    </testcase>
+    <testcase classname="employee request and shift screens claims an open shift from the detail screen" name="employee request and shift screens claims an open shift from the detail screen" time="0.069">
+    </testcase>
+  </testsuite>
+  <testsuite name="LoginScreen" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:56" time="0.491" tests="2">
+    <testcase classname="LoginScreen validates empty credentials before login" name="LoginScreen validates empty credentials before login" time="0.1">
+    </testcase>
+    <testcase classname="LoginScreen uses a dev seed account and submits login" name="LoginScreen uses a dev seed account and submits login" time="0.082">
+    </testcase>
+  </testsuite>
+  <testsuite name="AnnouncementCard snapshot" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:56" time="0.245" tests="1">
+    <testcase classname="AnnouncementCard snapshot matches the stable card snapshot" name="AnnouncementCard snapshot matches the stable card snapshot" time="0.017">
+    </testcase>
+  </testsuite>
+  <testsuite name="SyncStatusBanner" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:57" time="0.249" tests="1">
+    <testcase classname="SyncStatusBanner renders offline sync state and triggers a manual sync" name="SyncStatusBanner renders offline sync state and triggers a manual sync" time="0.024">
+    </testcase>
+  </testsuite>
+  <testsuite name="sync engine resilience" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:57" time="0.228" tests="3">
+    <testcase classname="sync engine resilience deduplicates overlapping sync cycles" name="sync engine resilience deduplicates overlapping sync cycles" time="0.039">
+    </testcase>
+    <testcase classname="sync engine resilience ensures the active user exists before writing synced settings" name="sync engine resilience ensures the active user exists before writing synced settings" time="0.02">
+    </testcase>
+    <testcase classname="sync engine resilience keeps a failed mutation queued and marks the sync snapshot offline" name="sync engine resilience keeps a failed mutation queued and marks the sync snapshot offline" time="0.017">
+    </testcase>
+  </testsuite>
+  <testsuite name="validation helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:57" time="0.172" tests="2">
+    <testcase classname="validation helpers accepts overnight open-shift windows but rejects zero-length windows" name="validation helpers accepts overnight open-shift windows but rejects zero-length windows" time="0.002">
     </testcase>
     <testcase classname="validation helpers rejects short reasons and missing fields" name="validation helpers rejects short reasons and missing fields" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="api client resilience" errors="0" failures="0" skipped="0" timestamp="2026-04-17T12:38:47" time="0.338" tests="2">
-    <testcase classname="api client resilience reuses a single refresh flow when multiple requests hit 401 together" name="api client resilience reuses a single refresh flow when multiple requests hit 401 together" time="0.017">
+  <testsuite name="checkShiftConflict" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:57" time="0.178" tests="3">
+    <testcase classname="checkShiftConflict returns true when a candidate overlaps existing shifts" name="checkShiftConflict returns true when a candidate overlaps existing shifts" time="0.002">
+    </testcase>
+    <testcase classname="checkShiftConflict detects overnight conflicts on adjacent dates" name="checkShiftConflict detects overnight conflicts on adjacent dates" time="0.001">
+    </testcase>
+    <testcase classname="checkShiftConflict ignores the excluded shift id" name="checkShiftConflict ignores the excluded shift id" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="api client resilience" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:57" time="0.203" tests="2">
+    <testcase classname="api client resilience reuses a single refresh flow when multiple requests hit 401 together" name="api client resilience reuses a single refresh flow when multiple requests hit 401 together" time="0.008">
     </testcase>
     <testcase classname="api client resilience surfaces request timeouts as actionable API errors" name="api client resilience surfaces request timeouts as actionable API errors" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="date helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:58" time="0.176" tests="3">
+    <testcase classname="date helpers detects overlapping time ranges" name="date helpers detects overlapping time ranges" time="0.002">
+    </testcase>
+    <testcase classname="date helpers supports overnight overlap checks across adjacent dates" name="date helpers supports overnight overlap checks across adjacent dates" time="0.001">
+    </testcase>
+    <testcase classname="date helpers formats a readable date-time label and adjacent dates" name="date helpers formats a readable date-time label and adjacent dates" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="sync helpers" errors="0" failures="0" skipped="0" timestamp="2026-04-24T01:29:58" time="0.17" tests="3">
+    <testcase classname="sync helpers merges sync snapshot patches" name="sync helpers merges sync snapshot patches" time="0.002">
+    </testcase>
+    <testcase classname="sync helpers marks 409 errors as conflict mutations" name="sync helpers marks 409 errors as conflict mutations" time="0.001">
+    </testcase>
+    <testcase classname="sync helpers detects likely offline errors and counts pending acknowledgements" name="sync helpers detects likely offline errors and counts pending acknowledgements" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>

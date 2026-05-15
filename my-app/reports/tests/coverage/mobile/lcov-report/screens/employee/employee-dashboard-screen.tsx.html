@@ -859,16 +859,16 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;SafeAreaView style={styles.safeArea}&gt;
+    &lt;SafeAreaView style={styles.safeArea} testID="employee-dashboard-screen"&gt;
       &lt;ScrollView contentContainerStyle={styles.content}&gt;
         &lt;View style={styles.hero}&gt;
           &lt;View style={styles.heroHeader}&gt;
             &lt;View style={styles.heroCopy}&gt;
-              &lt;Text style={styles.kicker}&gt;Employee space&lt;/Text&gt;
+              &lt;Text style={styles.kicker}&gt;Không gian nhân viên&lt;/Text&gt;
               &lt;Text style={styles.title}&gt;{currentUser.fullName}&lt;/Text&gt;
               &lt;Text style={styles.description}&gt;
-                Xem lich tuan, nhan ca phu hop va theo doi yeu cau dang xu ly
-                trong mot nhip thao tac gon va dang tin hon.
+                Xem lịch tuần, nhận ca phù hợp và theo dõi yêu cầu đang xử lý
+                trong một nhịp thao tác gọn và đáng tin hơn.
               &lt;/Text&gt;
             &lt;/View&gt;
 &nbsp;
@@ -883,10 +883,10 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
               &lt;Text style={styles.heroChipText}&gt;{BRANDING.appName}&lt;/Text&gt;
             &lt;/View&gt;
             &lt;View style={styles.heroChip}&gt;
-              &lt;Text style={styles.heroChipText}&gt;Offline queue&lt;/Text&gt;
+              &lt;Text style={styles.heroChipText}&gt;Hàng đợi offline&lt;/Text&gt;
             &lt;/View&gt;
             &lt;View style={styles.heroChip}&gt;
-              &lt;Text style={styles.heroChipText}&gt;Fast claim&lt;/Text&gt;
+              &lt;Text style={styles.heroChipText}&gt;Nhận ca nhanh&lt;/Text&gt;
             &lt;/View&gt;
           &lt;/View&gt;
         &lt;/View&gt;
@@ -895,31 +895,31 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
 &nbsp;
         &lt;View style={styles.metricRow}&gt;
           &lt;MetricCard
-            label="Ca tuan nay"
+            label="Ca tuần này"
             value={data.weekShiftCount}
             tone="primary"
           /&gt;
           &lt;MetricCard
-            label="Ca can ban"
+            label="Ca cần bạn"
             value={data.openShiftCount}
             tone="warning"
           /&gt;
         &lt;/View&gt;
 &nbsp;
         &lt;MetricCard
-          label="Yeu cau cho duyet"
+          label="Yêu cầu chờ duyệt"
           value={data.pendingRequestCount}
           tone={data.pendingRequestCount &gt; 0 ? 'warning' : 'neutral'}
         /&gt;
 &nbsp;
         &lt;View style={styles.actionRow}&gt;
           &lt;PrimaryButton
-            label="Xem lich tuan nay"
+            label="Xem lịch tuần này"
             onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >router.push('/(employee)/(tabs)/calendar' as Href)}</span>
             style={styles.actionButton}
           /&gt;
           &lt;PrimaryButton
-            label="Nhuong ca"
+            label="Nhường ca"
             onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >              router.push('/(employee)/requests/create-yield' as Href)</span>
             }
@@ -930,14 +930,14 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
 &nbsp;
         &lt;View style={styles.actionRow}&gt;
           &lt;PrimaryButton
-            label="Ca can ban"
+            label="Ca cần bạn"
             onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >              router.push('/(employee)/(tabs)/open-shifts' as Href)</span>
             }
             style={styles.actionButton}
           /&gt;
           &lt;PrimaryButton
-            label="Xem so lieu"
+            label="Xem số liệu"
             onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >router.push('/(employee)/(tabs)/statistics' as Href)}</span>
             variant="secondary"
             style={styles.actionButton}
@@ -945,9 +945,9 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
         &lt;/View&gt;
 &nbsp;
         &lt;SectionHeader
-          title="Ca sap toi"
-          subtitle="Cac ca da chot gan nhat luon bam theo lich thuc te cua ban."
-          actionLabel="Xin nghi ca"
+          title="Ca sắp tới"
+          subtitle="Các ca đã chốt gần nhất luôn bám theo lịch thực tế của bạn."
+          actionLabel="Xin nghỉ ca"
           onActionPress={<span class="fstat-no" title="function not covered" >()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >            router.push('/(employee)/requests/create-leave' as Href)</span>
           }
@@ -956,20 +956,20 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
         {loading ? (
           &lt;View style={styles.stateBox}&gt;
             &lt;ActivityIndicator color={AppColors.primary} /&gt;
-            &lt;Text style={styles.stateText}&gt;Dang tai trang chu...&lt;/Text&gt;
+            &lt;Text style={styles.stateText}&gt;Đang tải trang chủ...&lt;/Text&gt;
           &lt;/View&gt;
         ) : error ? (
           &lt;EmptyState
-            title="Khong tai duoc trang chu"
+            title="Không tải được trang chủ"
             description={error}
-            actionLabel="Thu lai"
+            actionLabel="Thử lại"
             onAction={reload}
           /&gt;
         ) : data.upcomingShifts.length === 0 ? (
           &lt;EmptyState
-            title="Chua co ca nao sap toi"
-            description="Ban chua co ca da chot trong thoi gian gan. Hay mo danh sach ca can nguoi de nhan them khi phu hop."
-            actionLabel="Mo ca can ban"
+            title="Chưa có ca nào sắp tới"
+            description="Bạn chưa có ca đã chốt trong thời gian gần. Hãy mở danh sách ca cần người để nhận thêm khi phù hợp."
+            actionLabel="Mở ca cần bạn"
             onAction={<span class="fstat-no" title="function not covered" >()</span> =&gt;
 <span class="cstat-no" title="statement not covered" >              router.push('/(employee)/(tabs)/open-shifts' as Href)</span>
             }
@@ -981,14 +981,14 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
         )}
 &nbsp;
         &lt;SectionHeader
-          title="Cap nhat moi nhat"
-          subtitle="Moi thay doi quan trong deu quay ve mot luong cap nhat ngan gon, de doc."
+          title="Cập nhật mới nhất"
+          subtitle="Mọi thay đổi quan trọng đều quay về một luồng cập nhật ngắn gọn, dễ đọc."
         /&gt;
 &nbsp;
         {data.recentUpdates.length === 0 ? (
           &lt;EmptyState
-            title="Chua co cap nhat moi"
-            description="Khi lich thay doi hoac yeu cau duoc xu ly, muc nay se tu dong hien thi."
+            title="Chưa có cập nhật mới"
+            description="Khi lịch thay đổi hoặc yêu cầu được xử lý, mục này sẽ tự động hiển thị."
           /&gt;
         ) : (
           data.recentUpdates.map(<span class="fstat-no" title="function not covered" >(i</span>tem) =&gt; (
@@ -997,14 +997,14 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
         )}
 &nbsp;
         &lt;SectionHeader
-          title="Thong bao van hanh"
-          subtitle="Thong bao can xac nhan se khong bi troi nhu chat roi."
+          title="Thông báo vận hành"
+          subtitle="Thông báo cần xác nhận sẽ không bị trôi như chat rời."
         /&gt;
 &nbsp;
         {data.announcements.length === 0 ? (
           &lt;EmptyState
-            title="Chua co thong bao moi"
-            description="Thong bao tu quan ly va cap nhat can xac nhan se hien tai day."
+            title="Chưa có thông báo mới"
+            description="Thông báo từ quản lý và cập nhật cần xác nhận sẽ hiện tại đây."
           /&gt;
         ) : (
           data.announcements.map(<span class="fstat-no" title="function not covered" >(a</span>nnouncement) =&gt; (
@@ -1022,18 +1022,18 @@ export function <span class="fstat-no" title="function not covered" >EmployeeDas
 <span class="cstat-no" title="statement not covered" >                        await reload();</span>
 <span class="cstat-no" title="statement not covered" >                        Alert.alert(</span>
                           result.delivery === 'sent'
-                            ? 'Da xac nhan thong bao'
-                            : 'Da dua vao hang doi',
+                            ? 'Đã xác nhận thông báo'
+                            : 'Đã đưa vào hàng đợi',
                           result.delivery === 'sent'
-                            ? 'Trang thai xac nhan da duoc dong bo.'
-                            : 'Trang thai xac nhan se tu dong gui khi ket noi on dinh.',
+                            ? 'Trạng thái xác nhận đã được đồng bộ.'
+                            : 'Trạng thái xác nhận sẽ tự động gửi khi kết nối ổn định.',
                         );
                       } catch (error) {
 <span class="cstat-no" title="statement not covered" >                        Alert.alert(</span>
-                          'Khong the xac nhan',
+                          'Không thể xác nhận',
                           error instanceof Error
                             ? error.message
-                            : 'Vui long thu lai.',
+                            : 'Vui lòng thử lại.',
                         );
                       }
                     }
@@ -1174,7 +1174,7 @@ const styles = <span class="cstat-no" title="statement not covered" >StyleSheet.
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-11T15:56:15.412Z
+                at 2026-04-24T01:29:59.592Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -17,7 +17,6 @@ import { MetricCard } from '@/src/components/common/MetricCard';
 import { PrimaryButton } from '@/src/components/common/PrimaryButton';
 import { SectionHeader } from '@/src/components/common/SectionHeader';
 import { SyncStatusBanner } from '@/src/components/common/SyncStatusBanner';
-import { BRANDING } from '@/src/constants/branding';
 import { AppColors } from '@/src/constants/colors';
 import { useSQLiteContext } from '@/src/db/sqlite-provider';
 import { useAsyncData } from '@/src/hooks/use-async-data';
@@ -60,33 +59,15 @@ export function EmployeeDashboardScreen() {
   return (
     <SafeAreaView style={styles.safeArea} testID="employee-dashboard-screen">
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.hero}>
-          <View style={styles.heroHeader}>
-            <View style={styles.heroCopy}>
-              <Text style={styles.kicker}>Không gian nhân viên</Text>
-              <Text style={styles.title}>{currentUser.fullName}</Text>
-              <Text style={styles.description}>
-                Xem lịch tuần, nhận ca phù hợp và theo dõi yêu cầu đang xử lý
-                trong một nhịp thao tác gọn và đáng tin hơn.
-              </Text>
-            </View>
-
-            <View style={styles.heroBadge}>
-              <Text style={styles.heroBadgeValue}>{data.weekShiftCount}</Text>
-              <Text style={styles.heroBadgeLabel}>ca tuan nay</Text>
-            </View>
+        <View style={styles.header}>
+          <View style={styles.headerCopy}>
+            <Text style={styles.kicker}>Hôm nay</Text>
+            <Text style={styles.title}>{currentUser.fullName}</Text>
           </View>
 
-          <View style={styles.heroChipRow}>
-            <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>{BRANDING.appName}</Text>
-            </View>
-            <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Hàng đợi offline</Text>
-            </View>
-            <View style={styles.heroChip}>
-              <Text style={styles.heroChipText}>Nhận ca nhanh</Text>
-            </View>
+          <View style={styles.summaryPill}>
+            <Text style={styles.summaryValue}>{data.weekShiftCount}</Text>
+            <Text style={styles.summaryLabel}>ca tuần này</Text>
           </View>
         </View>
 
@@ -97,11 +78,13 @@ export function EmployeeDashboardScreen() {
             label="Ca tuần này"
             value={data.weekShiftCount}
             tone="primary"
+            compact
           />
           <MetricCard
-            label="Ca cần bạn"
+            label="Ca trống"
             value={data.openShiftCount}
             tone="warning"
+            compact
           />
         </View>
 
@@ -109,11 +92,12 @@ export function EmployeeDashboardScreen() {
           label="Yêu cầu chờ duyệt"
           value={data.pendingRequestCount}
           tone={data.pendingRequestCount > 0 ? 'warning' : 'neutral'}
+          compact
         />
 
-        <View style={styles.actionRow}>
+        <View style={styles.actionPanel}>
           <PrimaryButton
-            label="Xem lịch tuần này"
+            label="Xem lịch"
             onPress={() => router.push('/(employee)/(tabs)/calendar' as Href)}
             style={styles.actionButton}
           />
@@ -125,18 +109,16 @@ export function EmployeeDashboardScreen() {
             variant="secondary"
             style={styles.actionButton}
           />
-        </View>
-
-        <View style={styles.actionRow}>
           <PrimaryButton
-            label="Ca cần bạn"
+            label="Ca trống"
             onPress={() =>
               router.push('/(employee)/(tabs)/open-shifts' as Href)
             }
+            variant="secondary"
             style={styles.actionButton}
           />
           <PrimaryButton
-            label="Xem số liệu"
+            label="Số liệu"
             onPress={() => router.push('/(employee)/(tabs)/statistics' as Href)}
             variant="secondary"
             style={styles.actionButton}
@@ -145,8 +127,7 @@ export function EmployeeDashboardScreen() {
 
         <SectionHeader
           title="Ca sắp tới"
-          subtitle="Các ca đã chốt gần nhất luôn bám theo lịch thực tế của bạn."
-          actionLabel="Xin nghỉ ca"
+          actionLabel="Xin nghỉ"
           onActionPress={() =>
             router.push('/(employee)/requests/create-leave' as Href)
           }
@@ -166,9 +147,9 @@ export function EmployeeDashboardScreen() {
           />
         ) : data.upcomingShifts.length === 0 ? (
           <EmptyState
-            title="Chưa có ca nào sắp tới"
-            description="Bạn chưa có ca đã chốt trong thời gian gần. Hãy mở danh sách ca cần người để nhận thêm khi phù hợp."
-            actionLabel="Mở ca cần bạn"
+            title="Chưa có ca sắp tới"
+            description="Bạn chưa có ca đã chốt trong thời gian gần."
+            actionLabel="Mở ca trống"
             onAction={() =>
               router.push('/(employee)/(tabs)/open-shifts' as Href)
             }
@@ -179,15 +160,12 @@ export function EmployeeDashboardScreen() {
           ))
         )}
 
-        <SectionHeader
-          title="Cập nhật mới nhất"
-          subtitle="Mọi thay đổi quan trọng đều quay về một luồng cập nhật ngắn gọn, dễ đọc."
-        />
+        <SectionHeader title="Cập nhật mới" />
 
         {data.recentUpdates.length === 0 ? (
           <EmptyState
             title="Chưa có cập nhật mới"
-            description="Khi lịch thay đổi hoặc yêu cầu được xử lý, mục này sẽ tự động hiển thị."
+            description="Thay đổi lịch và yêu cầu sẽ hiển thị tại đây."
           />
         ) : (
           data.recentUpdates.map((item) => (
@@ -195,15 +173,12 @@ export function EmployeeDashboardScreen() {
           ))
         )}
 
-        <SectionHeader
-          title="Thông báo vận hành"
-          subtitle="Thông báo cần xác nhận sẽ không bị trôi như chat rời."
-        />
+        <SectionHeader title="Thông báo" />
 
         {data.announcements.length === 0 ? (
           <EmptyState
             title="Chưa có thông báo mới"
-            description="Thông báo từ quản lý và cập nhật cần xác nhận sẽ hiện tại đây."
+            description="Thông báo từ quản lý sẽ hiển thị tại đây."
           />
         ) : (
           data.announcements.map((announcement) => (
@@ -225,7 +200,7 @@ export function EmployeeDashboardScreen() {
                             : 'Đã đưa vào hàng đợi',
                           result.delivery === 'sent'
                             ? 'Trạng thái xác nhận đã được đồng bộ.'
-                            : 'Trạng thái xác nhận sẽ tự động gửi khi kết nối ổn định.',
+                            : 'Trạng thái xác nhận sẽ tự động gửi khi có kết nối ổn định.',
                         );
                       } catch (error) {
                         Alert.alert(
@@ -252,32 +227,17 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.background,
   },
   content: {
-    padding: spacingTokens.xl,
-    gap: spacingTokens.lg + spacingTokens.xxs,
+    padding: spacingTokens.lg,
+    gap: spacingTokens.md,
     paddingBottom: spacingTokens.xxxl + spacingTokens.xxs,
   },
-  hero: {
-    backgroundColor: AppColors.surface,
-    borderRadius: radiusTokens.hero,
-    borderWidth: 1,
-    borderColor: AppColors.border,
-    padding: spacingTokens.xl + spacingTokens.xxs,
-    gap: spacingTokens.md,
-    shadowColor: AppColors.shadow,
-    shadowOpacity: 1,
-    shadowOffset: {
-      width: 0,
-      height: 14,
-    },
-    shadowRadius: 24,
-    elevation: 3,
-  },
-  heroHeader: {
+  header: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     gap: spacingTokens.md,
   },
-  heroCopy: {
+  headerCopy: {
     flex: 1,
     gap: spacingTokens.xs,
   },
@@ -286,80 +246,61 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: AppColors.primary,
     textTransform: 'uppercase',
-    letterSpacing: 0.4,
+    letterSpacing: 0,
   },
   title: {
-    fontSize: 34,
-    lineHeight: 38,
+    fontSize: typographyTokens.titleLg,
+    lineHeight: 28,
     fontWeight: '800',
     color: AppColors.text,
-    letterSpacing: -0.8,
+    letterSpacing: 0,
   },
-  description: {
-    fontSize: typographyTokens.bodyLg,
-    lineHeight: typographyTokens.lineHeightLg,
-    color: AppColors.textSecondary,
-  },
-  heroBadge: {
-    minWidth: 96,
-    borderRadius: radiusTokens.xl,
-    backgroundColor: AppColors.primary,
-    paddingHorizontal: spacingTokens.md,
-    paddingVertical: spacingTokens.lg,
+  summaryPill: {
+    minWidth: 88,
+    borderRadius: radiusTokens.lg,
+    backgroundColor: AppColors.surface,
+    borderWidth: 1,
+    borderColor: AppColors.border,
+    paddingHorizontal: spacingTokens.lg,
+    paddingVertical: spacingTokens.md,
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacingTokens.xxs,
   },
-  heroBadgeValue: {
-    fontSize: 32,
+  summaryValue: {
+    fontSize: 26,
     fontWeight: '800',
-    color: AppColors.accent,
-    letterSpacing: -1,
+    color: AppColors.text,
+    letterSpacing: 0,
   },
-  heroBadgeLabel: {
+  summaryLabel: {
     fontSize: typographyTokens.caption,
     fontWeight: '700',
-    color: AppColors.accent,
-    textTransform: 'uppercase',
+    color: AppColors.textSecondary,
     textAlign: 'center',
-  },
-  heroChipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacingTokens.sm,
-  },
-  heroChip: {
-    borderRadius: radiusTokens.pill,
-    backgroundColor: AppColors.surfaceMuted,
-    borderWidth: 1,
-    borderColor: AppColors.border,
-    paddingHorizontal: spacingTokens.md,
-    paddingVertical: spacingTokens.sm,
-  },
-  heroChipText: {
-    fontSize: typographyTokens.bodySm,
-    fontWeight: '700',
-    color: AppColors.accent,
+    textTransform: 'uppercase',
   },
   metricRow: {
     flexDirection: 'row',
     gap: spacingTokens.md,
   },
-  actionRow: {
+  actionPanel: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: spacingTokens.md,
   },
   actionButton: {
-    flex: 1,
+    flexGrow: 1,
+    flexBasis: '47%',
   },
   stateBox: {
     backgroundColor: AppColors.surface,
     borderRadius: radiusTokens.xl,
     borderWidth: 1,
     borderColor: AppColors.border,
-    padding: spacingTokens.xl + spacingTokens.xxs,
+    padding: spacingTokens.xl,
     alignItems: 'center',
-    gap: spacingTokens.sm + spacingTokens.xxs,
+    gap: spacingTokens.md,
   },
   stateText: {
     fontSize: typographyTokens.body,
