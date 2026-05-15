@@ -123,7 +123,7 @@ export class SessionsService {
     });
 
     if (!session || session.userId !== userId) {
-      throw new ForbiddenException('Ban khong the thu hoi session nay.');
+      throw new ForbiddenException('Bạn không thể thu hồi session này.');
     }
 
     await this.revokeSession(sessionId, 'revoked_by_user');

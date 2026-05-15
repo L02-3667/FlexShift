@@ -8,6 +8,6 @@ export function ensureAllowedRole(
   ...roles: UserRole[]
 ) {
   if (!roles.includes(currentUser.role)) {
-    throw new ForbiddenException('Ban khong co quyen thuc hien thao tac nay.');
+    throw new ForbiddenException('Bạn không có quyền thực hiện thao tác này.');
   }
 }

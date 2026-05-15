@@ -16,7 +16,7 @@ export function isLikelyOfflineError(error: unknown) {
     return (
       message.includes('network request failed') ||
       message.includes('failed to fetch') ||
-      message.includes('khong the ket noi')
+      message.includes('không thể kết nối')
     );
   }
 
