@@ -94,7 +94,7 @@ export class AuthService {
     );
 
     if (!user || !user.isActive) {
-      throw new UnauthorizedException('Email hoac mat khau khong dung.');
+      throw new UnauthorizedException('Email hoặc mật khẩu không đúng.');
     }
 
     const passwordMatches = await bcrypt.compare(
@@ -103,7 +103,7 @@ export class AuthService {
     );
 
     if (!passwordMatches) {
-      throw new UnauthorizedException('Email hoac mat khau khong dung.');
+      throw new UnauthorizedException('Email hoặc mật khẩu không đúng.');
     }
 
     const sessionContext = this.normalizeSessionContext({

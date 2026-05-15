@@ -31,7 +31,7 @@ export class RolesGuard implements CanActivate {
 
     if (!user || !roles.includes(user.role)) {
       throw new ForbiddenException(
-        'Ban khong co quyen thuc hien thao tac nay.',
+        'Bạn không có quyền thực hiện thao tác này.',
       );
     }
 

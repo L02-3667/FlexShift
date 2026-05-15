@@ -85,7 +85,7 @@ describe('ApprovalDetailScreen', () => {
     render(<ApprovalDetailScreen />);
 
     fireEvent.changeText(
-      screen.getByLabelText('Ghi chu quan ly'),
+      screen.getByLabelText('Ghi chú quản lý'),
       'Da xem va dong y.',
     );
     fireEvent.press(screen.getByLabelText('Duyệt yêu cầu'));

@@ -1,4 +1,4 @@
-appId: com.lehoangluan1.flexshiftmobile
+appId: host.exp.exponent
 flows:
   - app-launch-and-login-validation.yaml
   - employee-navigation-and-logout.yaml

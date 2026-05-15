@@ -1,9 +1,20 @@
-appId: com.lehoangluan1.flexshiftmobile
+appId: host.exp.exponent
 ---
 - launchApp:
     clearState: true
+    stopApp: true
+- openLink: "${MAESTRO_EXPO_URL}"
+- extendedWaitUntil:
+    visible:
+      id: login-screen
+    timeout: 60000
 - assertVisible:
     id: login-screen
+- scrollUntilVisible:
+    element:
+      id: login-submit-button
+    direction: DOWN
+    timeout: 20000
 - tapOn:
     id: login-submit-button
 - assertVisible:
